@@ -1,0 +1,6 @@
+{
+  "name": "EduPro LMS - Panel Administrativo y Cursos",
+  "description": "Plataforma de cursos online estilo Udemy con autenticación completa, panel administrativo, gestión de usuarios, roles, permisos, CRUDs exportables a Excel, reproductor de video integrado, lecciones interactivas, reportes dinámicos y pasarela de pagos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
