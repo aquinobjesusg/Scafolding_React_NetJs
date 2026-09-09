@@ -1,0 +1,33 @@
+# TODO
+
+## BD
+- Cambiar la Base de Datos a una BD SQLITE dentro del Back
+
+## APIS
+- Que se pueda enviar correo electronico para el registro
+
+## BACK_NODE
+- Colocar el Token para validar la autenticacion
+
+## BACK_GO
+- hacer la back con goLang
+
+## Pagina del Front
+- Que puedas cambiar tu perfil de usuario
+- Que puedas registrarte con tu idioma materno
+- Que se pueda escuchar los datos
+- Que se pueda usar el microfono del computador
+- Que la logica sea intuitiva
+- Al hacer login validar el correo electronico con el correo recibido
+
+
+## Landing paga
+- Crear una pagina de promocion del diccionrio con sus beneficios y virtudes y planes de pago
+
+## Pasarela de pago
+- Montar la pasarela de pago de SysPagos
+- Habilitar el boton de pago para el landing page
+
+
+## Tecnico
+- Leer los APIS y colocar en una Lista Desplegables

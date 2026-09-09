@@ -1,0 +1,20 @@
+// Download framework
+git clone --depth=1 https://github.com/goravel/goravel.git && rm -rf goravel/.git*
+
+// Install dependencies
+cd goravel && go mod tidy
+
+// Create .env environment configuration file
+cp .env.example .env
+
+// Generate application key
+./artisan key:generate
+
+Iniciar los servicios según el archivo .env en el directorio raíz.
+
+go run .
+Especifique el archivo .env para iniciar los servicios.
+
+go run . --env=./.env
+
+APP_ENV=production APP_DEBUG=true go run .

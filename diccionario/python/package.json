@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "entorno": "python3 -m venv env && source env/bin/activate && python3 -m pip install -r requirements.txt && python3 app.py",
+        "runWeb": "streamlit run simularvistabil07.py",
+        "runWeb1": "source env/bin/activate && python3 app.py"
+    }
+}

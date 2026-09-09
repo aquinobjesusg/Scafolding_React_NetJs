@@ -1,0 +1,1 @@
+import{i as p,j as s}from"./app-nfKddRcv.js";function a(e){const o=p().props.setting;return o!=null&&o.logo?s.jsx("div",{children:s.jsx("img",{src:`/storage/${o.logo}`,alt:"App Logo",className:"h-30 w-auto"})}):s.jsx("div",{children:s.jsx("img",{src:"/imagenes/mppeu.jpeg",alt:"App Logo",className:"h-30 w-auto"})})}export{a as A};
