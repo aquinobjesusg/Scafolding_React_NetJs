@@ -1,8 +1,16 @@
 {
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "runWeb": "streamlit run simularvistabil07.py",
-        "runWeb1": "python app.py"
-    }
+  "name": "Diccionario",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "browser_front": "/usr/bin/brave-browser-stable %U http://localhost:3000",
+    "browser_back": "/usr/bin/brave-browser-stable %U http://localhost:8080",
+    "view_postman": "/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=Postman --file-forwarding com.getpostman.Postman @@u %U @@",
+    "front_dev": "cd front && npm run dev_turbopack",
+    "back_dev": "cd back_node && npm run dev",
+    "back_api": "cd go && cd leer_tablas && go run main.go",
+    "instalar_front": "cd front_react && npm run instalar",
+    "instalar_back": "cd back_node && npm run instalar",
+    "RecoverCommitAfterPush": "git reset --hard origin/main"
+  }
 }
