@@ -1,0 +1,23 @@
+grit new mydiccionario --full --frontend next --style minimal --theme pulse
+
+cd mydiccionario
+    docker compose up -d
+    pnpm install
+    pnpm dev
+    cd apps/expo && npx expo start
+
+  ─────────────────────────────────────
+  API:         http://localhost:8080
+  API Docs:    http://localhost:8080/docs
+  GORM Studio: http://localhost:8080/studio
+  Sentinel:    http://localhost:8080/sentinel/ui
+  Web App:     http://localhost:3000
+  Admin:       http://localhost:3001
+  Expo:        exp://localhost:8081
+  Desktop:     wails dev (from apps/desktop)
+  Docs:        http://localhost:3002
+  PostgreSQL:  localhost:5434
+  Redis:       localhost:6380
+  MinIO:       http://localhost:9003
+  Mailhog:     http://localhost:8025
+  ─────────────────────────────────────

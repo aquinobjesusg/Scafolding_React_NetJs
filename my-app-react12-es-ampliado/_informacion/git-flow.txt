@@ -1,0 +1,50 @@
+Microsoft Windows [Versión 10.0.14393]
+(c) 2016 Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\pc2010>cd C:\xampp56\htdocs\sigesp
+
+C:\xampp56\htdocs\sigesp>git flow init
+
+Which branch should be used for bringing forth production releases?
+   - master
+Branch name for production releases: [master]
+Fatal: Local branch 'master-1.00[D
+C:\xampp56\htdocs\sigesp>git flow init
+
+Which branch should be used for bringing forth production releases?
+   - master
+Branch name for production releases: [master]
+Branch name for "next release" development: [develop]
+
+How to name your supporting branch prefixes?
+Feature branches? [feature/]
+Bugfix branches? [bugfix/]
+Release branches? [release/]
+Hotfix branches? [hotfix/]
+Support branches? [support/]
+Version tag prefix? []
+Hooks and filters directory? [C:/xampp56/htdocs/sigesp/.git/hooks]
+
+
+// Cambios en la Cotización
+git flow feature start feature_cotizacion
+git flow feature start feature_guia
+git flow feature start feature_orden
+git flow feature start feature_borrar
+
+git flow feature finish feature_cotizacion
+git flow feature finish feature_guia
+git flow feature finish feature_orden
+git flow feature finish feature_borrar
+
+git flow feature start feature_branch
+git flow feature finish feature_branch
+
+git flow release start 0.1.0
+git flow release finish '0.1.0'
+
+git flow hotfix start hotfix_branch
+git flow hotfix finish hotfix_branch
+
+
+C:\xampp56\htdocs\sigesp>

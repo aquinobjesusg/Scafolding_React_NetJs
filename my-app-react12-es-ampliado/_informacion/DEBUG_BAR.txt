@@ -1,0 +1,11 @@
+
+# Requerimiento del Composer
+composer require barryvdh/laravel-debugbar
+
+# ARCHIVO .env
+DEBUGBAR_ENABLED=false
+
+# Repositorio
+https://github.com/barryvdh/laravel-debugbar
+
+

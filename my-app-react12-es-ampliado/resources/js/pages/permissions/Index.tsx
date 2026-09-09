@@ -1,0 +1,201 @@
+import React, { useState } from 'react';
+import { Head, router, Link } from '@inertiajs/react';
+import AppLayout from '@/layouts/app-layout';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Input } from '@/components/ui/input';
+import { type BreadcrumbItem, type Permission } from '@/types';
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import { Plus, Edit, Trash2 } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '@/components/ui/alert-dialog';
+import { toast } from 'sonner';
+import PermissionModal from './PermissionModal';
+
+interface Props {
+  permissions: {
+    data: Permission[];
+    current_page: number;
+    last_page: number;
+    links: { url: string | null; label: string; active: boolean }[];
+  };
+  groups: string[];
+  filters: {
+    group?: string;
+    search?: string;
+  };
+}
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Gestión de permisos',
+    href: '/permissions',
+  },
+];
+
+export default function PermissionIndex({ permissions, groups, filters }: Props) {
+  const [search, setSearch] = useState(filters.search || '');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPermission, setSelectedPermission] = useState<Permission | null>(null);
+
+  const handleDelete = (id: number) => {
+    router.delete(`/permissions/${id}`, {
+      onSuccess: () => toast.success('Permiso eliminado con éxito'),
+      onError: () => toast.error('Error al eliminar el permiso'),
+    });
+  };
+
+  const handleGroupChange = (value: string) => {
+    const actualValue = value === '__ALL__' ? '' : value;
+    router.get('/permissions', { ...filters, group: actualValue }, { preserveScroll: true });
+  };
+
+  const handleSearchKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      router.get('/permissions', { ...filters, search }, { preserveScroll: true });
+    }
+  };
+
+  const openCreateModal = () => {
+    setSelectedPermission(null);
+    setModalOpen(true);
+  };
+
+  const openEditModal = (permission: Permission) => {
+    setSelectedPermission(permission);
+    setModalOpen(true);
+  };
+
+  return (
+    <AppLayout breadcrumbs={breadcrumbs}>
+      <Head title="Gestión de permisos" />
+      <div className="flex-1 p-4 md:p-6">
+        <Card>
+          <CardHeader className="pb-3 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <CardTitle className="text-2xl font-bold">Permisos</CardTitle>
+              <p className="text-muted-foreground text-sm">Gestionar permisos de acceso al sistema</p>
+            </div>
+            <Button onClick={openCreateModal}>
+              <Plus className="h-4 w-4 mr-2" />
+              Añadir Permiso
+            </Button>
+          </CardHeader>
+
+          <Separator />
+
+          <CardContent className="pt-6 space-y-6">
+            {/* Filter */}
+            <div className="flex flex-col md:flex-row md:items-center gap-4">
+              <Input
+                type="text"
+                placeholder="Buscar permisos... (presiona Enter)"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleSearchKey}
+              />
+              <Select
+                value={filters.group || '__ALL__'}
+                onValueChange={handleGroupChange}
+              >
+                <SelectTrigger className="md:w-64">
+                  <SelectValue placeholder="Todos los grupos" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="__ALL__">Todos los grupos</SelectItem>
+                  {groups.map((group) => (
+                    <SelectItem key={group} value={group}>
+                      {group}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* List */}
+            <div className="space-y-3">
+              {permissions.data.length === 0 ? (
+                <p className="text-muted-foreground text-center">No hay datos disponibles.</p>
+              ) : (
+                permissions.data.map((permission) => (
+                  <div
+                    key={permission.id}
+                    className="flex items-center justify-between border px-4 py-3 rounded-md bg-muted/50 hover:bg-muted/70 transition"
+                  >
+                    <div className="font-medium text-sm text-foreground">{permission.name}</div>
+                    <div className="flex items-center gap-2">
+                      <Button variant="ghost" size="icon" onClick={() => openEditModal(permission)}>
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="ghost" size="icon" className="text-destructive hover:text-red-600">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>¿Eliminar este permiso?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              El permiso <strong>{permission.name}</strong> será eliminado permanentemente.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction
+                              className="bg-destructive hover:bg-destructive/90"
+                              onClick={() => handleDelete(permission.id)}
+                            >
+                              Eliminar
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Pagination */}
+            {permissions.links.length > 1 && (
+              <div className="flex justify-center pt-6 flex-wrap gap-2">
+                {permissions.links.map((link, i) => (
+                  <Button
+                    key={i}
+                    disabled={!link.url}
+                    variant={link.active ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => router.visit(link.url || '', { preserveScroll: true })}
+                  >
+                    <span dangerouslySetInnerHTML={{ __html: link.label }} />
+                  </Button>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Permission Modal */}
+      <PermissionModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        permission={selectedPermission}
+        groups={groups}
+      />
+    </AppLayout>
+  );
+}

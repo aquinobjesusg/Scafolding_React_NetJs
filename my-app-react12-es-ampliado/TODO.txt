@@ -1,0 +1,103 @@
+
+#######################
+# Fase        <--------
+# DEBUG BAR
+#######################
+.- ver el archivo de LOG de Laravel en el explorador
+
+#######################
+# Fase
+# Logo 
+#######################
+.- colocar el logo del sistema impuesto 
+
+
+#######################
+# Fase
+# Autenticacion
+#######################
+.- colocar la pantalla Split
+.- Colocar el Boton de Inicio
+
+
+#######################
+# Fase
+# Roles
+#######################
+.- colocar en el menu de opciones aplicar rol para ver como se comporta la vista del usuario, sin quitar el rol de administrador ( es decir que siempre muestre el menu-access y el logout )
+
+
+#######################
+# Fase
+# Menu Horizontal & Vertical
+#######################
+.- Colocar un menu Horizontal
+.- Que el menu Horizontal tambien tenga el comportamiento del menu Vertical
+
+#######################
+# Fase
+# Internacionalización
+#######################
+.- Colocar Opciones de INGLES o ESPAÑOL
+.- Evaluar que sea del diccionario de Laravel o usar un diccionario en base de datos.
+
+#######################
+# Fase
+# Iconos Abajo
+#######################
+.- Evaluar Colocar ICONOS de MENU Abajo o Arriba
+
+
+#######################
+# Fase
+# Reportes
+#######################
+.- Ver las imagenes QR de un Texto
+.- Ver los códigos de Barra de un Texto
+.- Ver un archivo PDF cargado en la ruta asset
+
+
+#######################
+# Fase
+# exportar
+#######################
+.- exportar o descargar a PDF
+.- exportar o descargar a Excel
+
+
+#######################
+# Fase
+# enviar correo
+#######################
+.- envar correo por PHP
+.- enviar correo segun configuración de EMAIL
+.- envar correo simple llamando una API de una carpeta
+
+
+#######################
+# Fase
+# APIS
+#######################
+.- llamar APIS de tercero o de laraver o de FTP, etc
+
+
+#######################
+# Fase
+# Colores de la Paleta
+# Encabezados & Pie de Pagina
+# Normalizar los Nombres del Modelo
+# Logo, icono, cintillo encabezado, cintillo pie
+#######################
+.- Ajusjar encabezado, logos, etc...
+
+
+#######################
+# Fase
+# Logo, icono del usuario
+#######################
+.- colocar la imagen del usuario 
+    .- y guardarla en la base de datos
+    .- o guardarla en la carpeta asset ( si no existe la carpeta crearla )
+
+
+
