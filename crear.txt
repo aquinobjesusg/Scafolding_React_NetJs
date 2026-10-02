@@ -1,0 +1,43 @@
+npx create-next-app@latest
+
+
+# Instrucciones para Instalar el Proyecto
+npm install framer-motion
+npm install sonner 
+npm install  lucide-react
+
+npm install @tanstack/react-table
+
+# Instalar los Script para Aprobar
+ npm install-scripts approve sharp
+ npm install-scripts approve unrs-resolver
+
+# Instalar los componetes UI
+npx shadcn@latest init
+npx shadcn@latest add button input label sheet card badge checkbox avatar chart
+npx shadcn@latest add textarea dialog 
+npx shadcn@latest add select  
+npx shadcn@latest add alert-dialog
+npx shadcn@latest add table  
+npx shadcn@latest add accordion
+npx shadcn@latest add alert
+npx shadcn@latest add aspect-ratio
+npx shadcn@latest add attachment
+npx shadcn@latest add avatar
+npx shadcn@latest add badge
+npx shadcn@latest add breadcrumb
+npx shadcn@latest add bubble
+npx shadcn@latest add button
+npx shadcn@latest add button-group
+npx shadcn@latest add calendar
+npx shadcn@latest add card
+npx shadcn@latest add carousel
+npx shadcn@latest add chart
+npx shadcn@latest add checkbox
+npx shadcn@latest add collapsible
+npx shadcn@latest add combobox
+npx shadcn@latest add command
+npx shadcn@latest add context-menu
+npx shadcn@latest add table
+npm install @tanstack/react-table
+

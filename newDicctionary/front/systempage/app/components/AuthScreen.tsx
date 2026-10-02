@@ -12,7 +12,7 @@ import {
 type AuthView = "login" | "register" | "forgot";
 type Idioma = { lenguaje: string; id_lenguaje: string };
 
-const API_URL = "http://localhost:8080";
+const API_URL = "https://backdicc.systemsya.com";
 
 export function AuthScreen({ onLogin }: { onLogin: () => void }) {
   const [view, setView] = useState<AuthView>("login");
@@ -317,8 +317,10 @@ export function AuthScreen({ onLogin }: { onLogin: () => void }) {
                   <Label htmlFor="idioma" className="text-sky-100">Idioma Nativo</Label>
                   <Select 
                     value={idioma} 
-                    onValueChange={(value: string) => setIdioma(value)}
+                     onValueChange={(value) => setIdioma(value ?? "1")}
                   >
+
+
                     <SelectTrigger
                       id="idioma"
                       className="border-sky-700 bg-slate-800/60 pl-4 pr-10 text-sky-50 placeholder:text-sky-300/40 focus:border-sky-500"
