@@ -1854,7 +1854,7 @@ function meth_Locator_Replace(&$Txt,&$Loc,&$Value,$SubStart) {
 			case  6: $CurrVal = ('0'+$CurrVal) + $Loc->OpePrm[$i]; break;
 			case  7: $CurrVal = ('0'+$CurrVal) * $Loc->OpePrm[$i]; break;
 			case  8: $CurrVal = ('0'+$CurrVal) / $Loc->OpePrm[$i]; break;
-			case  9; case 10:
+			case  9: case 10:
 				if ($ope===9) {
 				 $CurrVal = (in_array($this->meth_Misc_ToStr($CurrVal),$Loc->OpeMOK)) ? ' ' : '';
 				} else {

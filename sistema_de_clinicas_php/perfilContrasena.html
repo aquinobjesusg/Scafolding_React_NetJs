@@ -1,49 +1,110 @@
-  <div>[var.mi_menu_html;htmlconv=no]</div>
+<div>[var.mi_menu_html;htmlconv=no]</div>
 
-
-    <div class="container pb-5">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                
-
-
-                <div class="card shadow-sm border-0 btn-rounded">
-                    <div class="card-header bg-white border-0 pt-4 text-center">
-                        <h3 class="fw-bold text-dark">Cambiar Contraseña</h3>
-                        <p class="text-muted mb-3">Complete todos los campos para registrar a la carga familiar en el sistema.</p>
-                        
-
-                    </div>
-                    
-                    <div class="card-body p-4">
-                        <form method="POST" action="beneficiarioRegistrar.php">
-                            <input type="hidden" name="id_titular_hidden" value="[titular_b.id_titular]">
-
-                            <h5 class="text-primary mb-3 border-bottom pb-2">Contraseñas</h5>
-                            
-                            <div class="row g-3 mb-3">
-                                <div class="row g-3 mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Contraseña</label>
-                                    <input type="password" name="nombre_titular" class="form-control shadow-sm" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Verifique la Contraseña</label>
-                                    <input type="password" name="apellido_titular" class="form-control shadow-sm" required>
-                                </div>
-                            </div>
-                            <hr class="my-4">
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <!-- <button type="reset" class="btn btn-outline-secondary btn-rounded px-4">Limpiar</button> -->
-                                <button type="submit" name="registrar" class="btn btn-sgp btn-rounded px-5">Guardar Contraseña</button>
-                            </div>
-                        </form>
-                    </div>
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-sm border-0 btn-rounded">
+                <div class="card-header bg-white border-0 pt-4 text-center">
+                    <h3 class="fw-bold text-dark">Cambiar Contraseña</h3>
+                    <p class="text-muted mb-3">Ingrese y verifique su nueva contraseña para actualizar su acceso.</p>
                 </div>
+                
+                <div class="card-body p-4">
+                    <form method="POST" action="perfilContrasena.php">
+                        <h5 class="text-primary mb-3 border-bottom pb-2">Seguridad</h5>
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Nueva Contraseña</label>
+                                <input type="password" name="contrasenia" class="form-control shadow-sm" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Verifique la Contraseña</label>
+                                <input type="password" name="verificar_contrasenia" class="form-control shadow-sm" required>
+                            </div>
+                        </div>
 
+                        <hr class="my-4">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button type="submit" name="actualizar_contrasena" class="btn btn-sgp btn-rounded px-5">Guardar Contraseña</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-      <div>[var.mi_footer_html;htmlconv=no]</div>
+<div>[var.mi_footer_html;htmlconv=no]</div>
+```[cite: 1]
 
+---
+
+### 2. Archivo de Lógica: `perfilContrasena.php`
+Este archivo contiene únicamente el código backend en PHP para procesar la información de la base de datos y cargar la plantilla[cite: 2]:
+
+```php
+<?php 
+
+include("include/header_php.php");
+
+try {
+    $conexion_bd = new PDO("pgsql:host=$dbhost;port=$dbport;dbname=$dbdatabase;user=$dbuser;password=$dbpasswd");
+    $conexion_bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+} catch (Exception $e) {
+    die("Error de conexión: " . $e->getMessage());
+}
+
+// =========================================================================
+// PROCESAR EL CAMBIO DE CONTRASEÑA
+// =========================================================================
+if (isset($_POST['actualizar_contrasena'])) {
+    try {
+        $id_usuario = $_SESSION['id_usuario'] ?? null;
+
+        if (!$id_usuario) {
+            die("Error crítico: No se ha identificado la sesión del usuario.");
+        }
+
+        $contrasenia            = $_POST['contrasenia'] ?? '';
+        $verificar_contrasenia  = $_POST['verificar_contrasenia'] ?? '';
+
+        if (empty($contrasenia) || empty($verificar_contrasenia)) {
+            echo "<script>alert('Por favor, complete ambos campos.'); window.history.back();</script>";
+            exit;
+        }
+
+        if ($contrasenia !== $verificar_contrasenia) {
+            echo "<script>alert('Las contraseñas no coinciden. Intente de nuevo.'); window.history.back();</script>";
+            exit;
+        }
+
+        // Encriptar la contraseña de forma segura para la base de datos
+        $contrasenia_encriptada = password_hash($contrasenia, PASSWORD_DEFAULT);
+
+        // Actualizar en la tabla usuario
+        $sql_update = "UPDATE usuario SET contrasenia = :contrasenia WHERE id_usuario = :id_usuario";
+
+        $stmt = $conexion_bd->prepare($sql_update);
+        $stmt->execute([
+            ':contrasenia' => $contrasenia_encriptada,
+            ':id_usuario'  => $id_usuario
+        ]);
+
+        echo "<script>alert('¡Contraseña actualizada con éxito!'); window.location.href='pantallaPrincipal.php';</script>";
+        exit;
+
+    } catch (PDOException $e) {
+        die("Error al actualizar la contraseña: " . $e->getMessage());
+    }
+}
+
+$valor = null;
+$mi_menu_html = MostrarMenu($conexion_bd, $valor);
+$mi_footer_html = MostrarFooter($conexion_bd, $valor);
+
+// Cargar la plantilla HTML externa de forma separada
+$tbs->LoadTemplate('perfilContrasena.html', 'UTF-8');
+$tbs->Show();
+?>
+```[cite: 2]

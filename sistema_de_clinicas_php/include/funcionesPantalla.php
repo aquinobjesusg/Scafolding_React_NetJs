@@ -247,7 +247,7 @@ function MostrarLista($conexion_bd, $ltitulo, $vsql, $mi_busqueda_html, $encabez
     if (str_contains($cadena, 'P')) {
         $botonExportarPDF = '<button onclick="verPDF()" class="btn btn-outline-danger btn-rounded btn-sm me-2">PDF</button>
         <script> function verPDF(){ alert("Exportar PDF"); 
-         //window.open("index_pdf1.php", "_blank");
+         window.open("index_pdf1.php", "_blank");
         } </script>';
         $botonExportarPDF = ''; // No Mostrar el PDF momentaneamente
     }

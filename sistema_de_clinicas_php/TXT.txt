@@ -1,65 +1,86 @@
-sudo apt update && sudo apt install -y 
-sudo apt install php8.3-common  -y
-sudo apt install php8.3-cli  -y
-sudo apt install php8.3-curl  -y
-sudo apt install php8.3-gd  -y
-sudo apt install php8.3-mbstring  -y
-sudo apt install php8.3-pgsql  -y
-sudo apt install php8.3-xml  -y
-sudo apt install php8.3-zip  -y
-sudo apt install php8.3-opcache  -y
-sudo apt install php8.3-readline  -y
-sudo apt install php8.3-sqlite3  -y
-sudo apt install php8.3-fileinfo  -y
-sudo apt install php8.3-gettext  -y
-sudo apt install php8.3-exif  -y
-sudo apt install php8.3-mysqli  -y
-sudo apt install php8.3-mysql  -y
-sudo apt install php8.3-pdo_mysql  -y
-sudo apt install php8.3-pdo_sqlite  -y
-sudo apt install php8.3-mysqlnd  -y
-sudo apt install php8.3-opcache  -y
-sudo apt install php8.3-pdo  -y
-sudo apt install php8.3-xml  -y
-sudo apt install php8.3-calendar  -y
-sudo apt install php8.3-ctype  -y
-sudo apt install php8.3-curl  -y
-sudo apt install php8.3-dom  -y
-sudo apt install php8.3-exif  -y
-sudo apt install php8.3-ffi  -y
-sudo apt install php8.3-fileinfo  -y
-sudo apt install php8.3-ftp  -y
-sudo apt install php8.3-gd  -y
-sudo apt install php8.3-gettext  -y
-sudo apt install php8.3-iconv  -y
-sudo apt install php8.3-intl  -y
-sudo apt install php8.3-mbstring  -y
-sudo apt install php8.3-mysqli  -y
-sudo apt install php8.3-pdo_mysql  -y
-sudo apt install php8.3-pdo_pgsql  -y
-sudo apt install php8.3-pdo_sqlite  -y
-sudo apt install php8.3-pgsql  -y
-sudo apt install php8.3-phar  -y
-sudo apt install php8.3-posix  -y
-sudo apt install php8.3-readline  -y
-sudo apt install php8.3-shmop  -y
-sudo apt install php8.3-simplexml v
-sudo apt install php8.3-sockets  -y
-sudo apt install php8.3-sqlite3  -y
-sudo apt install php8.3-sysvmsg  -y
-sudo apt install php8.3-sysvsem  -y
-sudo apt install php8.3-sysvshm  -y
-sudo apt install php8.3-tokenizer  -y
-sudo apt install php8.3-xmlreader  -y
-sudo apt install php8.3-xmlwriter  -y
-sudo apt install php8.3-xsl  -y
-sudo apt install php8.3-zip  -y
+sudo apt update
+sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+sudo apt update
+sudo apt install php8.5-cli -y
+sudo apt install php8.5-common  -y
+sudo apt install php8.5-cli  -y
+sudo apt install php8.5-curl  -y
+sudo apt install php8.5-gd  -y
+sudo apt install php8.5-mbstring  -y
+sudo apt install php8.5-pgsql  -y
+sudo apt install php8.5-xml  -y
+sudo apt install php8.5-curl -y
+sudo apt install php8.5-zip  -y
+sudo apt install php8.5-opcache  -y
+sudo apt install php8.5-xml -y
+sudo apt install php8.5-readline  -y
+sudo apt install php8.5-sqlite3  -y
+sudo apt install php8.5-fileinfo  -y
+sudo apt install php8.5-gettext  -y
+sudo apt install php8.5-exif  -y
+sudo apt install php8.5-mbstring -y
+sudo apt install php8.5-mysqli  -y
+sudo apt install php8.5-mysql  -y
+sudo apt install php8.5-pdo_mysql  -y
+sudo apt install php8.5-pdo_sqlite  -y
+sudo apt install php8.5-mysqlnd  -y
+sudo apt install php8.5-opcache  -y
+sudo apt install php8.5-pdo  -y
+sudo apt install php8.5-xml  -y
+sudo apt install php8.5-calendar  -y
+sudo apt install php8.5-ctype  -y
+sudo apt install php8.5-curl  -y
+sudo apt install php8.5-dom  -y
+sudo apt install php8.5-exif  -y
+sudo apt install php8.5-ffi  -y
+sudo apt install php8.5-fileinfo  -y
+sudo apt install php8.5-ftp  -y
+sudo apt install php8.5-gd  -y
+sudo apt install php8.5-gettext  -y
+sudo apt install php8.5-iconv  -y
+sudo apt install php8.5-intl  -y
+sudo apt install php8.5-mbstring  -y
+sudo apt install php8.5-mysqli  -y
+sudo apt install php8.5-pdo_mysql  -y
+sudo apt install php8.5-pdo_pgsql  -y
+sudo apt install php8.5-pdo_sqlite  -y
+sudo apt install php8.5-pgsql  -y
+sudo apt install php8.5-phar  -y
+sudo apt install php8.5-posix  -y
+sudo apt install php8.5-readline  -y
+sudo apt install php8.5-shmop  -y
+sudo apt install php8.5-simplexml v
+sudo apt install php8.5-sockets  -y
+sudo apt install php8.5-sqlite3  -y
+sudo apt install php8.5-sysvmsg  -y
+sudo apt install php8.5-sysvsem  -y
+sudo apt install php8.5-sysvshm  -y
+sudo apt install php8.5-tokenizer  -y
+sudo apt install php8.5-xmlreader  -y
+sudo apt install php8.5-xmlwriter  -y
+sudo apt install php8.5-xsl  -y
+sudo apt install php8.5-zip  -y
+sudo apt install php8.5-fpm   -y
+sudo apt install libapache2-mod-php8.5 -y
+
+sudo a2dismod php8.3
+sudo a2enmod php8.5
+
+sudo update-alternatives --config php
+
+sudo systemctl stop apache2
+sudo systemctl start apache2
+sudo systemctl stop apache2
 
 
 
 postgresql.conf
 
 Archivos de configuración a modificarpostgresql.confAtributo: listen_addressesValor: Cambiar de localhost o 127.0.0.1 a '*' para escuchar en todas las interfaces de red disponibles.Acción: Descomentar la línea (quitar #) y dejar listen_addresses = '*'.pg_hba.confAtributo: Reglas de autenticación basada en hostValor: Agregar o modificar una línea de tipo host especificando qué redes pueden entrar.Acción: Añadir una regla como host all all 0.0.0.0/0 scram-sha-256 (para permitir cualquier IP IPv4) o restringir a una subred específica (por ejemplo, 192.168.1.0/24) por seguridad.
+
+
+sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php # Press enter to confirm.
+sudo apt update
 
 
 

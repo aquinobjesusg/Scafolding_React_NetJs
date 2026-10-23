@@ -35,7 +35,7 @@ function MostrarExcel($conexion_bd, $ltitulo, $vsql, $mi_busqueda_html, $encabez
     $columna = 'A';
     foreach ($encabezados as $encabezado) {
         $sheet->setCellValue($columna . '1', $encabezado);
-        $columna ++;
+        $columna = chr(ord($columna) + 1);
     }
     $rangoF = $columna;
 
@@ -54,7 +54,7 @@ function MostrarExcel($conexion_bd, $ltitulo, $vsql, $mi_busqueda_html, $encabez
         foreach ($campos as $camp) {
             $valor = $registro[$camp];
             $sheet->setCellValue($columna . $fila, $valor);
-            $columna ++;
+            $columna = chr(ord($columna) + 1);
             // $enc = $enc + 1;
         }
 
