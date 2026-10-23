@@ -1,27 +1,13 @@
-// import type { NextConfig } from "next";
-
-// const nextConfig: NextConfig = {
-//   /* config options here */
-// };
-
-// export default nextConfig;
-
-
 import type { NextConfig } from "next";
 
-const path = require('path');
-
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: path.join(__dirname), // O la ruta relativa correcta hacia tu raíz
-  },
-  // Para el traceo de archivos de salida
-  outputFileTracingRoot: path.join(__dirname), 
-
   /* config options here */
   output: 'export',
   //trailingSlash: true,
   distDir: 'dist',
+  
+  //pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  
   /*images: {
     unoptimized: true,
   },*/
@@ -42,7 +28,7 @@ const nextConfig: NextConfig = {
     workerThreads: false, // Desactiva hilos worker (usa menos RAM)
     cpus: 1,              // Fuerza a usar solo 1 núcleo para compilar
   },
-
+  
 };
 /*module.exports = {
   experimental: {
@@ -53,17 +39,3 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;
 
-
-
-
-/** @type {import('next').NextConfig} */
-module.exports = {
-  // Si usas Turbopack
-  turbopack: {
-    root: path.join(__dirname), // O la ruta relativa correcta hacia tu raíz
-  },
-  // Para el traceo de archivos de salida
-  outputFileTracingRoot: path.join(__dirname), 
-  
-  // ... resto de tu configuración
-};

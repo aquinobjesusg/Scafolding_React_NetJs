@@ -421,7 +421,7 @@ export function AdminPanel({ userEmail, onLogout }: AdminPanelProps) {
                       <Select
                         value={newProduct.category}
                         onValueChange={(value) =>
-                          setNewProduct({ ...newProduct, category: value })
+                          setNewProduct({ ...newProduct, category: value ?? "" })
                         }
                       >
                         <SelectTrigger className="border-teal-200">
@@ -478,7 +478,7 @@ export function AdminPanel({ userEmail, onLogout }: AdminPanelProps) {
                       <Select
                         value={newProduct.unit}
                         onValueChange={(value) =>
-                          setNewProduct({ ...newProduct, unit: value })
+                           setNewProduct({ ...newProduct, unit: value ?? "unid" })
                         }
                       >
                         <SelectTrigger className="border-teal-200">

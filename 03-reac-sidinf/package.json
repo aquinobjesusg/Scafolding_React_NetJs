@@ -11,6 +11,7 @@
     "build1": "rm -rf dist && next build",
     "build:no-cache": "next build --no-lint --no-cache",
     "instalar": "rm -rf .next dist node_modules package-lock.json && npm cache clean --force && npm install --force",
+    "instalar1": "rm -rf .next dist node_modules package-lock.json && npm cache clean --force && npm install --force",
     "rebuild": "npm rebuild",
     "start": "next start",
     "lint": "eslint"
