@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Registro de Recursos Entrantes</title>     
+</head>
+    <body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+        [var.cintillo;htmlconv=no]
+        [var.encabezado;htmlconv=no]
+       
+        <div class="container">
+            
+                     <!--MODAL PARA MENSAJE DE EXITO-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+        <!--MODAL PARA MENSAJES DE ERROR-->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN DEL MODAL PARA MENSAJES DE ERROR--> 
+            
+
+            <div class="row mb-3">       
+                <h2 class="titulo-pag" align="center">Registro de Recursos Entrantes</h2>
+                <p></p>       
+                    <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+            </div>
+
+
+            <div class="container">
+                <form name="formulario" action="recursoIngreso.php" method="post">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="orden_ingreso" class="form-label negrita">Orden de Ingreso:</label>
+                            <input type="text" name="orden_ingreso" id="orden_ingreso" class="form-control" title="Orden de Ingreso" autofocus placeholder="Ej: C01" required="required">
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <label for="fecha_ingreso" class="form-label negrita">Fecha:</label>
+                            <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" title="Fecha" autofocus required="required" >
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="id_proveedor" class="form-label negrita">Proveedor:</label>
+                            <select name="id_proveedor" id="id_proveedor" class="form-select" 
+                            title="Proveedor" >
+                                <option value="">Seleccionar</option>
+                                <option value="[proveedor.id_proveedor;block=option]">[proveedor.nom_proveedor]</option>
+                            </select>
+                         
+                        </div>
+                         <div class="col-md-4">
+                            <label for="id_almacen" class="form-label negrita">Almacen:</label>
+                            <select name="id_almacen" id="id_almacen" class="form-select" title="Almacen">
+                                <option value="0">Seleccionar</option>
+                                <option value="[almacen.id_almacen;block=option]">[almacen.nom_almacen]</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                  <div class="row mb-3">
+                      <div class="col-md-4">
+                        <label for="id_articulo" class="form-label negrita">Artículo:</label>
+                        <select name="id_articulo" id="id_articulo" class="form-select" title="Articulo">
+                          <option value="0">Seleccionar</option>
+                          <option value="[articulo.id_articulo;block=option]">[articulo.nom_articulo]</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="cantidad_ingreso" class="form-label negrita">Cantidad:</label>
+                        <input type="number" name="cantidad_ingreso" id="cantidad_ingreso" class="form-control" title="Cantidad a Ingresar" autofocus placeholder="Ingrese un numero" min="1" required>
+                      </div>
+                    </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="observacion_i" class="form-label negrita">Observación:</label>
+                                <input type="text" name="observacion_i" id="observacion_i" class="form-control" title="Observacion" autofocus>
+                            </div>
+                        </div>
+
+                         <div class="row">
+                            <div class="col-md-12 text-center">
+                                <input type="submit" class="btn btn-outline-primary" name="Registrar" value="Registrar" onClick="return validar();" title="Registrar">
+                            </div>
+                        </div>
+                </form>
+            </div>
+                <p></p>
+            <div class="row mb-3">       
+                <h2  class="titulo-pag" align="center">Listado de Ingresos</h2>
+            </div>
+
+            <!--FORMULARIO PARA HACER LA BUSQUEDA POR MES Y AÑO-->
+
+             <div class="container mt-5">
+                <form name="formulario1" action="recursoIngreso.php" method="post">
+                    <div class="row mb-3">
+                        <div class="col-md-12 d-flex align-items-end">
+                            <div class="w-100">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="fecha_desde" class="form-label">Desde:</label>
+                                        <input type="date" id="fecha_desde" name="fecha_desde" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="fecha_hasta" class="form-label">Hasta:</label>
+                                        <input type="date" id="fecha_hasta" name="fecha_hasta" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-end justify-content-start">
+                                        <div class="d-flex gap-2"> <button type="submit" class="btn-acciones-buscar" name="Buscar" title="Buscar">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
+
+                                            <a href="recursoIngreso.php" class="btn-acciones-buscar" title="Recargar">
+                                                <i class="fa-solid fa-rotate-right"></i>
+                                            </a>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+                            
+
+            <!--LISTADO DE TODOS LOS INGRESOS-->
+
+            <div class="table-responsive-sm">
+                <table class="tabla table table-hover">
+                    <thead class="encabezadoTabla">
+                        <br><p>Total de entradas registradas: [recursoConteo.total]</p>
+                        <tr>
+                        <th>N°</th>
+                        <th >Orden</th>
+                        <th>Fecha</th>
+                        <th>Proveedor</th>
+                        <th>Almacen</th>
+                        <th>Articulo</th>
+                        <th>Clasificacion</th>
+                        <th>Medida</th>
+                        <th>Cantidad Ingresada</th>
+                        <th>Observacion</th>
+                        <th>Accion</th>
+                        <th></th>
+                        </tr>
+                        </thead>
+                            <tbody>
+                                <tr>
+                                    <td>[listadoRecurso.#]</td>
+                                    <td>[listadoRecurso.orden_ingreso;block=tr]</td>
+                                    <td>[listadoRecurso.fecha_ingreso;frm='dd-mm-yyyy']</td> <td>[listadoRecurso.nom_proveedor]</td>
+                                    <td>[listadoRecurso.nom_almacen]</td>
+                                    <td>[listadoRecurso.nom_articulo]</td>
+                                    <td>[listadoRecurso.nom_clasificacion]</td>
+                                    <td>[listadoRecurso.nom_medida]</td>
+                                    <td>[listadoRecurso.cantidad_ingreso]</td>
+                                    <td>[listadoRecurso.observacion_i]</td>
+                                    
+                                    <td class="d-flex gap-2 align-items-center">
+                                       
+                                          <form name="tbs1" action="recursoEditar.php" method="post" class="m-0">
+                                                <button name="Editar" title="Editar Artículo" class="btn-acciones" type="submit" value="[listadoRecurso.id_ingreso]">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                            </form>
+                           
+                                        <form name="formulario1" action="recursoEliminar.php" method="post" class="m-0">
+                                            <button name="Eliminar" 
+                                                    title="Eliminar Ingreso" 
+                                                    class="btn-acciones-eliminar" 
+                                                    type="submit" 
+                                                    value="[listadoRecurso.id_ingreso]">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        [var.pie;htmlconv=no]             
+
+    </body>
+</html>
+
+

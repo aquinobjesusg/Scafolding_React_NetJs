@@ -1,0 +1,368 @@
+/* ==========================================================================
+   CONFIGURACIÓN GENERAL Y FUENTES
+   ========================================================================== */
+
+/* Importar una fuente más moderna */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F2F2F5; /* Gris muy claro azulado */
+    color: #334155;
+}
+
+/* ==========================================================================
+   COMPONENTES DE LA INTERFAZ GENERAL (NAVBAR, CARDS Y FOOTER)
+   ========================================================================== */
+
+/* Navbar personalizada con Degradado */
+.navbar-custom {
+    background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);
+    padding: 1rem 0;
+}
+
+/* Tarjetas del Menú Principal (Dashboard) */
+.carta-menu {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.carta-menu:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* Contenedor de bienvenida flotante */
+.welcome-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-top: -30px; /* Sube un poco para entrar en la navbar */
+    z-index: 10;
+    position: relative;
+}
+
+/* ==========================================================================
+   FORMULARIOS Y CAMPOS DE ENTRADA (ELEMENTOS INPUT/SELECT)
+   ========================================================================== */
+
+/* Estilo unificado para los inputs y selectores del formulario */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    padding: 10px 15px;
+}
+
+/* Color azul suave para el foco (focus) del input al escribir */
+.form-control:focus, .form-select:focus {
+    border-color: #0728AD;
+    box-shadow: 0 0 0 0.25rem rgba(7, 40, 173, 0.1);
+}
+
+/* Títulos de sección destacados */
+.text-primary {
+    color: #0728AD !important; /* Color azul personalizado SGP */
+}
+
+/* Recuadro informativo con los datos del Titular Responsable */
+.info-titular-container {
+    background: #e9ecef; 
+    padding: 15px; 
+    border-radius: 5px; 
+    margin-bottom: 20px; 
+    border-left: 5px solid #0d6efd;
+}
+
+/* ==========================================================================
+   SISTEMA DE LOGUEO (LOGIN)
+   ========================================================================== */
+
+/* Contenedor del formulario de inicio de sesión */
+.login-form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* ==========================================================================
+   BOTONES Y ELEMENTOS DE ACCIÓN PERSONALIZADOS
+   ========================================================================== */
+
+/* 1. Base para botones animados (btn-custom) */
+.btn-custom {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: none;
+    transition: all 0.3s ease;
+    color: white !important;
+}
+
+.btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    filter: brightness(90%); /* Oscurece un poco el color al pasar el mouse */
+}
+
+/* Colores exactos de las acciones base */
+.btn-azul { background-color: #0d6efd !important; }
+.btn-verde { background-color: #198754 !important; }
+.btn-celeste { background-color: #0dcaf0 !important; }
+
+/* 2. Botón Verde Institucional para los Registros del SGP */
+.btn-sgp {
+    background-color: #198754;
+    color: white;
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-sgp:hover {
+    background-color: #146c43;
+    color: white;
+}
+
+/* 3. Redondeado homogéneo para botones y tarjetas generales del sistema (.btn-rounded) */
+.btn-rounded, .card {
+    border-radius: 12px !important;
+}
+
+/* Redondeado para los grupos de entrada compuestos de Bootstrap */
+.input-group .input-group-text {
+    border-radius: 8px 0 0 8px;
+    border: 1px solid #dee2e6;
+}
+.input-group .form-control {
+    border-radius: 0 8px 8px 0;
+}
+
+/* ==========================================================================
+   MEJORAS DE UNIFICACIÓN PARA TODAS LAS INTERFACES DE REGISTRO/EDICIÓN
+   ========================================================================== */
+
+/* Asegurar que las secciones de los formularios tengan un espaciado homogéneo */
+.text-primary.border-bottom {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+/* Forzar que las etiquetas del formulario no queden pegadas al input en móviles */
+.form-label {
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #475569; /* Gris pizarra ligeramente más suave */
+}
+
+/* Unificación estética para las alertas informativas (como el Titular Vinculado) */
+.alert-secondary {
+    background-color: #f8fafc !important; /* Fondo casi blanco */
+    border: 1px solid #e2e8f0 !important; /* Borde sutil */
+    border-radius: 8px !important;
+}
+
+/* Efecto focus homogéneo para los botones que usan .btn-rounded */
+.btn-rounded:focus {
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25) !important;
+}
+
+/* --- Estilos personalizados para el Listado de Titulares SGP --- */
+
+/* Encabezado de la tabla con el azul de la temática */
+.table-sgp-azul {
+    background-color: #1a4173 !important; /* Azul oscuro institucional */
+    color: #ffffff !important;
+}
+
+/* Badge o etiqueta para el contador total de registros */
+.badge-contador {
+    background-color: #2e62a6; /* Azul intermedio */
+    color: #ffffff;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+}
+
+/* Personalización de la barra de búsqueda */
+.buscar-contenedor {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.input-buscar {
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+}
+
+.input-buscar:focus {
+    border-color: #2e62a6;
+    box-shadow: 0 0 0 0.2rem rgba(46, 98, 166, 0.25);
+}
+
+/* Color por defecto del borde de las cajas de texto y selectores */
+.form-control, 
+.form-select {
+    border-color: #002b5b !important; /* Azul marino */
+}
+
+/* Color del borde cuando la persona hace clic o está escribiendo en el campo */
+.form-control:focus, 
+.form-select:focus {
+    border-color: #001f3f !important; /* Azul marino más oscuro al enfocar */
+    box-shadow: 0 0 0 0.25rem rgba(0, 43, 91, 0.25) !important; /* Resplandor azul marino suave */
+}
+
+
+/* ===================================================
+   ESTILOS TIPO PLANILLA DE FICHA DE CITA
+   =================================================== */
+
+:root {
+    /* Cambia este color hexadecimal por el color exacto de tu menú principal */
+    --color-menu-principal: #115cb3; 
+    --color-menu-hover: #115cb3;
+}
+
+/* Encabezado de la Ficha */
+.bg-custom-header {
+    background-color: var(--color-menu-principal) !important;
+    color: #ffffff !important;
+}
+
+/* Títulos de sección internos */
+.text-custom-title {
+    color: var(--color-menu-principal) !important;
+}
+
+/* Aspecto visual tipo casilla de planilla */
+.ficha-input {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+}
+
+/* Botón adaptado al color del menú */
+.btn-custom {
+    background-color: var(--color-menu-principal);
+    border-color: var(--color-menu-principal);
+    color: #ffffff !important;
+}
+
+.btn-custom:hover {
+    background-color: var(--color-menu-hover);
+    border-color: var(--color-menu-hover);
+    color: #ffffff !important;
+}
+
+/* Ajusta el ancho del contenedor y del input al tamaño exacto de su contenido */
+.campo-fit {
+    width: fit-content !important;
+    min-width: 150px; /* Ancho mínimo para que no se vea tan pequeño si el texto es muy corto */
+    max-width: 100%;   /* Evita que se salga de la pantalla si el texto es muy largo */
+}
+
+.input-fit {
+    width: auto !important;
+    display: inline-block;
+}
+
+/* Ocultar el calendario de reprogramación por defecto */
+#contenedor-nueva-fecha {
+    display: none;
+}
+
+/* Mostrar el calendario mediante CSS cuando el select tiene elegida una opción con valor 'reprogramada' */
+.contenedor-estado:has(select option[value="reprogramada"]:checked) + #contenedor-nueva-fecha,
+.contenedor-estado:has(select option[data-reprogramar="true"]:checked) + #contenedor-nueva-fecha {
+    display: block !important;
+}
+
+/* ==========================================================================
+   MÓDULO DE HORARIOS MÉDICOS
+   ========================================================================== */
+
+/* Encabezado del Card de Horarios */
+.card-header-horario {
+    background-color: var(--color-menu-principal) !important;
+    color: #ffffff !important;
+}
+
+/* Encabezado de la Tabla de Horarios (Lunes a Domingo) */
+.tabla-horario-header {
+    background-color: #1a4173 !important; /* Azul oscuro institucional */
+    color: #1437d3 !important;
+}
+
+/* Identificadores de Turnos */
+.turno-manana-label {
+    color: #0728AD !important;
+    font-weight: bold;
+}
+
+.turno-tarde-label {
+    color: #0728AD !important;
+    font-weight: bold;
+}
+
+/* Ajuste para que el texto de los selects no choque con la flecha desplegable */
+.select-turnos {
+    padding-right: 2rem !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Subtítulo / Franja de Asignación de Turnos */
+.subtitulo-asignacion {
+    background-color: #1a4173 !important;
+    color: #ffffff !important;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+<style>
+.modal-contenedor {
+    display: none;
+    position: fixed;
+    z-index: 1050; /* Aumentado para asegurar que quede por encima de la tabla y datatables */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px; /* <--- AQUÍ LIMITAS EL ANCHO MÁXIMO */
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+</style>

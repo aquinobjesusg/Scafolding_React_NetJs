@@ -1,0 +1,69 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container my-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-primary text-white py-3 rounded-top-4">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-journal-medical me-2"></i>[var.titulo_formulario]</h4>
+        </div>
+        <div class="card-body p-4">
+            <form action="especialidadRegistro.php" method="POST">
+                
+                <!-- Campo Oculto para ID -->
+                <input type="hidden" name="id_especialidad" value="[especialidad_e.id_especialidad]">
+
+                <div class="row g-2">
+                    <!-- Nombre de la Especialidad -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Nombre de la Especialidad <span class="text-danger">*</span></label>
+                        <input type="text" name="nombre_especialidad" class="form-control" 
+                               value="[especialidad_e.nombre_especialidad]" required [var.readonly]>
+                    </div>
+
+                    <!-- Siglas -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Siglas</label>
+                        <input type="text" name="siglas" class="form-control" 
+                               value="[especialidad_e.siglas]" [var.readonly]>
+                    </div>
+
+                    <!-- Ubicación -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Ubicación / Consultorio</label>
+                        <input type="text" name="ubicacion" class="form-control" 
+                               value="[especialidad_e.ubicacion]" [var.readonly]>
+                    </div>
+                    <br>
+                    <!-- Turnos (Checkboxes) -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold d-block">Turnos Disponibles</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="turno_manana" value="1" id="turno_manana" [var.chk_manana] [var.disabled]>
+                            <label class="form-check-label" for="turno_manana">Turno Mañana</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="turno_tarde" value="1" id="turno_tarde" [var.chk_tarde] [var.disabled]>
+                            <label class="form-check-label" for="turno_tarde">Turno Tarde</label>
+                        </div>
+                    </div>
+
+                    <!-- Estatus / Activo -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold d-block">Estado</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="in_activo" value="1" id="in_activo" [var.chk_activo] [var.disabled]>
+                            <label class="form-check-label" for="in_activo">Especialidad Activa</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones Dinámicos -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    [var.botones_html;htmlconv=no]
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+[var.mi_footer_html;htmlconv=no]

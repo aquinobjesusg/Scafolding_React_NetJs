@@ -1,0 +1,61 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+        <h3 class="fw-bold text-dark mb-4">[var.ltitulo]</h3>
+
+        <!-- Formulario de Búsqueda -->
+        <div class="col-12 mb-4">
+            <form action="trazabilidadLista.php" method="POST" class="row row-cols-3 align-items-center">
+                <div class="col-md-2">
+                    <label class="form-label fw-bold small text-muted"><i class="bi bi-card-text me-1"></i>Fecha Desde:</label>
+                    <input type="date" id="fechad" name="fechad" class="form-control input-buscar shadow-sm" value="[var.val_fechad]" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold small text-muted"><i class="bi bi-card-text me-1"></i>Fecha Hasta:</label>
+                    <input type="date" id="fechah" name="fechah" class="form-control input-buscar shadow-sm" value="[var.val_fechah]" required />
+                </div>
+                
+                <div class="col-md-2">
+                    <label class="form-label fw-bold small text-muted" for="musuario">Usuario: *</label>
+                    <select id="musuario" name="musuario" class="form-select input-buscar shadow-sm">
+                        <option value="[listau.id_usuario;block=option]" [listau.selected]>[listau.nom_usuario]</option>
+                        <option value="*" [var.sel_all_usuario]>*</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-bold small text-muted" for="evento">Eventos: *</label>
+                    <select id="evento" name="evento" class="form-select input-buscar shadow-sm">
+                        <option value="[listae.evento;block=option]" [listae.selected]>[listae.evento]</option>
+                        <option value="*" [var.sel_all_evento]>*</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-bold small text-muted" for="direccionip">Direccion IP: *</label>
+                    <select id="direccionip" name="direccionip" class="form-select input-buscar shadow-sm">
+                        <option value="[listaip.direccion_ip;block=option]" [listaip.selected]>[listaip.direccion_ip]</option>
+                        <option value="*" [var.sel_all_ip]>*</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 align-self-end mt-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="submit" name="buscar" value="1" class="btn btn-primary shadow-sm rounded-pill py-2 px-4 fw-bold text-white text-nowrap">
+                            <i class="bi bi-search me-1"></i> Buscar
+                        </button>
+                        <a href="trazabilidadLista.php" class="btn btn-outline-secondary shadow-sm rounded-pill py-2 px-4 fw-bold text-nowrap">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Reiniciar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Resultados o Mensaje inicial -->
+        <div>[var.codigoHTML;htmlconv=no]</div>
+    </div>
+</div>
+
+<div>[var.mi_footer_html;htmlconv=no]</div>

@@ -1,0 +1,107 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container my-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-primary text-white py-3 rounded-top-4">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-person-badge me-2"></i>[var.titulo_formulario]</h4>
+        </div>
+        <div class="card-body p-4">
+            <form action="medicoRegistro.php" method="POST">
+                
+                <!-- Campo Oculto ID -->
+                <input type="hidden" name="id_medico" value="[medico_e.id_medico]">
+
+                <div class="row g-3">
+                    
+                    <!-- Nacionalidad -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Nacionalidad</label>
+                        <select name="id_nacionalidad" class="form-select" [var.disabled]>
+                            <option value="">-- Seleccione --</option>
+                            <option value="[nac.id_nacionalidad;block=option]" [nac.id_nacionalidad;if [val]==[medico_e.id_nacionalidad];then 'selected';else '']>[nac.nombre_nacionalidad]</option>
+                        </select>
+                    </div>
+
+                    <!-- Cédula -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Cédula</label>
+                        <input type="text" name="cedula_medico" class="form-control" 
+                               value="[medico_e.cedula_medico]" [var.readonly]>
+                    </div>
+
+                    <!-- Sexo -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Sexo</label>
+                        <select name="id_sexo" class="form-select" [var.disabled]>
+                            <option value="">-- Seleccione --</option>
+                            <option value="[sex.id_sexo;block=option]" [sex.id_sexo;if [val]==[medico_e.id_sexo];then 'selected';else '']>[sex.sexo]</option>
+                        </select>
+                    </div>
+
+                    <!-- Especialidad -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Especialidad <span class="text-danger">*</span></label>
+                        <select name="id_especialidad" class="form-select" required [var.disabled]>
+                            <option value="">-- Seleccione --</option>
+                            <option value="[esp.id_especialidad;block=option]" [esp.id_especialidad;if [val]==[medico_e.id_especialidad];then 'selected';else '']>[esp.nombre_especialidad]</option>
+                        </select>
+                    </div>
+
+                    <!-- Nombres -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Nombre <span class="text-danger">*</span></label>
+                        <input type="text" name="nombre_medico" class="form-control" 
+                               value="[medico_e.nombre_medico]" required [var.readonly]>
+                    </div>
+
+                    <!-- Apellidos -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Apellido <span class="text-danger">*</span></label>
+                        <input type="text" name="apellido_medico" class="form-control" 
+                               value="[medico_e.apellido_medico]" required [var.readonly]>
+                    </div>
+
+                    <!-- Correo -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Correo Electrónico</label>
+                        <input type="email" name="correo_medico" class="form-control" 
+                               value="[medico_e.correo_medico]" [var.readonly]>
+                    </div>
+
+                    <!-- Teléfono Principal -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Teléfono Principal</label>
+                        <input type="text" name="telefono1_medico" class="form-control" 
+                               value="[medico_e.telefono1_medico]" [var.readonly]>
+                    </div>
+
+                    <!-- Teléfono Secundario -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Teléfono Secundario</label>
+                        <input type="text" name="telefono2_medico" class="form-control" 
+                               value="[medico_e.telefono2_medico]" [var.readonly]>
+                    </div>
+
+                    <!-- Estado Activo -->
+                    <div class="col-md-12 mt-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="in_activo" value="1" id="in_activo" [var.chk_activo] [var.disabled]>
+                            <label class="form-check-label fw-bold" for="in_activo">Médico Activo</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Botones Dinámicos -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    [var.botones_html;htmlconv=no]
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>[var.mi_footer_html;htmlconv=no]</div>
+
+

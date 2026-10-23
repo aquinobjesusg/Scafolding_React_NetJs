@@ -1,0 +1,251 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container my-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <!-- Encabezado con clase personalizada sin color directo de Bootstrap -->
+        <div class="card-header card-header-horario py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-calendar-week me-2"></i>[var.titulo_formulario]</h4>
+        </div>
+        <div id="mensaje"> </div>
+
+        <div class="card-body p-4">
+            <form action="nuevoHorariomedico.php" method="POST">
+                
+                <!-- ID Oculto -->
+                <input type="hidden" name="id_horarios_medicos" value="[horario_e.id_horarios_medicos]">
+
+                <!-- Encabezado de Selección de Especialidad y Estatus -->
+                <div class="row g-3 mb-4 p-3 bg-light rounded-3 border">
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">*Especialidad</label> 
+                        <select name="id_especialidad" id="id_especialidad" class="form-select shadow-sm" required>
+                            <option value="">Seleccionar</option>
+                            <option value="[especialidad.id_especialidad;block=option]">
+                                [especialidad.nombre_especialidad]
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">*Médico</label> 
+                        <select name="id_medico" id="id_medico" class="form-select shadow-sm" required>
+                            <option value="">Seleccionar</option>
+                            <!--[medico;block=option]
+                            <option value="[medico.id_medico]">[medico.nombre_medico]</option> -->
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-end">
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" name="in_activo" value="1" id="in_activo" [var.chk_activo] [var.disabled]>
+                            <label class="form-check-label fw-bold" for="in_activo">Horario Activo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABLA SIMULADOR DE CALENDARIO DE HORARIOS -->
+                <h5 class="fw-bold mb-3 text-secondary"><i class="bi bi-clock-history me-1"></i> Asignación de Turnos por Día</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle text-center shadow-sm">
+                        <thead class="tabla-horario-header">
+                            <tr>
+                                <th style="width: 130px;">Turno</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miércoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                                <th>Sábado</th>
+                                <th>Domingo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- TURNO 1 (MAÑANA) -->
+                            <tr>
+                                <td class="bg-light turno-manana-label">
+                                    <i class="bi bi-sun-fill me-1"></i> Turno 1<br><small class="text-muted">(Mañana)</small>
+                                </td>
+                                <td>
+                                    <select name="lun_t1" id="lun_t1" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                        <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="mar_t1" id="mar_t1" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                       <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="mie_t1" id="mie_t1" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                        <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="jue_t1" id="jue_t1" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                        <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="vie_t1" id="vie_t1" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                       <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="sab_t1" id="sab_t1" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                        <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="dom_t1" id="dom_t1" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                        <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!-- TURNO 2 (TARDE) -->
+                            <tr>
+                                <td class="bg-light turno-tarde-label">
+                                    <i class="bi bi-moon-stars-fill me-1"></i> Turno 2<br><small class="text-muted">(Tarde)</small>
+                                </td>
+                                <td>
+                                    <select name="lun_t2" id="lun_t2" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                       <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="mar_t2" id="mar_t2" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                        <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="mie_t2" id="mie_t2" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                       <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="jue_t2" id="jue_t2" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                        <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="vie_t2" id="vie_t2" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                       <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="sab_t2" id="sab_t2" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                       <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="dom_t2" id="dom_t2" class="form-select form-select-sm select-turnos" [var.disabled]>
+                                       <option value="">Sin Medico</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- BOTONES DE ACCIÓN -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    [var.botones_html;htmlconv=no]
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		
+		const selEspecialidad = document.getElementById('id_especialidad');
+		const selMedico = document.getElementById('id_medico');
+		const selmensaje = document.getElementById('mensaje');
+		const todosLosTurnos = document.querySelectorAll('.select-turnos');
+
+		// Cargar Médicos al cambiar Especialidad
+		selEspecialidad.addEventListener('change', function () {
+			const idEsp = this.value;
+
+			selmensaje.innerHTML = 'Cargando médicos...';
+
+			if (!idEsp) {
+				selMedico.innerHTML = '<option value="">Seleccionar</option>';
+				limpiarTurnos();
+				selmensaje.innerHTML = '';
+				return;
+			}
+
+			fetch('obtenerMedicoshorarios.php?id_especialidad=' + encodeURIComponent(idEsp))
+				.then(r => {
+					if (!r.ok) throw new Error('Error HTTP ' + r.status);
+					return r.text();
+				})
+				.then(html => {
+					selMedico.innerHTML = html;
+					limpiarTurnos();
+					selmensaje.innerHTML = '';
+				})
+				.catch(err => {
+					console.error(err);
+					selMedico.innerHTML = '<option value="">Error al cargar médicos</option>';
+					selmensaje.innerHTML = '';
+				});
+		});
+
+		// Cargar Opciones en todos los desplegables de Turnos al cambiar Médico
+		selMedico.addEventListener('change', function () {
+			const idEsp = selEspecialidad.value;
+			const idMedico = this.value;
+
+			if (!idMedico) {
+				limpiarTurnos();
+				selmensaje.innerHTML = '';
+				return;
+			}
+
+			selmensaje.innerHTML = 'Cargando opciones de horario...';
+
+			fetch('obtenerMedicos.php?id_especialidad=' + encodeURIComponent(idEsp) + '&id_medico=' + encodeURIComponent(idMedico))
+				.then(r => {
+					if (!r.ok) throw new Error('Error HTTP ' + r.status);
+					return r.text();
+				})
+				.then(html => {
+					// Asigna las opciones devueltas a cada uno de los 14 desplegables
+					todosLosTurnos.forEach(select => {
+						select.innerHTML = html;
+					});
+					selmensaje.innerHTML = '';
+				})
+				.catch(err => {
+					console.error(err);
+					todosLosTurnos.forEach(select => {
+						select.innerHTML = '<option value="">Error al cargar horario</option>';
+					});
+					selmensaje.innerHTML = '';
+				});
+		});
+
+		// Función auxiliar para restablecer todos los desplegables de turnos
+		function limpiarTurnos() {
+			todosLosTurnos.forEach(select => {
+				select.innerHTML = '<option value="">Sin Medico</option>';
+			});
+		}
+
+		// Disparar eventos si ya vienen valores preseleccionados (edición de registro)
+		if (selEspecialidad.value) {
+			selEspecialidad.dispatchEvent(new Event('change'));
+		}
+		if (selMedico.value) {
+			selMedico.dispatchEvent(new Event('change'));
+		}
+
+	});
+</script>
+
+[var.mi_footer_html;htmlconv=no]

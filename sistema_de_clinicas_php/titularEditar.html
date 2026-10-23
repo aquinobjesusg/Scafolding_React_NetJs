@@ -1,0 +1,131 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+    <nav class="navbar navbar-dark navbar-custom shadow-sm mb-4">
+        <div class="container">
+            <a href="titularLista.php" class="navbar-brand mb-0 h1 fw-bold">SGP | Edición</a>
+            <a href="titularLista.php" class="btn btn-outline-light btn-sm btn-rounded">Volver al Listado</a>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                
+                <div class="card shadow-sm border-0 btn-rounded">
+                    <div class="card-header bg-white border-0 pt-4 text-center">
+                        <h3 class="fw-bold text-dark">Modificar Información del Titular</h3>
+                        <p class="text-muted">Cambie los datos necesarios y presione Guardar Cambios.</p>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <form method="POST" action="titularEditar.php">
+                            <input type="hidden" name="id_titular" value="[titular.id_titular]">
+
+                            <h5 class="text-primary mb-3 border-bottom pb-2">Datos Básicos</h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Cédula del Titular</label>
+                                    <input type="text" name="cedula_titular" class="form-control shadow-sm" value="[titular.cedula_titular]" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nacionalidad</label>
+                                    <select name="id_nacionalidad" class="form-select shadow-sm" required>
+                                        <option value="[nacionalidad_opt.id_nacionalidad;block=option]" [onshow; if [nacionalidad_opt.id_nacionalidad]==[titular.id_nacionalidad]; then 'selected']>[nacionalidad_opt.nombre_nacionalidad]</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nombre(s)</label>
+                                    <input type="text" name="nombre_titular" class="form-control shadow-sm" value="[titular.nombre_titular]" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Apellido(s)</label>
+                                    <input type="text" name="apellido_titular" class="form-control shadow-sm" value="[titular.apellido_titular]" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Sexo</label>
+                                    <select name="id_sexo" class="form-select shadow-sm" required>
+                                        <option value="[sexo_opt.id_sexo;block=option]" [onshow; if [sexo_opt.id_sexo]==[titular.id_sexo]; then 'selected']>[sexo_opt.sexo]</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                                    <input type="date" name="fecha_nacimiento_titular" class="form-control shadow-sm" value="[titular.fecha_nacimiento_titular;frm='yyyy-mm-dd']" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Teléfono</label>
+                                    <input type="text" name="telefono_titular" class="form-control shadow-sm" value="[titular.telefono_titular]" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-4 text-center">
+                                <label class="form-label d-block fw-bold mb-2">Tipo de Adscripción o Institución</label>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="tipo_institucion" id="edit_tipo_e" value="E" autocomplete="off" [onshow; if [titular.id_ente]; then 'checked'; else '']>
+                                    <label class="btn btn-outline-primary px-4" for="edit_tipo_e">Ente Adscrito</label>
+
+                                    <input type="radio" class="btn-check" name="tipo_institucion" id="edit_tipo_u" value="U" autocomplete="off" [onshow; if [titular.id_universidad]; then 'checked'; else '']>
+                                    <label class="btn btn-outline-primary px-4" for="edit_tipo_u">Universidad</label>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6 mb-3 grupo-universidad" id="grupo_universidad" [onshow; if [titular.id_universidad]; then ''; else 'style="display: none;"']>
+                                    <label class="form-label fw-bold">Universidad</label>
+                                    <select name="id_universidad" id="edit_id_universidad" class="form-select shadow-sm">
+                                        <option value="">Seleccione una Universidad</option>
+                                        <option value="[universidad_opt.id_universidad;block=option]" [onshow; if [universidad_opt.id_universidad]==[titular.id_universidad]; then 'selected']>[universidad_opt.nombre_universidad]</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="grupo_entes_cascada" class="col-12 p-0 m-0 grupo-entes" [onshow; if [titular.id_ente]; then ''; else 'style="display: none;"']>
+                                <div class="row g-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Ente Adscrito</label>
+                                        <select name="id_ente" id="edicion_id_ente" class="form-select shadow-sm">
+                                            <option value="">Seleccione un Ente</option>
+                                            <option value="[ente_opt.id_ente;block=option]" [onshow; if [ente_opt.id_ente]==[titular.id_ente]; then 'selected']>[ente_opt.nombre_ente]</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Dirección General</label>
+                                        <select name="id_direccion_general" id="edicion_id_direccion_general" class="form-select shadow-sm">
+                                            <option value="">Seleccione una Dirección General</option>
+                                            <option value="[dg_opt.id_direccion_general;block=option]" [onshow; if [dg_opt.id_direccion_general]==[titular.id_direccion_general]; then 'selected']>[dg_opt.nombre_direccion_general]</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Dirección de Línea</label>
+                                        <select name="id_direccion_linea" id="edicion_id_direccion_linea" class="form-select shadow-sm">
+                                            <option value="">Seleccione una Dirección de Línea</option>
+                                            <option value="[dl_opt.id_direccion_linea;block=option]" [onshow; if [dl_opt.id_direccion_linea]==[titular.id_direccion_linea]; then 'selected']>[dl_opt.nombre_direccion_linea]</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Coordinación</label>
+                                        <select name="id_coordinacion" id="edicion_id_coordinacion" class="form-select shadow-sm">
+                                            <option value="">Seleccione una Coordinación</option>
+                                            <option value="[coor_opt.id_coordinacion;block=option]" [onshow; if [coor_opt.id_coordinacion]==[titular.id_coordinacion]; then 'selected']>[coor_opt.nombre_coordinacion]</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 pb-4">
+                                <a href="titularLista.php" class="btn btn-outline-secondary btn-rounded px-4">Cancelar</a>
+                                <button type="submit" name="actualizar_titular" class="btn btn-sgp btn-rounded px-5">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div>[var.mi_footer_html;htmlconv=no]</div>

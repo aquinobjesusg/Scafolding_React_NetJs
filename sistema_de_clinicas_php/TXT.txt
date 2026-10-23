@@ -1,0 +1,82 @@
+sudo apt update && sudo apt install -y 
+sudo apt install php8.3-common  -y
+sudo apt install php8.3-cli  -y
+sudo apt install php8.3-curl  -y
+sudo apt install php8.3-gd  -y
+sudo apt install php8.3-mbstring  -y
+sudo apt install php8.3-pgsql  -y
+sudo apt install php8.3-xml  -y
+sudo apt install php8.3-zip  -y
+sudo apt install php8.3-opcache  -y
+sudo apt install php8.3-readline  -y
+sudo apt install php8.3-sqlite3  -y
+sudo apt install php8.3-fileinfo  -y
+sudo apt install php8.3-gettext  -y
+sudo apt install php8.3-exif  -y
+sudo apt install php8.3-mysqli  -y
+sudo apt install php8.3-mysql  -y
+sudo apt install php8.3-pdo_mysql  -y
+sudo apt install php8.3-pdo_sqlite  -y
+sudo apt install php8.3-mysqlnd  -y
+sudo apt install php8.3-opcache  -y
+sudo apt install php8.3-pdo  -y
+sudo apt install php8.3-xml  -y
+sudo apt install php8.3-calendar  -y
+sudo apt install php8.3-ctype  -y
+sudo apt install php8.3-curl  -y
+sudo apt install php8.3-dom  -y
+sudo apt install php8.3-exif  -y
+sudo apt install php8.3-ffi  -y
+sudo apt install php8.3-fileinfo  -y
+sudo apt install php8.3-ftp  -y
+sudo apt install php8.3-gd  -y
+sudo apt install php8.3-gettext  -y
+sudo apt install php8.3-iconv  -y
+sudo apt install php8.3-intl  -y
+sudo apt install php8.3-mbstring  -y
+sudo apt install php8.3-mysqli  -y
+sudo apt install php8.3-pdo_mysql  -y
+sudo apt install php8.3-pdo_pgsql  -y
+sudo apt install php8.3-pdo_sqlite  -y
+sudo apt install php8.3-pgsql  -y
+sudo apt install php8.3-phar  -y
+sudo apt install php8.3-posix  -y
+sudo apt install php8.3-readline  -y
+sudo apt install php8.3-shmop  -y
+sudo apt install php8.3-simplexml v
+sudo apt install php8.3-sockets  -y
+sudo apt install php8.3-sqlite3  -y
+sudo apt install php8.3-sysvmsg  -y
+sudo apt install php8.3-sysvsem  -y
+sudo apt install php8.3-sysvshm  -y
+sudo apt install php8.3-tokenizer  -y
+sudo apt install php8.3-xmlreader  -y
+sudo apt install php8.3-xmlwriter  -y
+sudo apt install php8.3-xsl  -y
+sudo apt install php8.3-zip  -y
+
+
+
+postgresql.conf
+
+Archivos de configuración a modificarpostgresql.confAtributo: listen_addressesValor: Cambiar de localhost o 127.0.0.1 a '*' para escuchar en todas las interfaces de red disponibles.Acción: Descomentar la línea (quitar #) y dejar listen_addresses = '*'.pg_hba.confAtributo: Reglas de autenticación basada en hostValor: Agregar o modificar una línea de tipo host especificando qué redes pueden entrar.Acción: Añadir una regla como host all all 0.0.0.0/0 scram-sha-256 (para permitir cualquier IP IPv4) o restringir a una subred específica (por ejemplo, 192.168.1.0/24) por seguridad.
+
+
+
+
+https://www.google.com/recaptcha/admin
+
+
+
+Se ha registrado "SGP_LOCALHOST".
+Usa esta clave de sitio web en el código HTML que tu sitio web sirve a los usuarios.
+6LdGqLAtAAAAAFiJVyZGSbVd6n6iTMqP6GTsnUv4
+Usa esta clave secreta para la comunicación entre tu sitio web y el servicio reCAPTCHA.
+
+Si usas SiteVerify, te recomendamos que migres a CreateAssessment. Consulta las instrucciones para migrar llamadas de backend.
+6LdGqLAtAAAAABzScdTzCj1_dDhZSB7cKU0zwAKK
+
+
+GET
+http://localhost:8080/favicon.ico
+[HTTP/1.1 404 Not Found 0ms]

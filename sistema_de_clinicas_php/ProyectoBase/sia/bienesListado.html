@@ -1,0 +1,244 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Listado de Bienes</title>
+</head>
+
+<body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+
+    [var.cintillo;htmlconv=no]
+    [var.encabezado;htmlconv=no]
+
+    <div class="container">
+
+        <!--MODAL PARA MENSAJE DE EXITO-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+
+        <!--MODAL PARA MENSAJES DE ERROR-->
+
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--FIN DEL MODAL PARA MENSAJES DE ERROR-->
+
+
+        <!--MODAL PARA MENSAJE DE DETALLES DE UN BIEN-->
+
+        <div class="modal fade" id="detallesBienModal" tabindex="-1" aria-labelledby="detallesBienModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detallesBienModalLabel">Detalles del Bien</h5>
+                        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body" id="detallesBienBody">
+                        <p><strong>Código Antiguo:</strong> <span id="detalle_codigo_viejo"></span></p>
+                        <p><strong>Código Nuevo:</strong> <span id="detalle_codigo_nuevo"></span></p>
+                        <p><strong>Fecha de Incorporación:</strong> <span id="detalle_fecha_ingreso"></span></p>
+                        <p><strong>Equipo:</strong> <span id="detalle_equipo"></span></p>
+                        <p><strong>Marca:</strong> <span id="detalle_marca"></span></p>
+                        <p><strong>Modelo:</strong> <span id="detalle_modelo"></span></p>
+                        <p><strong>Serial:</strong> <span id="detalle_serial"></span></p>
+                        <p><strong>Color:</strong> <span id="detalle_color"></span></p>
+                        <p><strong>Estado:</strong> <span id="detalle_estado"></span></p>
+                        <p><strong>Especificaciones:</strong> <span id="detalle_especificacion"></span></p>
+                        <p><strong>Fecha de Adquisición:</strong> <span id="detalle_fecha_adquisicion"></span></p>
+                        <p><strong>Concepto:</strong> <span id="detalle_concepto"></span></p>
+                        <p><strong>Precio:</strong> <span id="detalle_precio"></span></p>
+                        <p><strong>Clasificación:</strong> <span id="detalle_clasificacion"></span></p>
+                        <p><strong>Ente:</strong> <span id="detalle_ente"></span></p>
+                        <p><strong>Dirección General:</strong> <span id="detalle_general"></span></p>
+                        <p><strong>Dirección de Línea:</strong> <span id="detalle_linea"></span></p>
+                        <p><strong>Coordinación:</strong> <span id="detalle_coordinacion"></span></p>
+                        <p><strong>Funcionario Asignado:</strong> <span id="detalle_funcionario"></span></p>
+                        <p><strong>Observacion:</strong> <span id="detalle_observacion"></span></p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN MODAL PARA MENSAJE DE DETALLES DE UN BIEN--> 
+        <div class="row mb-3">
+            <h2 class="titulo-pag" align="center">Listado de Bienes</h2>
+            <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+        </div>
+
+        <div class="container mt-5">
+            <form name="busqueda_bienes" id="formBusquedaBienes" action="bienesListado.php" method="post">
+               <div class="row align-items-end mb-3">
+                    <div class="col-md-2">
+                        <label for="buscar_codigo" class="form-label negrita">Código Bienes:</label>
+                        <input type="text" id="buscar_codigo" name="buscar_codigo" class="form-control" value="[sel.codigo]" autofocus>
+                    </div>
+                   <div class="col-md-2">
+                        <label for="select_ente" class="form-label negrita">Ente:</label>
+                        <select name="id_ente" id="select_ente" class="form-select selector-dependiente" 
+                                data-next="general" data-saved-value="[sel.ente]">
+                            <option value="0">Seleccionar</option>
+                            <option value="[ente.id_ente;block=option]">[ente.nom_ente]</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="select_general" class="form-label negrita">Dirección General:</label>
+                        <select name="id_direccion_general" id="select_general" class="form-select selector-dependiente" 
+                                data-next="linea" data-saved-value="[sel.dg]">
+                            <option value="0">Seleccionar</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="select_linea" class="form-label negrita">Dirección de Línea:</label>
+                        <select name="id_direccion_linea" id="select_linea" class="form-select selector-dependiente" 
+                                data-next="coordinacion" data-saved-value="[sel.dl]">
+                            <option value="0">Seleccionar</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="select_coordinacion" class="form-label negrita">Coordinación:</label>
+                        <select name="id_coordinacion" id="select_coordinacion" class="form-select selector-dependiente" 
+                                data-next="funcionario" data-saved-value="[sel.coor]">
+                            <option value="0">Seleccionar</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="select_funcionario" class="form-label negrita">Funcionario:</label>
+                        <select name="id_funcionario" id="select_funcionario" class="form-select" data-saved-value="[sel.func]">
+                            <option value="0">Seleccionar</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="fecha_desde" class="form-label negrita">Desde:</label>
+                        <input type="date" id="fecha_desde" value="[sel.desde]" name="fecha_desde" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="fecha_hasta" class="form-label negrita">Hasta:</label>
+                        <input type="date" id="fecha_hasta" value="[sel.hasta]" name="fecha_hasta" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn-acciones-buscar" name="Buscar" title="Buscar">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                            <a href="bienesListado.php" class="btn-acciones-buscar text-decoration-none" title="Recargar">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </a>
+                            <button type="submit" form="formExportarExcel" class="btn-acciones-buscar" name="excel" title="Exportar a Excel">
+                                <i class="fa-solid fa-file-excel"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form action="bienesExcel.php" method="post" id="formExportarExcel" style="display:none;">
+                <input type="hidden" id="export_buscar_codigo" name="buscar_codigo">
+                <input type="hidden" id="export_fecha_desde" name="fecha_desde">
+                <input type="hidden" id="export_fecha_hasta" name="fecha_hasta">
+                <input type="hidden" id="export_id_ente" name="id_ente">
+                <input type="hidden" id="export_id_dg" name="id_direccion_general">
+                <input type="hidden" id="export_id_dl" name="id_direccion_linea">
+                <input type="hidden" id="export_id_coor" name="id_coordinacion">
+                <input type="hidden" id="export_id_func" name="id_funcionario">
+            </form>
+
+            <form action="bienesExcel.php" method="post" id="formExportarExcel" style="display:none;">
+                <input type="hidden" id="export_buscar_codigo" name="buscar_codigo">
+                <input type="hidden" id="export_fecha_desde" name="fecha_desde">
+                <input type="hidden" id="export_fecha_hasta" name="fecha_hasta">
+            </form>
+            <div id="fechaError" class="form-text text-danger" style="display: none;">Debe completar ambos campos de fechas.</div>
+        </div>
+
+        <div class="table-responsive-sm mt-4">
+            <table class="tabla table table-hover">
+                <thead class="encabezadoTabla">
+                    <tr>
+                        <th colspan="7" class="text-start py-3">Total de bienes registrados: [bienesConteo.total]</th>
+                    </tr>
+                    <tr>
+                        <th>Código Nuevo</th>
+                        <th>Fecha Inc.</th>
+                        <th>Código Antiguo</th>
+                        <th>Equipo</th>
+                        <th>Estado</th>
+                        <th>Funcionario</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>[listadoBienes.codigo_bienes;block=tr]</td>
+                        <td>[listadoBienes.fecha_ingresob;frm='dd-mm-yyyy']</td>
+                        <td>[listadoBienes.codigo_viejo]</td>
+                        <td>[listadoBienes.equipob]</td>
+                        <td>[listadoBienes.nom_estado]</td>
+                        <td>[listadoBienes.funcionario_asignado]</td>
+                       <td class="text-center">
+                            <div class="d-flex gap-2 justify-content-start align-items-center" style="min-width: 100px; padding-left: 15px;">
+                                
+                                <button type="button" title="Detalles del Bien" class="btn-acciones-detalles btn-detalles-asignar"
+                                        data-bs-toggle="modal" data-bs-target="#detallesBienModal"
+                                        onclick="showBienDetails('[listadoBienes.id_bienes]')"> 
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+
+                                <form action="bienesEditar.php" method="post" class="m-0" 
+                                      [listadoBienes.id_estado;if [val]==1;then '';else ' ';magnet=form]
+                                      [perm.can_edit;if [val]==0;then '';else ' ';magnet=form]>
+                                    <button name="Editar" class="btn-acciones" type="submit" value="[listadoBienes.id_bienes]">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                                            </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    [var.pie;htmlconv=no]
+    <script src="js/funcionesValidar.js"></script>
+    <script src="js/bienesListado.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Editar Registro de Bienes</title>
+</head>
+<body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+    [var.cintillo;htmlconv=no]
+    [var.encabezado;htmlconv=no]
+
+    <div class="container">
+
+        <div class="row mb-3">
+            <h2 class="titulo-pag" align="center">Editar Registro de Bien</h2>
+            <p></p>
+            <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+        </div>
+        
+        <!--FORMULARIO PARA EDITAR UN BIEN-->
+        <div class="container">
+            <form name="formEditarConsumibles" id="formEditarConsumibles" action="consumiblesEditar.php" method="post">
+                <input type="hidden" name="id_consumibles_actualizar" value="[consumible.id_consumibles]">
+                
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="fecha_ingresoc" class="form-label negrita">Fecha:</label>
+                        <input type="date" name="fecha_ingresoc_edit" id="fecha_ingresoc_edit" class="form-control" title="Fecha" value="[consumible.fecha_ingresoc]" required>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="codigo_consumible" class="form-label negrita">Código de Consumible:</label>
+                        <input type="text" name="codigo_consumible_edit" id="codigo_consumible_edit" class="form-control" title="Código de Consumible" value="[consumible.codigo_consumible]" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="consumible" class="form-label negrita">Consumible:</label>
+                        <input type="text" name="consumible_edit" id="consumible_edit" class="form-control" title="Consumible" value="[consumible.consumible]" required>
+                    </div>
+                    
+                    <div class="col-md-4">  
+                        <label for="id_medida_edit" class="form-label negrita">Medida:</label>
+                        <select name="id_medida_edit" id="id_medida_edit" class="form-select" title="Medida" required>
+                            <option value="">Seleccionar</option>
+                            [medida_option;block=begin]
+                            <option value="[medida_option.id_medida]"[onshow; if [medida_option.id_medida]==[consumible.id_medida]; then ' selected']>
+                                [medida_option.nom_medida]
+                            </option>
+                            [medida_option;block=end]
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="cantidad_ingresadac" class="form-label negrita">Cantidad:</label>
+                        <input type="number" step="0.01" name="cantidad_ingresadac_edit" id="cantidad_ingresadac_edit" class="form-control" title="Cantidad" value="[consumible.cantidad_ingresadac]" required>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="observacionc" class="form-label negrita">Observación:</label>
+                        <input type="text" name="observacionc_edit" id="observacionc_edit" class="form-control" title="Observación" value="[consumible.observacionc]">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <a class="btn btn-outline-secondary" href="consumibles.php" role="button" title="Cancelar">Cancelar</a> 
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button type="submit" class="btn btn-outline-primary" name="GuardarCambios" title="Guardar Cambios">Guardar Cambios</button>
+                    </div>
+                </div>
+                <div><br></div>
+            </form>
+        </div> 
+
+        <!--MODALES PARA MENSAJES-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    <!-- FIN DEL CONTAINER PRINCIPAL-->
+    <!--PIE DE PAGINA-->
+    [var.pie;htmlconv=no]
+    <script src="js/funcionesValidar.js"></script>
+    <script src="js/bienesEditar.js"></script>
+</body>
+</html>

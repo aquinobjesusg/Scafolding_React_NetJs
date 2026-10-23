@@ -1,0 +1,91 @@
+                      <div>[var.mi_menu_html;htmlconv=no]</div>
+
+
+    <div class="container-fluid px-4 pb-5">
+        
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold text-dark mb-1">Listado de Citas Odontologia</h2>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0 btn-rounded">
+            <div class="card-body p-4"> 
+                
+                <div class="row align-items-end mb-4 p-3 buscar-contenedor g-3">
+    
+                <div class="col-md-3">
+                    <label class="form-label fw-bold small text-muted"><i class="bi bi-card-text me-1"></i>Buscar por Cédula</label>
+                    <input type="text" id="buscar_cedula" class="form-control input-buscar shadow-sm" placeholder="Ej: 12345678...">
+                </div>
+                
+                <div class="col-md-5">
+                    <label class="form-label fw-bold small text-muted"><i class="bi bi-search me-1"></i>Búsqueda General (Nombres, Universidades, Entes...)</label>
+                    <input type="text" id="buscar_general" class="form-control input-buscar shadow-sm" placeholder="Escriba un término para buscar...">
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center justify-content-md-end justify-content-center gap-2 mb-1">
+                        
+                        <span class="badge-contador shadow-sm fw-bold py-2 px-3 m-0 text-nowrap">
+                            <i class="bi bi-people-fill me-1"></i>Total: <span id="total_registros">0</span>
+                        </span>
+                        
+                        <a href="titularRegistro.html" class="btn btn-success shadow-sm btn-rounded py-2 px-3 fw-bold text-white text-nowrap">
+                            <i class="bi bi-person-plus-fill me-1"></i>Registrar Nuevo
+                        </a>
+                        
+                    </div>
+                </div>
+
+                <div class="table-responsive rounded-3 shadow-sm">
+                    <table class="table table-hover table-striped align-middle mb-0 bg-white" id="tabla_titulares">
+                        <thead class="table-sgp-azul text-center">
+                            <tr>
+                                <th style="width: 5%;">N°</th>
+                                <th>Cédula</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Teléfono</th>
+                                <th>Sexo</th>
+                                <th>Nacionalidad</th>
+                                <th>Universidad</th>
+                                <th>Ente</th>
+                                <th>Dirección General</th>
+                                <th style="width: 15%;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center">
+                                <td class="text-muted small">[titular.#;block=tr]</td>
+                                <td class="fw-bold">[titular.cedula_titular]</td>
+                                <td class="text-start">[titular.nombre_titular]</td>
+                                <td class="text-start">[titular.apellido_titular]</td>
+                                <td>[titular.telefono_titular]</td>
+                                <td>[titular.sexo]</td>
+                                <td>[titular.nombre_nacionalidad]</td>
+                                <td class="text-start">[titular.nombre_universidad;noerr]</td>
+                                <td class="text-start">[titular.nombre_ente]</td>
+                                <td class="text-start">[titular.nombre_direccion_general;noerr]</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <form action="titularEditar.php" method="post" class="m-0">
+                                            <button type="submit" name="id_titular_edit" value="[titular.id_titular;noerr]" class="btn btn-sm btn-outline-primary shadow-sm px-2 py-1" title="Editar">
+                                                Editar
+                                            </button>
+                                        </form>
+
+                                        <form action="titularEliminar.php" method="post" class="m-0" onsubmit="return confirm('¿Estás seguro de eliminar este titular?');">
+                                            <button type="submit" name="id_titular_eliminar" value="[titular.id_titular;noerr]" class="btn btn-sm btn-outline-danger shadow-sm px-2 py-1" title="Eliminar">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> </div> </div> </div>
+                
+                
+                                      <div>[var.mi_footer_html;htmlconv=no]</div>

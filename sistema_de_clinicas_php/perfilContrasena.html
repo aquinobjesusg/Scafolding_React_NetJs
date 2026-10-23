@@ -1,0 +1,49 @@
+  <div>[var.mi_menu_html;htmlconv=no]</div>
+
+
+    <div class="container pb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                
+
+
+                <div class="card shadow-sm border-0 btn-rounded">
+                    <div class="card-header bg-white border-0 pt-4 text-center">
+                        <h3 class="fw-bold text-dark">Cambiar Contraseña</h3>
+                        <p class="text-muted mb-3">Complete todos los campos para registrar a la carga familiar en el sistema.</p>
+                        
+
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <form method="POST" action="beneficiarioRegistrar.php">
+                            <input type="hidden" name="id_titular_hidden" value="[titular_b.id_titular]">
+
+                            <h5 class="text-primary mb-3 border-bottom pb-2">Contraseñas</h5>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Contraseña</label>
+                                    <input type="password" name="nombre_titular" class="form-control shadow-sm" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Verifique la Contraseña</label>
+                                    <input type="password" name="apellido_titular" class="form-control shadow-sm" required>
+                                </div>
+                            </div>
+                            <hr class="my-4">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <!-- <button type="reset" class="btn btn-outline-secondary btn-rounded px-4">Limpiar</button> -->
+                                <button type="submit" name="registrar" class="btn btn-sgp btn-rounded px-5">Guardar Contraseña</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+      <div>[var.mi_footer_html;htmlconv=no]</div>
+

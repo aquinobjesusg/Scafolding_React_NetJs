@@ -1,0 +1,10 @@
+
+
+sudo crontab -e
+*/5 * * * * /var/www/html/sgp/goLangExcel/carga_masiva.sh >> /var/www/html/sgp/goLangExcel/cargar_masiva.log 2>&1
+
+/var/www/html/sgp/goLangExcel/go run main.go >> /var/www/html/sgp/goLangExcel/cargar_masiva.log 2>&1
+
+
+go buil main.go
+./main

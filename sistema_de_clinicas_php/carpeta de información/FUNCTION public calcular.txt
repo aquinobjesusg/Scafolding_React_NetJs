@@ -1,0 +1,285 @@
+-- FUNCTION: public.ver_especialidad(integer)
+
+DROP FUNCTION IF EXISTS public.ver_especialidad(integer);
+
+CREATE OR REPLACE FUNCTION public.ver_especialidad(
+    p_id_usuario integer DEFAULT 0,
+    OUT v_texto varchar)
+RETURNS integer
+LANGUAGE sql
+STABLE
+PARALLEL RESTRICTED
+AS $$
+   SELECT SELECT especialidad.nombre_especialidad FROM especialidad WHERE especialidad.id_especialidad = p_id_usuario;
+$$;
+ALTER FUNCTION public.ver_especialidad(integer)
+    OWNER TO admin;
+
+
+SELECT 
+paciente.fecha_nacimiento_titular, 
+calcular_edad(paciente.id_titular), ver_nacionalidad( paciente.id_nacionalidad ),
+paciente.cedula_titular, paciente.nombre_titular, paciente.apellido_titular,
+ver_sexo( paciente.id_sexo ), ver_activo( paciente.in_activo ), ver_activo( paciente.in_cortesia ) AS cortesia
+
+FROM 
+paciente 
+
+
+
+
+-- FUNCTION: public.calcular_edad(integer)
+
+DROP FUNCTION IF EXISTS public.calcular_edad(integer);
+
+CREATE OR REPLACE FUNCTION public.calcular_edad(
+    p_id_usuario integer DEFAULT 0,
+    OUT v_edad integer)
+RETURNS integer
+LANGUAGE sql
+STABLE
+PARALLEL RESTRICTED
+AS $$
+    -- Calcula la edad en años a partir de la fecha de nacimiento.
+    -- Si no existe el usuario, devuelve NULL (mejor que 0).
+   SELECT COALESCE(
+    (SELECT EXTRACT(YEAR FROM age(CURRENT_DATE, fecha_nacimiento))::integer
+     FROM public.usuarios WHERE id_usuario = p_id_usuario),
+    0
+);
+$$;
+ALTER FUNCTION public.calcular_edad(integer)
+    OWNER TO postgres;
+    
+    
+    
+CREATE FUNCTION "calcular_edad"(
+	"p_id_usuario" INTEGER
+)
+RETURNS INTEGER
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT ''
+$$ 
+    -- Calcula la edad en años a partir de la fecha de nacimiento.
+    -- Si no existe el usuario, devuelve NULL (mejor que 0).
+   SELECT COALESCE(
+    (SELECT EXTRACT(YEAR FROM age(CURRENT_DATE, fecha_nacimiento))::integer
+     FROM public.usuarios WHERE id_usuario = p_id_usuario),
+    0
+);
+ $$    
+
+
+
+-- FUNCTION: public.calcular_todas_edades()
+
+-- DROP FUNCTION IF EXISTS public.calcular_todas_edades();
+
+CREATE OR REPLACE FUNCTION public.calcular_todas_edades(
+	)
+    RETURNS integer
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+	UPDATE public.usuarios SET edad = public.calcular_edad(id_usuario);
+	SELECT 1;
+$BODY$;
+
+ALTER FUNCTION public.calcular_todas_edades()
+    OWNER TO postgres;
+
+
+
+
+
+
+///////////////
+
+DROP FUNCTION IF EXISTS public.f_parentesco();
+
+CREATE OR REPLACE FUNCTION f_parentesco(p_codigo VARCHAR)
+RETURNS TEXT 
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_resultado TEXT; -- Variable para guardar el resultado
+BEGIN
+
+    -- 1. Evaluamos el parámetro usando un CASE y lo guardamos en la variable
+    v_resultado := CASE TRIM(UPPER(p_codigo))
+                        WHEN 'HIJO' THEN '5'
+                        WHEN 'HIJO(A)' THEN '5'
+                        WHEN 'MADRE' THEN '3'
+                        WHEN 'TITULAR' THEN '1'
+                        WHEN 'TITULAR ' THEN '1'
+                        WHEN '18' THEN '9'
+                        WHEN '19' THEN '9'
+                        WHEN '20' THEN '9'
+                        WHEN '26' THEN '9'
+                        WHEN '43' THEN '9'
+                        WHEN '46' THEN '9'
+                        WHEN '56' THEN '9'
+                        WHEN '60' THEN '9'
+                        WHEN '8' THEN '9'
+                        WHEN '9' THEN '9'
+                        WHEN 'ADRE' THEN '3'
+                        WHEN 'CONCUBINO' THEN '6'
+                        WHEN 'CONCUBINO(A)' THEN '6'
+                        WHEN 'CONSIGUE' THEN '2'
+                        WHEN 'CONTUGUE' THEN '2'
+                        WHEN 'conyuge' THEN '2'
+                        WHEN 'CONYUGE' THEN '2'
+                        WHEN 'CÓNYUGE' THEN '2'
+                        WHEN 'CONYUGE ' THEN '2'
+                        WHEN 'CÓNYUGE ' THEN '2'
+                        WHEN 'CONYUGE  ' THEN '2'
+                        WHEN 'CÓNYUGE  ' THEN '2'
+                        WHEN 'CONYUGUE' THEN '2'
+                        WHEN 'CONYUGUE ' THEN '2'
+                        WHEN 'EDAD' THEN '9'
+                        WHEN 'ESPOSA' THEN '2'
+                        WHEN 'ESPOSA ' THEN '2'
+                        WHEN 'ESPOSO' THEN '2'
+                        WHEN 'HIJA' THEN '5'
+                        WHEN 'HIJA ' THEN '5'
+                        WHEN 'HIJA CON DISCAPACIDAD' THEN '5'
+                        WHEN 'HIJA CON DISCAPACIDAD ' THEN '5'
+                        WHEN 'HIJA NECESIDADES ESPECIALES' THEN '5'
+                        WHEN 'HIJAS' THEN '5'
+                        WHEN 'HIJO' THEN '5'
+                        WHEN 'HIJO ' THEN '5'
+                        WHEN 'HIJO (A)' THEN '5'
+                        WHEN 'HIJO (A)  ' THEN '5'
+                        WHEN 'HIJO CON DISCAPACIDAD' THEN '5'
+                        WHEN 'HIJO CON DISCAPACIDAD ' THEN '5'
+                        WHEN 'HIJO NECESIDADES ESPECIALES' THEN '5'
+                        WHEN 'HIJO (TUTELA)' THEN '5'
+                        WHEN 'hiJO(A)' THEN '5'
+                        WHEN 'Hijo(a)' THEN '5'
+                        WHEN 'HIJO(a)' THEN '5'
+                        WHEN 'HIJO(A)' THEN '5'
+                        WHEN 'HIJO(A) ' THEN '5'
+                        WHEN 'HIJO(A)  ' THEN '5'
+                        WHEN 'Madre' THEN '3'
+                        WHEN 'MADRE' THEN '3'
+                        WHEN 'MADRE ' THEN '3'
+                        WHEN 'MADRE  ' THEN '3'
+                        WHEN 'NIETA' THEN '7'
+                        WHEN 'NIETO (A) (TUTELA DE LOPNA)' THEN '7'
+                        WHEN 'Padre' THEN '4'
+                        WHEN 'PADRE' THEN '4'
+                        WHEN 'PÁDRE' THEN '4'
+                        WHEN 'PADRE ' THEN '4'
+                        WHEN 'SOBRINO' THEN '8'
+                        WHEN 'TIRULAR' THEN '1'
+                        WHEN 'TITLAR ' THEN '1'
+                        WHEN 'tITULAR' THEN '1'
+                        WHEN 'Titular' THEN '1'
+                        WHEN 'TiTULAR' THEN '1'
+                        WHEN 'TITUlAR' THEN '1'
+                        WHEN 'TITULAR' THEN '1'
+                        WHEN 'TITuLAR ' THEN '1'
+                        WHEN 'TITULAR ' THEN '1'
+                        WHEN 'TITULAR  ' THEN '1'
+                        WHEN 'TITULAR   ' THEN '1'
+                        WHEN 'TITULLAR' THEN '1'
+                        WHEN 'TUTELA' THEN '5'
+                        WHEN 'TUTULAR' THEN '1'
+                        ELSE '9'
+                   END;
+
+    -- 2. Retornamos el resultado final en MAYÚSCULAS
+    RETURN UPPER(v_resultado);
+END;
+$$;
+
+ALTER FUNCTION public.f_parentesco(VARCHAR)
+    OWNER TO admin;
+
+
+
+///////
+
+
+
+// con discapacidad campo 1
+SELECT id_carga_masiva FROM carga_masiva ca WHERE ca.campo15 LIKE '%DISCA%' OR ca.campo16 LIKE '%DISCA%'
+
+
+
+
+
+
+-- View: public.v_condicion_especial
+
+-- DROP VIEW public.v_condicion_especial;
+
+CREATE OR REPLACE VIEW public.v_condicion_especial
+ AS
+ SELECT id_carga_masiva
+   FROM carga_masiva ca
+  WHERE ca.campo15 LIKE '%DISCA%' OR ca.campo16 LIKE '%DISCA%' OR ca.campo15 LIKE '%TRAST%' OR ca.campo15 LIKE '%MENTAL%'  OR ca.campo15 LIKE '%RETRA%'  OR ca.campo15 LIKE '%SIND%';
+  
+ALTER TABLE public.v_condicion_especial
+    OWNER TO admin;
+
+
+
+
+ SELECT ca.id_carga_masiva
+   FROM carga_masiva ca
+  WHERE 
+  ca.campo16 LIKE '%LOPNNA%' 
+  OR ca.campo16 LIKE '%TRIBU%' 
+  OR ca.campo16 LIKE '%CUST%'  
+  OR ca.campo16 LIKE '%DEPEN%'  
+  OR ca.campo16 LIKE '%VIVIE%'
+  OR ca.campo16 LIKE 'EXP%';
+
+
+-- View: public.v_condicion_legal
+
+-- DROP VIEW public.v_condicion_legal;
+
+CREATE OR REPLACE VIEW public.v_condicion_legal
+ AS
+  SELECT ca.id_carga_masiva
+   FROM carga_masiva ca
+  WHERE 
+  ca.campo16 LIKE '%LOPNNA%' 
+  OR ca.campo16 LIKE '%TRIBU%' 
+  OR ca.campo16 LIKE '%CUST%'  
+  OR ca.campo16 LIKE '%DEPEN%'  
+  OR ca.campo16 LIKE '%VIVIE%'
+  OR ca.campo16 LIKE 'EXP%';
+
+  
+ALTER TABLE public.v_condicion_legal
+    OWNER TO admin;
+
+
+
+
+
+
+
+
+
+
+SELECT campo15, COUNT(campo15) FROM carga_masiva GROUP by campo15;
+SELECT campo16, COUNT(campo16) FROM carga_masiva GROUP by campo16;
+
+SELECT cargo, COUNT(cargo) FROM carga_masiva WHERE cargo LIKE '%ACTIV%' GROUP by cargo;
+SELECT cargo, COUNT(cargo) FROM carga_masiva WHERE cargo LIKE '%PENSIO%' GROUP by cargo;
+SELECT cargo, COUNT(cargo) FROM carga_masiva WHERE cargo LIKE '%JUBIL%' GROUP by cargo;
+SELECT cargo, COUNT(cargo)  FROM carga_masiva WHERE cargo LIKE '%JUBIL%' OR cargo LIKE '%PENSIO%' GROUP by cargo;
+
+SELECT cargo, COUNT(cargo)  
+FROM carga_masiva 
+WHERE NOT ( cargo LIKE '%ACTIV%' OR cargo LIKE '%JUBIL%' OR cargo LIKE '%PENSIO%' )
+GROUP by cargo;
+

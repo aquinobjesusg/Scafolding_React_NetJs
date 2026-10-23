@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Historial de Bienes</title>
+</head>
+<body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+    [var.cintillo;htmlconv=no]
+    [var.encabezado;htmlconv=no]
+
+    <div class="container">
+
+        <!--MODAL PARA MENSAJE DE EXITO-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+        <!--MODAL PARA MENSAJES DE ERROR-->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN DEL MODAL PARA MENSAJES DE ERROR-->
+
+         <!--MODAL PARA MENSAJE DE DETALLES DE UN BIEN-->
+
+        <div class="modal fade" id="detallesBienModal" tabindex="-1" aria-labelledby="detallesBienModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detallesBienModalLabel">Detalles del Bien</h5>
+                        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body" id="detallesBienBody">
+                        <p><strong>Código Antiguo:</strong> <span id="detalle_codigo_viejo"></span></p>
+                        <p><strong>Código Nuevo:</strong> <span id="detalle_codigo_nuevo"></span></p>
+                        <p><strong>Fecha de Incorporación:</strong> <span id="detalle_fecha_ingreso"></span></p>
+                        <p><strong>Equipo:</strong> <span id="detalle_equipo"></span></p>
+                        <p><strong>Marca:</strong> <span id="detalle_marca"></span></p>
+                        <p><strong>Modelo:</strong> <span id="detalle_modelo"></span></p>
+                        <p><strong>Serial:</strong> <span id="detalle_serial"></span></p>
+                        <p><strong>Color:</strong> <span id="detalle_color"></span></p>
+                        <p><strong>Estado:</strong> <span id="detalle_estado"></span></p>
+                        <p><strong>Especificaciones:</strong> <span id="detalle_especificacion"></span></p>
+                        <p><strong>Fecha de Adquisición:</strong> <span id="detalle_fecha_adquisicion"></span></p>
+                        <p><strong>Concepto:</strong> <span id="detalle_concepto"></span></p>
+                        <p><strong>Precio:</strong> <span id="detalle_precio"></span></p>
+                        <p><strong>Clasificación:</strong> <span id="detalle_clasificacion"></span></p>
+                        <p><strong>Ente:</strong> <span id="detalle_ente"></span></p>
+                        <p><strong>Dirección General:</strong> <span id="detalle_general"></span></p>
+                        <p><strong>Dirección de Línea:</strong> <span id="detalle_linea"></span></p>
+                        <p><strong>Coordinación:</strong> <span id="detalle_coordinacion"></span></p>
+                        <p><strong>Funcionario Asignado:</strong> <span id="detalle_funcionario"></span></p>
+                        <p><strong>Observacion:</strong> <span id="detalle_observacion"></span></p>
+                         <p><strong>Movimiento realizado por:</strong> <span id="detalle_usuario"></span></p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN MODAL PARA MENSAJE DE DETALLES DE UN BIEN--> 
+        <div class="row mb-3">
+            <h2 class="titulo-pag" align="center">Historial de Bienes</h2>
+            <p></p>
+            <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+        </div>
+        <p></p>
+        
+        <!--FORMULARIO BUSCAR EL HISTORIAL DE UN BIEN-->
+        <form name="formBienesHistorial" id="formBienesHistorial" action="bienesHistorial.php" method="post" class="container mt-2">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="buscar_codigo" class="form-label">Código de Bien:</label>
+                        <input type="text" id="buscar_codigo" name="buscar_codigo" class="form-control" value="[busqueda.codigo]" autofocus required>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-outline-primary" name="Buscar" value="Buscar">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <p></p>
+        <!--FIN FORMULARIO BUSCAR EL HISTORIAL DE UN BIEN-->
+
+        <!--LISTADO DE TODOS LOS BIENES-->
+        <div class="row mb-3">       
+            <h2  class="titulo-pag" align="center">Listado del Historial del Bien Público</h2>
+        </div>
+
+        <div class="table-responsive-sm">
+            <table class="tabla table table-hover">
+                <thead class="encabezadoTabla">
+                    <br><p>Codigo del Bien: [var.codigo_buscado]</p>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tipo de Movimiento</th>
+                        <th>Funcionario</th>
+                        <th>Observación</th>
+                        <th>Acción</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>[historialBien.fecha;frm='dd-mm-yyyy']</td>
+                        <td>[historialBien.tipo_movimiento;block=tr]</td>
+                        <td>[historialBien.funcionario]</td>
+                        <td>[historialBien.observacion]</td>
+                        <td class="text-center">
+                            <div class="d-flex gap-2 justify-content-center">
+                          <button type="button" title="Detalles del Bien" class="btn-acciones-detalles btn-detalles-asignar me-2"
+        data-bs-toggle="modal" data-bs-target="#detallesBienModal"
+        onclick="showBienDetails('[historialBien.id_historial;noerr]')"> 
+    <i class="fa-solid fa-eye"></i>
+</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+        <!--FIN LISTADO DE TODOS LOS BIENES-->
+        
+    </div> 
+    <!-- FIN DEL CONTAINER PRINCIPAL-->
+    <script src="js/bienesDetalles.js"></script>
+    <!--PIE DE PAGINA-->
+    [var.pie;htmlconv=no]
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Crear Usuario</title>
+
+</head>
+    <body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+        [var.cintillo;htmlconv=no]
+        [var.encabezado;htmlconv=no]
+
+        <div class="container">
+
+            <!-- Modales de Mensaje (Éxito/Error) - Se asume que tienes modal.js -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            [msj.mensaje]
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            [msj.mensaje]
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="row mb-3">        
+                <h2 class="titulo-pag" align="center">Crear Usuario</h2>
+                    <p></p>        
+                <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+            </div>
+
+            <div class="container">
+                <form name="tbs" action="crearUsuario.php" method="post">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="nom_usuario" class="form-label negrita">Nombre</label>
+                            <input type="text" name="nom_usuario" id="nom_usuario" class="form-control" title="Nombre de Usuario" autofocus required >
+                        </div>
+                        <div class="col-md-4">
+                            <label for="ape_usuario" class="form-label negrita">Apellido</label>
+                            <input type="text" name="ape_usuario" id="ape_usuario" class="form-control" title="Apellido" required >
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="correo_usuario" class="form-label negrita">Correo</label>
+                            <input type="email" name="correo_usuario" id="correo_usuario" class="form-control" title="Correo de Usuario" required >
+                        </div>
+                        <div class="col-md-4">
+                               <label for="id_modulo_principal" class="form-label negrita">Módulo Principal:</label>
+                            <select name="id_modulo_principal" id="id_modulo_principal" class="form-control" required>
+                                <option value="">Seleccione un Módulo</option>
+                                <option value="[mod.id_modulo;block=option]">[mod.nom_modulo]</option>
+                           
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- SELECT DE ROL: SE LLENA DINÁMICAMENTE CON AJAX -->
+                            <label for="rol_usuario_select" class="form-label negrita">Rol de Usuario:</label>  
+                            <select name="rol_usuario" id="rol_usuario_select" class="form-control" required>
+                                <option value="">Seleccione un Módulo primero</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="clave_usuario" class="form-label negrita">Contraseña</label>
+                            <input type="password" name="clave_usuario" id="clave_usuario" class="form-control" title="Contraseña de Usuario" required minlength="8">
+                        </div>
+                         <div class="col-md-4">
+                            <label for="clave_usuario" class="form-label negrita">Confirmar Contraseña</label>
+                            <input type="password" id="confirmar_clave_usuario" class="form-control"  title="Confirmar la contraseña del usuario" name="confirmar_clave_usuario" required>
+                           </div>
+                     
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <input type="submit" class="btn btn-outline-primary" name="Registrar" value="Registrar">
+                        </div>
+                    </div>
+                    <p></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- SCRIPT DE JAVASCRIPT PARA EL SELECT DEPENDIENTE CON AJAX -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const moduloSelect = document.getElementById('id_modulo_principal');
+                const rolSelect = document.getElementById('rol_usuario_select');
+
+                // Función para mostrar mensajes de error/éxito (usando el modal existente)
+                function mostrarMensaje(mensaje, tipo) {
+                    const modalId = (tipo === 'success') ? '#successModal' : '#errorModal';
+                    const modalTitleId = (tipo === 'success') ? 'successModalLabel' : 'errorModalLabel';
+                    const modalHeaderClass = (tipo === 'success') ? 'bg-success' : 'bg-danger';
+
+                    const modalElement = document.querySelector(modalId);
+                    if (!modalElement) return;
+                    
+                    // Actualiza el contenido del modal
+                    modalElement.querySelector('.modal-header').className = 'modal-header text-white ' + modalHeaderClass;
+                    modalElement.querySelector('.modal-title').textContent = (tipo === 'success') ? 'Éxito' : 'Error';
+                    modalElement.querySelector('.modal-body').innerHTML = mensaje;
+                    
+                    // Muestra el modal (asumiendo que Bootstrap está cargado)
+                    const bootstrapModal = new bootstrap.Modal(modalElement);
+                    bootstrapModal.show();
+                }
+                
+                // EVENTO CHANGE EN EL SELECT DE MÓDULOS
+                moduloSelect.addEventListener('change', function() {
+                    const idModulo = this.value;
+
+                    // Limpiar y deshabilitar el select de Roles
+                    rolSelect.innerHTML = '<option value="">Cargando Roles...</option>';
+                    rolSelect.disabled = true;
+
+                    if (idModulo === "") {
+                        // Si no hay módulo seleccionado, resetear el select de roles
+                        rolSelect.innerHTML = '<option value="">Seleccione un Módulo primero</option>';
+                        rolSelect.disabled = false;
+                        return;
+                    }
+
+                    // Petición AJAX (Fetch API)
+                    fetch('crearUsuarioRolesPorModulo.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        // Enviamos el ID del módulo seleccionado al script PHP
+                        body: 'id_modulo=' + idModulo
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                             throw new Error('Error de red o del servidor: ' + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Verificar la estructura de la respuesta JSON
+                        if (data.success && data.roles) {
+                            // Limpiar select
+                            rolSelect.innerHTML = '<option value="">Seleccione un Rol</option>';
+
+                            if (data.roles.length > 0) {
+                                // Llenar el select con las nuevas opciones
+                                data.roles.forEach(rol => {
+                                    const option = document.createElement('option');
+                                    option.value = rol.id_rol; // Asume que la columna en la base de datos es id_rol
+                                    option.textContent = rol.nom_rol; // Asume que la columna es nom_rol
+                                    rolSelect.appendChild(option);
+                                });
+                            } else {
+                                rolSelect.innerHTML = '<option value="">No hay roles disponibles para este módulo</option>';
+                            }
+                            rolSelect.disabled = false;
+                        } else {
+                            // Mostrar error si la respuesta JSON indica un fallo
+                            rolSelect.innerHTML = '<option value="">Error al cargar roles</option>';
+                            mostrarMensaje(data.error || 'Respuesta de servidor inválida.', 'danger');
+                        }
+                    })
+                    .catch(error => {
+                        // Manejo de errores de la petición (ej. conexión)
+                        rolSelect.innerHTML = '<option value="">Error de conexión</option>';
+                        mostrarMensaje('Fallo en la comunicación con el servidor: ' + error.message, 'danger');
+                    })
+                    .finally(() => {
+                        rolSelect.disabled = false;
+                    });
+                });
+
+                // Lógica para mostrar modales al cargar la página (reutilizando tu código existente)
+                const pageMessage = document.getElementById('body').dataset.mensaje;
+                const pageType = document.getElementById('body').dataset.tipoMensaje;
+
+                if (pageMessage && pageType) {
+                    mostrarMensaje(pageMessage, pageType);
+                }
+            });
+        </script>
+        
+     
+        [var.pie;htmlconv=no]
+        
+    </body>
+</html>

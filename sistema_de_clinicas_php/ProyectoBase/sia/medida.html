@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+          [var.headJsCss;htmlconv=no]
+          <title>Registro de Medida</title>
+    </head>
+   <body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+            [var.cintillo;htmlconv=no]
+            [var.encabezado;htmlconv=no]
+
+        <div class="container">
+            <!--MODAL PARA MENSAJE DE EXITO-->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            [msj.mensaje]
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+            <!--MODAL PARA MENSAJES DE ERROR-->
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            [msj.mensaje]
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--FIN DEL MODAL PARA MENSAJES DE ERROR-->
+                     
+                    <div class="row mb-3">       
+                        <h2 class="titulo-pag" align="center">Registro de Medida</h2>
+                        <p></p>       
+                    <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+                    </div>
+
+              
+                <form name="tbs" action="medida.php" method="post" class="container mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="nom_medida" class="form-label">Nombre de Medida</label>
+                                    <input type="text" name="nom_medida" id="nom_medida" class="form-control" title="Medida" autofocus required="required">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <input type="submit" class="btn btn-outline-primary" name="Registrar" value="Registrar">
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                    <p></p>
+
+                    <div class="table-responsive-sm">
+                        <table class="tabla table table-hover">
+                            <thead class="encabezadoTabla">
+                                <div class="row mb-3">       
+                                    <h2  class="titulo-pag" align="center">Listado de Medidas</h2>
+                                </div>
+
+                                        <p>Total de medidas registradas: [conteoMedida.total]</p>
+                                        <tr>
+                                            <th>N°</th>
+                                            <th>Nombre</th>
+                                            <th>Accion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>[listadoMedida.#]</td>                           
+                                                <td>[listadoMedida.nom_medida;block=tr]</td>
+                                                <td>
+                                                <form name="tbs1" action="medidaEditar.php" method="post">
+                                                    <button name="Editar" title="Editar Medida" class="btn-acciones" type="submit" value="[listadoMedida.id_medida]">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                </form>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+
+                        </div>
+                    </div>
+                    [var.pie;htmlconv=no]
+    </body>
+</html>

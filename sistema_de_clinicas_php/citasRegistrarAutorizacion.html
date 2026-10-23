@@ -1,0 +1,532 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container pb-5">
+	<div class="row justify-content-center">
+		<div class="col-12">
+
+			<!-- ALERTA DE ÉXITO -->
+			<div class="alert alert-success alert-dismissible fade show shadow-sm mb-3" role="alert"
+				[onshow;block=div;when [var.mensaje_exito]!='' ]>
+				<i class="bi bi-check-circle-fill me-2"></i>[var.mensaje_exito]
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+
+			<!-- ALERTA DE ERROR -->
+			<div class="alert alert-danger alert-dismissible fade show shadow-sm mb-3" role="alert"
+				[onshow;block=div;when [var.error_msj]!='' ]>
+				<i class="bi bi-exclamation-triangle-fill me-2"></i>[var.error_msj]
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+
+			<div class="card shadow-sm border-0 btn-rounded">
+				<div class="card-body p-4">
+					<h4 class="fw-bold text-dark mb-4">[var.titulo_formulario]</h4>
+
+					</hr>
+
+					</hr>
+
+
+					<form method="POST" action="citasRegistrarAutorizacion.php">
+						<input type="hidden" name="id_usuario" value="[usuario_e.id_usuario;noerr]">
+
+
+
+
+						<!-- Select de Médicos: inicialmente vacío o con todos s
+<select name="id_medico" id="id_medico" class="form-select">
+    <option value="">*Médico</option>
+    [medico;block=option]
+    <option value="[medico.id_medico]">[medico.nombre_medico]</option>
+</select>
+-->
+
+
+						<div class="accordion accordion-flush" id="accordionFlushExample">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="flush-headingOne">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#flush-collapseOne" aria-expanded="false"
+										aria-controls="flush-collapseOne">
+										Paso 1: Cita
+									</button>
+								</h2>
+								<div id="flush-collapseOne" class="accordion-collapse collapse show"
+									aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+									<div class="accordion-body">
+										<!-- cita -->
+
+										<h5 class="fw-bold text-dark mb-3">Datos de la Cita</h5>
+										<div class="row g-3 mb-4">
+
+											<!-- 							[var.select_especialidad_html;htmlconv=no] -->
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Especialidad</label> <select
+													name="id_especialidad" id="id_especialidad"
+													class="form-select shadow-sm " required>
+													<option value="">Seleccionar</option>
+													<option value="[especialidad.id_especialidad;block=option]">
+														[especialidad.nombre_especialidad]</option>
+												</select>
+											</div>
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Médico</label> <select
+													name="id_medico" id="id_medico" class="form-select shadow-sm "
+													required>
+													<option value="">Seleccionar</option>
+													<!--[medico;block=option]
+     <option value="[medico.id_medico]">[medico.nombre_medico]</option> -->
+
+												</select>
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Fecha de la Cita</label> <input
+													type="date" name="fcita" id="fcita" class="form-control shadow-sm"
+													[var.readonly] autocomplete="off" required>
+											</div>
+
+
+										</div>
+
+										<div class="col-md-4">
+											<label class="form-label fw-bold">*Con Autorización</label> <select
+												name="id_autorizacion_usuario" id="id_autorizacion_usuario"
+												class="form-select shadow-sm " required>
+												<option value="">Seleccionar</option>
+												<option value="[id_autoriza.id_autoriza;block=option]">
+													[id_autoriza.nombre_autoriza]</option>
+											</select>
+										</div>
+
+
+										<!-- cita -->
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="flush-headingTwo">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#flush-collapseTwo" aria-expanded="false"
+										aria-controls="flush-collapseTwo">
+										Paso 2: Paciente
+									</button>
+								</h2>
+								<div id="flush-collapseTwo" class="accordion-collapse collapse show"
+									aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+									<div class="accordion-body">
+
+										<!-- paciente -->
+
+
+
+
+										<!-- SECCIÓN DEL PACIENTE -->
+										<h5 class="fw-bold text-dark mb-3">Datos del Paciente</h5>
+										<div class="row g-3 mb-3">
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Nacionalidad</label> <select
+													name="id_nacionalidad" id="id_nacionalidad"
+													class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[nacionalidad.id_nacionalidad;block=option]">
+														[nacionalidad.nombre_nacionalidad]</option>
+												</select>
+											</div>
+
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Cédula</label> <input type="number"
+													name="cedula_titular" value="[usuario_e.cedula_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Nombre(s)</label> <input type="text"
+													name="nombre_titular" value="[usuario_e.nombre_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Apellido(s)</label> <input
+													type="text" name="apellido_titular"
+													value="[usuario_e.apellido_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+										</div>
+
+										<div class="row g-3 mb-3">
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Sexo</label> <select name="id_sexo"
+													id="id_sexo" class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[sexo.id_sexo;block=option]">[sexo.nombre_sexo]
+													</option>
+												</select>
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Fecha de Nacimiento</label> <input
+													type="date" name="fecha_nacimiento_titular"
+													id="fecha_nacimiento_titular"
+													value="[usuario_e.fecha_nacimiento_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+
+											<div class="col-md-2">
+												<label class="form-label fw-bold">Edad</label> <input type="text"
+													name="edad_titular" id="edad_titular"
+													value="[usuario_e.edad_titular;noerr]"
+													class="form-control shadow-sm bg-light" readonly
+													placeholder="Automático">
+											</div>
+
+											<div class="col-md-2">
+												<label class="form-label fw-bold">Teléfono 1</label> <input type="text"
+													name="telefono_titular" value="[usuario_e.telefono_titular;noerr]"
+													class="form-control shadow-sm" placeholder="04xx-xxxxxxx">
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">Teléfono 2</label> <input type="text"
+													name="telefono2_titular" value="[usuario_e.telefono2_titular;noerr]"
+													class="form-control shadow-sm" placeholder="04xx-xxxxxxx">
+											</div>
+										</div>
+
+										<div class="row g-3 mb-4">
+											<div class="col-md-3">
+												<label class="form-label fw-bold">Correo Electrónico</label> <input
+													type="email" name="correo_titular"
+													value="[usuario_e.correo_titular;noerr]"
+													class="form-control shadow-sm" placeholder="ejemplo@correo.com">
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">Dirección Corta</label> <input
+													type="text" name="direccion_corta_casa_titular"
+													value="[usuario_e.direccion_corta_casa_titular;noerr]"
+													class="form-control shadow-sm" placeholder="Ej: Av. Urdaneta...">
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Estado de Visita</label> <select
+													name="id_estado_pais" id="id_estado_pais"
+													class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[estado.id_estado_pais;block=option]">
+														[estado.nombre_estado_pais]</option>
+												</select>
+											</div>
+
+
+											<input type="hidden" name="in_condicion_especial" id="in_condicion_especial"
+												value="0">
+											<input type="hidden" name="id_tipo_de_empleado" id="id_tipo_de_empleado"
+												value="3">
+
+
+											<div class="row g-3 mb-4">
+
+												<div class="col-md-3">
+													<label class="form-label fw-bold">*Parentesco</label> <select
+														name="id_parentesco" id="id_parentesco"
+														class="form-select shadow-sm" required>
+														<option value="">Seleccionar</option>
+														<option value="[parentesco3.id_parentesco;block=option]">
+															[parentesco3.nombre_parentesco]</option>
+													</select>
+												</div>
+
+
+											</div>
+
+
+
+
+										</div>
+
+										<!-- Nav tabs -->
+										<ul class="nav nav-tabs" id="myTab" role="tablist">
+											<li class="nav-item" role="presentation">
+												<button class="nav-link active" id="messages-tab" data-bs-toggle="tab"
+													data-bs-target="#messages" type="button" role="tab"
+													aria-controls="messages" aria-selected="false">
+												</button>
+											</li>
+										</ul>
+
+										<!-- Tab panes -->
+										<div class="tab-content">
+
+											<!-- FORMULARIO BENEFICIARIO  -->
+										</div>
+										<div class="tab-pane" id="messages" role="tabpanel"
+											aria-labelledby="messages-tab">
+											<!-- FORMULARIO cortesia  -->
+
+
+											<div class="row g-3 mb-4">
+
+
+												<h5 class="fw-bold text-dark mb-3">Datos del Titular</h5>
+
+												<div class="col-md-2">
+													<label class="form-label fw-bold">*Nacionalidad</label> <select
+														name="id_nacionalidad" id="id_nacionalidad"
+														class="form-select shadow-sm" required>
+														<option value="">Seleccionar</option>
+														<option value="[nacionalidad4.id_nacionalidad;block=option]">
+															[nacionalidad4.nombre_nacionalidad]</option>
+													</select>
+												</div>
+
+												<div class="col-md-2">
+													<label class="form-label fw-bold">*Cédula</label> <input
+														type="number" name="cedula_titular"
+														value="[usuario_e.cedula_titular;noerr]"
+														class="form-control shadow-sm" required>
+												</div>
+
+												<div class="col-md-4">
+													<label class="form-label fw-bold">*Nombre(s)</label> <input
+														type="text" name="nombre_titular"
+														value="[usuario_e.nombre_titular;noerr]"
+														class="form-control shadow-sm" required>
+												</div>
+
+												<div class="col-md-4">
+													<label class="form-label fw-bold">*Apellido(s)</label> <input
+														type="text" name="apellido_titular"
+														value="[usuario_e.apellido_titular;noerr]"
+														class="form-control shadow-sm" required>
+												</div>
+											</div>
+
+											<div class="row g-3 mb-3">
+												<div class="col-md-2">
+													<label class="form-label fw-bold">*Sexo</label> <select
+														name="id_sexo" id="id_sexo" class="form-select shadow-sm"
+														required>
+														<option value="">Seleccionar</option>
+														<option value="[sexo4.id_sexo;block=option]">[sexo4.nombre_sexo]
+														</option>
+													</select>
+												</div>
+
+												<div class="col-md-3">
+													<label class="form-label fw-bold">*Fecha de Nacimiento</label>
+													<input type="date" name="fecha_nacimiento_titular"
+														id="fecha_nacimiento_titular"
+														value="[usuario_e.fecha_nacimiento_titular;noerr]"
+														class="form-control shadow-sm" required>
+												</div>
+
+												<div class="col-md-2">
+													<label class="form-label fw-bold">Edad</label> <input type="text"
+														name="edad_titular" id="edad_titular"
+														value="[usuario_e.edad_titular;noerr]"
+														class="form-control shadow-sm bg-light" readonly
+														placeholder="Automático">
+												</div>
+
+												<div class="col-md-2">
+													<label class="form-label fw-bold">Teléfono 1</label> <input
+														type="text" name="telefono_titular"
+														value="[usuario_e.telefono_titular;noerr]"
+														class="form-control shadow-sm" placeholder="04xx-xxxxxxx">
+												</div>
+
+												<div class="col-md-3">
+													<label class="form-label fw-bold">Teléfono 2</label> <input
+														type="text" name="telefono2_titular"
+														value="[usuario_e.telefono2_titular;noerr]"
+														class="form-control shadow-sm" placeholder="04xx-xxxxxxx">
+												</div>
+											</div>
+
+											<div class="row g-3 mb-4">
+												<div class="col-md-3">
+													<label class="form-label fw-bold">Correo Electrónico</label> <input
+														type="email" name="correo_titular"
+														value="[usuario_e.correo_titular;noerr]"
+														class="form-control shadow-sm" placeholder="ejemplo@correo.com">
+												</div>
+
+												<div class="col-md-3">
+													<label class="form-label fw-bold">Dirección Corta</label> <input
+														type="text" name="direccion_corta_casa_titular"
+														value="[usuario_e.direccion_corta_casa_titular;noerr]"
+														class="form-control shadow-sm"
+														placeholder="Ej: Av. Urdaneta...">
+												</div>
+
+
+
+											</div>
+
+
+
+
+
+
+
+											<!-- FORMULARIO cortesia  -->
+										</div>
+
+									</div>
+
+									</BR>
+
+
+									<!-- paciente -->
+
+
+								</div>
+							</div>
+
+
+							<!--       <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-heading3">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="false" aria-controls="flush-collapse3">
+        Paso 6: Guargar
+      </button>
+    </h2>
+    <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+							[var.botones_html;htmlconv=no]</div> 
+							     </div>
+    </div>
+     -->
+
+						</div>
+				</div>
+
+
+
+
+				<!-- SECCIÓN DE LA CITA -->
+
+
+
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+					[var.botones_html;htmlconv=no]</div>
+			</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+<!-- Cargar jQuery PRIMERO, luego tu funciones.js -->
+<script src="js/jquery.min.js"></script>
+<script src="js/funciones.js"></script>
+
+<!-- Cargar jQuery PRIMERO, luego tu funciones.js -->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="js/funciones.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js">
+</script>
+
+<script>
+	function cambioEspecialidad() {
+		let texto = $("#id_especialidad option:selected").text();
+		let valor = $("#id_especialidad option:selected").val();
+		//	alert( texto );
+		//	alert( valor );
+		//	verMedicos( valor );
+	}
+	function verMedicos(valor, texto) {
+		//alert('cambio de medicos' + valor + " " + texto );
+	}
+</script>
+
+
+<script>
+	// In your Javascript (external .js resource or <script> tag)
+	$(document).ready(function () {
+		$('.js-example-basic-single').select2();
+	});
+
+	$("#id_especialidad").on("change", function () {
+		var valorNuevo = document.getElementById('id_especialidad').value
+		//alert("Cambió a:", valorNuevo);
+	});
+
+	$("#fcita").on("change", function () {
+		var valorNuevo = document.getElementById('fcita').value
+		//alert("Cambió a:", valorNuevo);
+	});
+
+
+</script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		
+		const selEspecialidad = document.getElementById('id_especialidad');
+		const selMedico = document.getElementById('id_medico');
+
+		selEspecialidad.addEventListener('change', function () {
+			const idEsp = this.value;
+
+			// Limpia y muestra carga
+			selMedico.innerHTML = '<option value="">Cargando...</option>';
+
+			if (!idEsp) {
+				selMedico.innerHTML = '<option value="">Seleccionar</option>';
+				return;
+			}
+
+			fetch('obtenerMedicos.php?id_especialidad=' + encodeURIComponent(idEsp))
+				.then(r => {
+					if (!r.ok) throw new Error('Error HTTP ' + r.status);
+					return r.text();
+				})
+				.then(html => {
+					selMedico.innerHTML = html;
+				})
+				.catch(err => {
+					console.error(err);
+					selMedico.innerHTML = '<option value="">Error al cargar médicos</option>';
+				});
+		});
+
+		// Si vienes con una especialidad ya seleccionada (por edición), dispara el change
+		if (selEspecialidad.value) {
+			selEspecialidad.dispatchEvent(new Event('change'));
+		}
+	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+		const fecha_nacimiento_titular = document.getElementById('fecha_nacimiento_titular');
+		fecha_nacimiento_titular.addEventListener('change', function () {
+			const fecha = this.value;
+			//alert(fecha);
+			//alert(calcularEdad(fecha));
+			// Cambia el texto dentro de un campo de entrada
+			document.getElementById("edad_titular").value = calcularEdad(fecha);
+
+		});
+	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+		const fecha_nacimiento_titular = document.getElementById('fecha_nacimiento_titular1');
+		fecha_nacimiento_titular1.addEventListener('change', function () {
+			const fecha = this.value;
+			//alert(fecha);
+			//alert(calcularEdad(fecha));
+			// Cambia el texto dentro de un campo de entrada
+			document.getElementById("edad_titular1").value = calcularEdad(fecha);
+
+		});
+	});
+
+</script>
+
+
+<div>[var.mi_footer_html;htmlconv=no]</div>

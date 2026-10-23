@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Editar Ingreso</title>
+
+</head>
+    <body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+        [var.cintillo;htmlconv=no]
+        [var.encabezado;htmlconv=no]
+
+        <div class="container">
+               
+             <!--MODALES PARA MENSAJES-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+            <div class="row mb-3">       
+                <h2 class="titulo-pag" align="center">Editar Registro Ingresado</h2>
+            </div>
+
+
+
+            <div class="container">
+                <form name="tbs01" action="recursoEditar.php" method="post">
+                          <input type="hidden" name="id_recurso_actualizar" value="[recurso.id_ingreso]">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="orden_ingreso" class="form-label negrita">Orden de Ingreso:</label>
+                            <input type="text" name="orden_ingreso" id="orden_ingreso" value="[recurso.orden_ingreso]" class="form-control" title="Orden de Ingreso" autofocus required="required">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="fecha_ingreso" class="form-label negrita">Fecha:</label>
+                            <input type="date" name="fecha_ingreso" id="fecha_ingreso" value="[recurso.fecha_ingreso]" class="form-control" title="Fecha" autofocus required="required">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                   
+                        <div class="col-md-4">  
+                            <label for="id_proveedor" class="form-label negrita">Proveedor:</label>
+                            <select name="id_proveedor" id="id_proveedor" class="form-select" title="Proveedor" required>
+                                <option value="">Seleccionar</option>
+                                [proveedor;block=begin]
+                                <option value="[proveedor.id_proveedor]"[onshow; if [proveedor.id_proveedor]==[recurso.id_proveedor]; then ' selected']>
+                                    [proveedor.nom_proveedor]
+                                </option>
+                                [proveedor;block=end]
+                            </select>
+                        </div>
+
+                         <div class="col-md-4">  
+                            <label for="id_almacen" class="form-label negrita">Almacén:</label>
+                            <select name="id_almacen" id="id_almacen" class="form-select" title="Almacén" required>
+                                <option value="">Seleccionar</option>
+                                [almacen;block=begin]
+                                <option value="[almacen.id_almacen]"[onshow; if [almacen.id_almacen]==[recurso.id_almacen]; then ' selected']>
+                                    [almacen.nom_almacen]
+                                </option>
+                                [almacen;block=end]
+                            </select>
+                        </div>
+
+                    </div>
+
+                     <div class="row mb-3">
+                         <div class="col-md-4">  
+                            <label for="id_articulo" class="form-label negrita">Artículo:</label>
+                            <select name="id_articulo" id="id_articulo" class="form-select" title="Artículo" required>
+                                <option value="">Seleccionar</option>
+                                [articulo;block=begin]
+                                <option value="[articulo.id_articulo]"[onshow; if [articulo.id_articulo]==[recurso.id_articulo]; then ' selected']>
+                                    [articulo.nom_articulo]
+                                </option>
+                                [articulo;block=end]
+                            </select>
+                        </div>
+
+
+                      <div class="col-md-3">
+                        <label for="cantidad_ingreso" class="form-label negrita">Cantidad:</label>
+                        <input type="number" name="cantidad_ingreso" id="cantidad_ingreso" class="form-control" title="Cantidad a Ingresar" autofocus placeholder="Ingrese un numero" required="required" value="[recurso.cantidad_ingreso]" min="1">
+                      </div>
+
+                    </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="observacion_i" class="form-label negrita">Observación:</label>
+                                <input type="text" name="observacion_i" id="observacion_i" value="[recurso.observacion_i]" class="form-control" title="Observacion" autofocus>
+                            </div>
+                        </div>
+
+                    <div class="row">
+                        <p></p>
+                        <div class="col-md-6 text-center">
+                            <a class="btn btn-outline-secondary" href="recursoIngreso.php" role="button" title="Cancelar">Cancelar</a> 
+                        </div>
+                        <div class="col-md-1 text-right">
+                            <button name="Actualizar" class="btn btn-outline-primary" type="submit" value="[recurso.id_ingreso]">Actualizar</button> 
+                        </div>
+                        <p></p>
+                    </div>
+                </form>
+            </div>                
+        </div>
+    </body>
+</html>

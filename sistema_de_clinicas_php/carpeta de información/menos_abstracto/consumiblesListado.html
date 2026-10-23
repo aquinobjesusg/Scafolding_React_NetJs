@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Registro de Consumibles</title>
+</head>
+<body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+    [var.cintillo;htmlconv=no]
+    [var.encabezado;htmlconv=no]
+
+    <div class="container">
+   
+
+        <!--MODAL PARA MENSAJE DE EXITO-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+        <!--MODAL PARA MENSAJES DE ERROR-->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN DEL MODAL PARA MENSAJES DE ERROR-->
+
+         <div class="modal fade" id="modalAnular" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">Confirmar Anulación</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="consumiblesEliminar.php" method="post">
+                        <div class="modal-body">
+                            <p class="text-danger"><strong>¿Está seguro de que desea anular este consumible?</strong></p>
+                            <p>Esta acción revertirá el stock disponible del inventario.</p>
+                            
+                            <input type="hidden" name="Eliminar" id="id_anular_input">
+                            
+                            <div class="mb-3">
+                                <label for="motivo" class="form-label negrita">Motivo de la anulación:</label>
+                                <textarea class="form-control" name="motivo" id="motivo" rows="3" required placeholder="Indique el motivo de la anulación..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Confirmar Anulación</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <h2 class="titulo-pag" align="center">Listado de Consumibles Ingresados</h2>
+               <div class="text-end pe-4">
+                    <span style="font-family: sans-serif; font-size: 16px; color: #555;">
+                        <i class="fas fa-user-circle"></i> Usuario: <strong>[var.nombre]</strong>
+                    </span>
+                </div>
+        </div>
+        
+
+            <!--FORMULARIO PARA HACER LA BUSQUEDA POR CODIGO, MES Y AÑO-->
+            <div class="container mt-5">
+                <form name="busqueda_consumibles" id="formBusquedaConsumibles" action="consumiblesListado.php" method="post"> 
+                    <div class="row align-items-end"> 
+                        
+                        <div class="col-md-3">
+                            <label for="codigo_consumible" class="form-label negrita">Código de Consumible:</label>
+                            <input type="text" id="codigo_consumible" name="codigo_consumible" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="fecha_desde" class="form-label negrita">Desde:</label>
+                            <input type="date" id="fecha_desde" name="fecha_desde" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="fecha_hasta" class="form-label negrita">Hasta:</label>
+                            <input type="date" id="fecha_hasta" name="fecha_hasta" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn-acciones-buscar" name="Buscar" title="Buscar">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+
+                                <a href="consumiblesListado.php" class="btn-acciones-buscar text-decoration-none" title="Recargar">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div> 
+                </form> 
+            </div>
+            <!--FIN DEL FORMULARIO DE BUSQUEDA-->
+
+            <!--LISTADO DE TODOS LOS BIENES-->
+            <div class="table-responsive-sm">
+                <table class="tabla table table-hover">
+                    <thead class="encabezadoTabla">
+                        <br><p>Total de consumibles registrados: [consumiblesConteo.total]</p>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Fecha</th>
+                            <th>Consumible</th>
+                            <th>Cantidad</th>
+                            <th>Color</th>
+                            <th>Tipo</th>
+                            <th>Marca</th>
+                            <th>Modelo de Impresora</th>
+                            <th>Medida</th>
+                            <th>Observaciones</th>
+                            <th>Acciones</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[listadoConsumibles.codigo_consumible;block=tr]</td>
+                            <td>[listadoConsumibles.fecha_ingresoc;frm='dd-mm-yyyy']</td>
+                            <td>[listadoConsumibles.consumible]</td>
+                            <td>[listadoConsumibles.cantidad_ingresadac]</td>
+                            <td>[listadoConsumibles.color]</td>
+                            <td>[listadoConsumibles.tipo_consumible]</td>
+                            <td>[listadoConsumibles.marca]</td>
+                            <td>[listadoConsumibles.modelo_impresora]</td>
+                            <td>[listadoConsumibles.nom_medida]</td>
+                            <td>[listadoConsumibles.observacionc]</td>
+                         
+                            <td class="d-flex gap-2 align-items-center">
+                                <form name="tbs1" action="consumiblesEditar.php" method="post" class="m-0">
+                                    <button name="Editar" title="Editar Consumible" class="btn-acciones" type="submit" value="[listadoConsumibles.id_consumibles]">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </form>
+
+                                <form name="consumiblesEliminar" action="consumiblesEliminar.php" method="post" class="m-0">
+                                    <button type="button" 
+                                            class="btn-acciones-eliminar" 
+                                            title="Anular Consumible" 
+                                            onclick="abrirModalAnulacion('[listadoConsumibles.id_consumibles]')">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+        </div> 
+        <p></p>
+
+    [var.pie;htmlconv=no] 
+     <script src="js/consumiblesSalida.js"></script>
+</body>
+</html>

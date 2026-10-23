@@ -1,0 +1,34 @@
+###########################
+# RAMA: MAIN
+# DE APLICACIONES
+# Produccion: 
+###########################
+*Servidor PHP Apache
+p: 172.17.10.44
+* Instalado
+ssh root@172.17.10.44
+S1s-bienes
+
+Apache PHP, PHP8.3, TOMCAT9(8181), MARIADB
+* Sistemas instalados en Apache
+SIGA, SISTEMA, SOSI
+
+* Sistemas instalados en TOMCAT9 & MARIADB
+Impresoras, Solicitudes, Inventario, Estadisticas
+
+#######
+# DE BASE DE DATOS
+# Produccion: 
+#######
+ip: 172.17.10.23
+* Instalado
+Postgres16
+
+
+#######
+# Impresora 
+#######
+ip: 172.17.11.162
+* Impresora
+
+

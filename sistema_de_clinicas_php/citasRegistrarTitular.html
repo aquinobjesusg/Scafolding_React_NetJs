@@ -1,0 +1,1159 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container pb-5">
+	<div class="row justify-content-center">
+		<div class="col-12">
+
+
+			<!-- ALERTA DE ÉXITO -->
+			<div class="alert alert-success alert-dismissible fade show shadow-sm mb-3" role="alert"
+				[onshow;block=div;when [var.mensaje_exito]!='' ]>
+				<i class="bi bi-check-circle-fill me-2"></i>[var.mensaje_exito]
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+
+			<!-- ALERTA DE ERROR -->
+			<div class="alert alert-danger alert-dismissible fade show shadow-sm mb-3" role="alert"
+				[onshow;block=div;when [var.error_msj]!='' ]>
+				<i class="bi bi-exclamation-triangle-fill me-2"></i>[var.error_msj]
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+
+			<div class="card shadow-sm border-0 btn-rounded">
+				<div class="card-body p-4">
+					<h4 class="fw-bold text-dark mb-4">[var.titulo_formulario]</h4>
+
+					</hr>
+
+					</hr>
+
+
+					<form method="POST" action="citasRegistrarTitular.php">
+						<input type="hidden" name="id_usuario" value="[usuario_e.id_usuario;noerr]">
+
+
+						<!-- Select de Médicos: inicialmente vacío o con todos s
+<select name="id_medico" id="id_medico" class="form-select">
+    <option value="">*Médico</option>
+    [medico;block=option]
+    <option value="[medico.id_medico]">[medico.nombre_medico]</option>
+</select>
+-->
+
+
+						<div class="accordion accordion-flush" id="accordionFlushExample">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="flush-headingOne">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#flush-collapseOne" aria-expanded="false"
+										aria-controls="flush-collapseOne">
+										Paso 1: Cita
+									</button>
+								</h2>
+								<div id="flush-collapseOne" class="accordion-collapse collapse show"
+									aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+									<div class="accordion-body">
+										<!-- cita -->
+
+										<h5 class="fw-bold text-dark mb-3">Datos de la Cita</h5>
+										<div id="cargando1" style="display: none; color: blue; font-weight: bold;">
+											<center>
+												<img src="cargando.gif" width="50px" />
+											</center>
+										</div>
+
+										<div class="row g-3 mb-4">
+
+											<!-- 						js-example-basic-single	[var.select_especialidad_html;htmlconv=no] -->
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Especialidad</label> <select
+													name="id_especialidad" id="id_especialidad"
+													class="form-select shadow-sm " required>
+													<option value="">Seleccionar</option>
+													<option value="[especialidad.id_especialidad;block=option]">
+														[especialidad.nombre_especialidad]</option>
+												</select>
+											</div>
+
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Médico</label> <select
+													name="id_medico" id="id_medico" class="form-select shadow-sm "
+													required>
+													<option value="">Seleccionar</option>
+													<!--[medico;block=option]
+     <option value="[medico.id_medico]">[medico.nombre_medico]</option> -->
+
+												</select>
+											</div>
+
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Fecha de la Cita</label> <input
+													type="date" name="fcita" id="fcita" class="form-control shadow-sm"
+													[var.readonly] autocomplete="off" required>
+											</div>
+										</div>
+
+
+										<!-- cita -->
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="flush-headingTwo">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#flush-collapseTwo" aria-expanded="false"
+										aria-controls="flush-collapseTwo">
+										Paso 2: Paciente
+									</button>
+								</h2>
+
+								<div id="flush-collapseTwo" class="accordion-collapse collapse show"
+									aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+									<div class="accordion-body">
+
+										<!-- paciente -->
+
+
+
+
+										<!-- SECCIÓN DEL PACIENTE -->
+										<h5 class="fw-bold text-dark mb-4">Datos del Paciente 
+										</h5>
+										<div id="cargando" style="display: none; color: blue; font-weight: bold;">
+											<center>
+												<img src="cargando.gif" width="50px" />
+											</center>
+										</div>
+
+										<!-- ALERTA DE ERROR -->
+										<div class="alert alert-danger alert-dismissible fade show shadow-sm mb-3" role="alert" id="error1">
+											<i class="bi bi-exclamation-triangle-fill me-2"></i>  <div id="errorText"></div>
+											<!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+										</div>
+
+
+										<div class="row g-3 mb-3">
+											<div class="col-md-2">
+												<label class="form-label fw-bold">Tipo de Paciente</label> <select
+													name="id_tipo_p" id="id_tipo_p"
+													class="form-select shadow-sm" required>
+													<option value="1">Con Cédula</option>
+													<option value="2">Sin Cédula - (Títular)</option>
+												</select>
+											</div>
+											<div class="col-md-2">
+												<label class="form-label fw-bold"><div id="textoced">BUSCAR Cédula </div><div id="encondicion1">
+													</div></label> <input type="number"
+													name="cedula_paciente" id="cedula_paciente"
+													value="[usuario_e.cedula_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+											<div class="col-md-2">
+												<label class="form-label fw-bold">En Calidad de
+													</label> <input type="text"
+													id="encondicion" name="encondicion"
+													value=""
+													class="form-control shadow-sm" readonly>
+											</div>
+											<div class="col-md-2">
+												<button id="btnbuscar" type="button" name="guardar" class="btn btn-primary btn-rounded">Buscar Cédula</button>												
+											</div>
+
+										</div>
+
+
+										<div class="row g-3 mb-3" id="tabla1">
+
+											<div class="table-responsive" id="tabla1Datos">          
+											<table class="table">
+												<thead>
+												<tr>
+													<th>#</th>
+													<th>Nombre</th>
+													<th>Apellido</th>
+													<th>Fecha Nac.</th>
+													<th>Edad</th>
+													<th>Acción</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr>
+													<td>1</td>
+													<td>Anna</td>
+													<td>Pitt</td>
+													<td>16/04/2010</td>
+													<td>16</td>
+													<td><button type="button"  onclick="alert('¡Seleccionar 1!')">Seleccionar</button></td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Maria</td>
+													<td>Quitaero</td>
+													<td>17/05/2000</td>
+													<td>28</td>
+													<td><button type="button" onclick="alert('¡Seleccionar 2!')">Seleccionar</button></td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td>Jose</td>
+													<td>Mariz</td>
+													<td>17/05/2000</td>
+													<td>28</td>
+													<td><button type="button" onclick="alert('¡Seleccionar 3!')">Seleccionar</button></td>
+												</tr>
+												</tbody>
+											</table>
+											</div>
+										</div>
+
+
+										<div class="row g-3 mb-3">
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Nacionalidad</label> <select
+													name="id_nacionalidad" id="id_nacionalidad"
+													class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[nacionalidad.id_nacionalidad;block=option]">
+														[nacionalidad.nombre_nacionalidad]</option>
+												</select>
+											</div>
+
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Cédula</label> <input type="number"
+													name="cedula_titular" id="cedula_titular"
+													value="[usuario_e.cedula_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Nombre(s)</label> <input type="text"
+													id="nombre_titular" name="nombre_titular"
+													value="[usuario_e.nombre_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Apellido(s)</label> <input
+													type="text" name="apellido_titular" id="apellido_titular"
+													value="[usuario_e.apellido_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+										</div>
+
+										<div class="row g-3 mb-3">
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Sexo</label> <select name="id_sexo"
+													id="id_sexo" class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[sexo.id_sexo;block=option]">[sexo.nombre_sexo]
+													</option>
+												</select>
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Fecha de Nacimiento</label> <input
+													type="date" name="fecha_nacimiento_titular"
+													id="fecha_nacimiento_titular"
+													value="[usuario_e.fecha_nacimiento_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+
+											<div class="col-md-1">
+												<label class="form-label fw-bold">Edad</label> <input type="text"
+													name="edad_titular" id="edad_titular"
+													value="[usuario_e.edad_titular;noerr]"
+													class="form-control shadow-sm bg-light" readonly>
+											</div>
+
+											<div class="col-md-2">
+												<label class="form-label fw-bold">Teléfono 1</label> <input type="text"
+													id="telefono_titular" name="telefono_titular"
+													value="[usuario_e.telefono_titular;noerr]"
+													class="form-control shadow-sm" placeholder="">
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">Teléfono 2</label> <input type="text"
+													id="telefono2_titular" name="telefono2_titular"
+													value="[usuario_e.telefono2_titular;noerr]"
+													class="form-control shadow-sm" placeholder="">
+											</div>
+										</div>
+
+										<div class="row g-3 mb-4">
+											<div class="col-md-4">
+												<label class="form-label fw-bold">Correo Electrónico</label> <input
+													type="email" name="correo_titular" id="correo_titular"
+													value="[usuario_e.correo_titular;noerr]"
+													class="form-control shadow-sm" placeholder="">
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">Dirección Corta</label> <input
+													type="text" name="direccion_corta_casa_titular"
+													value="[usuario_e.direccion_corta_casa_titular;noerr]"
+													class="form-control shadow-sm" placeholder="">
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Estado de Visita</label> <select
+													name="id_estado_pais" id="id_estado_pais"
+													class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[estado.id_estado_pais;block=option]">
+														[estado.nombre_estado_pais]</option>
+												</select>
+											</div>
+
+										</div>
+
+
+										<div class="row g-3 mb-4">
+
+											<!-- <input type="hidden" name="in_condicion_especial" id="in_condicion_especial"
+												value="0"> -->
+
+											<!-- <input type="hidden" name="id_parentesco" id="id_parentesco" value="10"> -->
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Tipo de Empleado</label>
+												<select name="id_tipo_de_empleado" id="id_tipo_de_empleado"
+													class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[tipo_de_empleado.id_tipo_de_empleado;block=option]">
+														[tipo_de_empleado.nombre_tipo_de_empleado]</option>
+												</select>
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Parentesco</label> <select
+													name="id_parentesco" id="id_parentesco"
+													class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[parentesco.id_parentesco;block=option]">
+														[parentesco.nombre_parentesco]</option>
+												</select>
+											</div>
+
+											<input type="hidden" name="id_tipo_de_empleado" id="id_tipo_de_empleado"
+												value="3">
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Condicion Especial</label>
+												<select name="in_condicion_especial" id="in_condicion_especial"
+													class="form-select shadow-sm" required>
+													<option value="0">No</option>
+													<option value="1">Si</option>
+												</select>
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Condicion Legal</label>
+												<select name="in_condicion_legal" id="in_condicion_legal"
+													class="form-select shadow-sm" required>
+													<option value="0">No Aplica</option>
+													<option value="1">Si Aplica</option>
+												</select>
+											</div>
+
+
+
+
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Información 1</label> <input
+													type="text" name="info1" id="info1" value=""
+													class="form-control shadow-sm">
+											</div>
+
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Información 2</label> <input
+													type="text" name="info2" id="info2" value=""
+													class="form-control shadow-sm">
+											</div>
+
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Cargo</label> <input type="text"
+													name="cargo1" id="cargo1" value="" class="form-control shadow-sm">
+											</div>
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Parentesco</label> <input type="text"
+													name="parentesco1" id="parentesco1" value=""
+													class="form-control shadow-sm">
+											</div>
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Universidad o Institucion</label>
+												<input type="text" name="universidad_institucion1"
+													id="universidad_institucion1" value=""
+													class="form-control shadow-sm">
+											</div>
+
+										</div>
+									</div>
+
+
+
+									<div class="row g-3 mb-4">
+										<h5 class="fw-bold text-dark mb-3">Datos del Titular</h5>
+										<div class="row g-3 mb-3">
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Nacionalidad</label> <select
+													name="id_nacionalidad1" id="id_nacionalidad1"
+													class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[nacionalidad2.id_nacionalidad;block=option]">
+														[nacionalidad2.nombre_nacionalidad]</option>
+												</select>
+											</div>
+
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Cédula</label> <input type="number"
+													id="cedula_titular1" name="cedula_titular1"
+													value="[usuario_e.cedula_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Nombre(s)</label> <input type="text"
+													id="nombre_titular1" name="nombre_titular1"
+													value="[usuario_e.nombre_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+
+											<div class="col-md-4">
+												<label class="form-label fw-bold">*Apellido(s)</label> <input
+													type="text" id="apellido_titular1" name="apellido_titular1" 
+													value="[usuario_e.apellido_titular;noerr]"
+													class="form-control shadow-sm" required>
+											</div>
+										</div>
+
+										<div class="row g-3 mb-3">
+											<div class="col-md-2">
+												<label class="form-label fw-bold">*Sexo</label> <select name="id_sexo1"
+													id="id_sexo1" class="form-select shadow-sm" required>
+													<option value="">Seleccionar</option>
+													<option value="[sexo2.id_sexo;block=option]">
+														[sexo2.nombre_sexo]</option>
+												</select>
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">*Fecha de Nacimiento</label>
+												<input type="date" name="fecha_nacimiento_titular1"
+													id="fecha_nacimiento_titular1" class="form-control shadow-sm"
+													required>
+											</div>
+
+											<div class="col-md-1">
+												<label class="form-label fw-bold">Edad</label> <input type="text"
+													name="edad_titular1" id="edad_titular1"
+													class="form-control shadow-sm bg-light" readonly>
+											</div>
+
+											<div class="col-md-2">
+												<label class="form-label fw-bold">Teléfono 1</label> <input type="text"
+													id="telefono_titular1" name="telefono_titular1"
+													value="[usuario_e.telefono_titular;noerr]"
+													class="form-control shadow-sm" placeholder="">
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">Teléfono 2</label> <input type="text"
+													name="telefono2_titular1" name="telefono2_titular1"
+													value="[usuario_e.telefono2_titular;noerr]"
+													class="form-control shadow-sm" placeholder="">
+											</div>
+										</div>
+
+										<div class="row g-3 mb-4">
+											<div class="col-md-4">
+												<label class="form-label fw-bold">Correo Electrónico</label>
+												<input type="email" name="correo_titular1" id="correo_titular1"
+													value="[usuario_e.correo_titular;noerr]"
+													class="form-control shadow-sm" placeholder="">
+											</div>
+
+											<div class="col-md-3">
+												<label class="form-label fw-bold">Dirección Corta</label> <input
+													type="text" name="direccion_corta_casa_titular1"
+													id="direccion_corta_casa_titular1"
+													value="[usuario_e.direccion_corta_casa_titular;noerr]"
+													class="form-control shadow-sm" placeholder="">
+											</div>
+<hr>
+<div class="col-md-5">
+												<label class="form-label fw-bold">Informacion 1</label> <input type="text"
+													name="info12" id="info12" value="" class="form-control shadow-sm">
+											</div>
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Informacion 2</label> <input type="text"
+													name="info22" id="info22" value="" class="form-control shadow-sm">
+											</div>
+
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Cargo</label> <input type="text"
+													name="cargo2" id="cargo2" value="" class="form-control shadow-sm">
+											</div>
+
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Parentesco</label> <input type="text"
+													name="parentesco2" id="parentesco2" value=""
+													class="form-control shadow-sm">
+											</div>
+											<div class="col-md-5">
+												<label class="form-label fw-bold">Universidad o Institucion</label>
+												<input type="text" name="universidad_institucion2"
+													id="universidad_institucion2" value=""
+													class="form-control shadow-sm">
+											</div>
+
+
+										</div>
+
+
+									</div>
+
+
+
+									<!-- Nav tabs -->
+
+									<!-- Tab panes -->
+									
+										
+								</div>
+
+
+								<!--       <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-heading3">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="false" aria-controls="flush-collapse3">
+        Paso 6: Guargar
+      </button>
+    </h2>
+    <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+							[var.botones_html;htmlconv=no]</div> 
+							     </div>
+    </div>
+     -->
+
+							</div>
+						</div>
+
+
+
+
+						<!-- SECCIÓN DE LA CITA -->
+
+
+
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+							[var.botones_html;htmlconv=no]</div>
+				</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- Cargar jQuery PRIMERO, luego tu funciones.js -->
+<!-- <script src="js/jquery.min.js"></script> -->
+<!-- <script src="js/funciones.js"></script> -->
+
+<!-- Cargar jQuery PRIMERO, luego tu funciones.js -->
+<!-- <script src="node_modules/jquery/dist/jquery.min.js"></script> -->
+<!-- <script src="js/funciones.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script> -->
+
+<script>
+	// In your Javascript (external .js resource or <script> tag)
+	$(document).ready(function () {
+
+		$('#error1').hide();
+		$('#tabla1').hide();
+
+		$('.js-example-basic-single').select2();
+	});
+
+function seleccion() {
+
+		alert('Seleccionar');
+
+	}
+
+</script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+
+		$('#tabla1').hide();
+		const selEspecialidad = document.getElementById('id_especialidad');
+		const selMedico = document.getElementById('id_medico');
+
+		//$('#cargando1').hide();
+		selEspecialidad.addEventListener('change', function () {
+			const idEsp = this.value;
+
+			// Limpia y muestra carga
+			//			selMedico.innerHTML = '<option value="">Cargando...</option>';
+		//	$('#cargando1').show();
+
+
+			if (!idEsp) {
+				selMedico.innerHTML = '<option value="">Seleccionar</option>';
+				return;
+			}
+
+			fetch('obtenerMedicos.php?id_especialidad=' + encodeURIComponent(idEsp))
+				.then(r => {
+					if (!r.ok) throw new Error('Error HTTP ' + r.status);
+					return r.text();
+				})
+				.then(html => {
+					selMedico.innerHTML = html;
+		//			$('#cargando1').hide();
+				})
+				.catch(err => {
+					//					console.error(err);
+					selMedico.innerHTML = '<option value="">Error al cargar médicos</option>';
+		//			$('#cargando1').hide();
+				});
+		});
+
+		// Si vienes con una especialidad ya seleccionada (por edición), dispara el change
+		if (selEspecialidad.value) {
+			selEspecialidad.dispatchEvent(new Event('change'));
+		//	$('#cargando1').hide();
+		}
+
+		//$('#cargando1').hide();
+	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+
+		const id_tipo_p = document.getElementById('id_tipo_p');
+		const textoced = document.getElementById('textoced');
+
+		//$('#cargando1').hide();
+		id_tipo_p.addEventListener('change', function () {
+			const idTipo = this.value;
+
+			$('#tabla1').hide();
+
+			if (!idTipo) {
+				//selMedico.innerHTML = '<option value="">Seleccionar</option>';
+				return;
+			}
+
+			if (idTipo == '1' ) {
+				//selMedico.innerHTML = '<option value="">Seleccionar</option>';
+				textoced .innerHTML = 'BUSCAR Cédula';
+//				console.log("uno");
+				return;
+			}
+
+			if (idTipo == '2' ) {
+				//selMedico.innerHTML = '<option value="">Seleccionar</option>';
+				textoced .innerHTML = 'BUSCAR Cédula Títular';
+//				console.log("dos");
+				return;
+			}
+
+
+			//alert(idTipo);
+
+//					selMedico.innerHTML = html;
+					//selMedico.innerHTML = '<option value="">Error al cargar médicos</option>';
+
+		if (id_tipo_p.value) {
+			id_tipo_p.dispatchEvent(new Event('change'));
+		}
+
+		//$('#cargando1').hide();
+	});
+});
+
+
+
+
+
+	document.addEventListener('DOMContentLoaded', function () {
+		const btn1 = document.getElementById('btnbuscar');
+		btn1.addEventListener('click', function () {
+
+			//const fecha = this.value;
+			//alert(fecha);
+			//alert(calcularEdad(fecha));
+			// Cambia el texto dentro de un campo de entrada
+			//document.getElementById("edad_titular").value = calcularEdad(fecha);
+			//alert('buscar');
+
+			const id_tipo_p = document.getElementById('id_tipo_p');
+
+			const ced = document.getElementById('cedula_paciente').value;
+			const uurl = 'api_php/consultar_cedula_beneficiario.php?cedula=' + encodeURIComponent(ced);
+			//alert(ced);
+
+			//$('#encondicion').html("");
+			$('#tabla1').hide();
+
+			$('#error1').hide();
+			$('#encondicion').val("");
+			var tit = 0;
+			$.ajax({
+				url: uurl,
+				type: 'GET',
+				dataType: 'json',
+				success: function (respuesta) {
+					//console.log("Respuesta ok");
+					//console.log(respuesta);
+					//console.log(respuesta['success']);
+					//console.log(respuesta['data']);
+
+					if (respuesta['success'] == '1') {
+						//	alert("bien");	
+						//	alert( respuesta['data'][0]['cedula_titular'] )
+						//	alert( respuesta['data'][1]['cedula_beneficiario'] )
+
+						if (respuesta['data'][0]['cedula_titular'] == respuesta['data'][0]['cedula_beneficiario']) {
+							//alert('titular');
+							//$('#encondicion').html("(TITULAR)");
+							$('#encondicion').val("(TITULAR)");
+							tit = 1;
+						} else {
+							//alert('beneficiario');
+							//$('#encondicion').html("(BENEFICIARIO)");
+							$('#encondicion').val("(BENEFICIARIO)");
+							tit = 2;
+						}
+					}
+
+					if( tit == 1 && id_tipo_p.value == "1" ) {
+						//console.log("titular , con cedula");
+						// ok
+					}
+
+					if( tit == 1 && id_tipo_p.value == "2" ) {
+						//console.log("titular , con cedula titular");
+						$('#tabla1').show();
+
+
+						$('#tabla1Datos').html('<table class="table"><thead><tr><th>#</th><th>Nombre</th><th>Apellido</th><th>Fecha Nac.</th><th>Edad</th><th>Acción</th></tr></thead><tbody><tr><td>1</td><td>Anna</td><td>Pitt</td><td>16/04/2010</td><td>16</td><td><button type="button" onclick="seleccion()"  >Seleccionar</button></td></tr></tbody></table>');
+
+
+						return;
+					}
+
+
+					if( tit == 2 && id_tipo_p.value == "1" ) {
+						//console.log("beneficiario , con cedula");
+						// ok
+
+					} 
+					
+					if( tit == 2 && id_tipo_p.value == "2" ) {
+						//console.log("beneficiario , con cedula titular");
+						// not ok
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						$('#error1').show();
+						$('#errorText').html("La Cédula Ingresada NO Pertenece a un Títular");
+						return;
+					} 
+
+					if (respuesta['success'] == '0') {
+						//$('#encondicion').html("");
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						$('#error1').show();
+						$('#errorText').html("No Existe Información Relacionada a la Cédula");
+						
+						//alert("No Existe Información Relacionada a la Cédula");	
+						return;
+					}
+
+					if (respuesta['success'] == '-1') {
+						//$('#encondicion').html("");
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						$('#error1').show();
+						$('#errorText').html("Los Datos no pudieron ser cargados");
+						//alert("Los Datos no pudieron ser cargados");
+						return;
+					}
+
+					if (respuesta['success'] == '-2') {
+						//$('#encondicion').html("");
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						$('#error1').show();
+						$('#errorText').html("Los Datos no pudieron ser cargados");
+						//alert("");
+						return;
+					}
+
+					if (respuesta['success'] == '-3') {
+						//$('#encondicion').html("");
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						$('#error1').show();
+						$('#errorText').html("La cédula no es válida");
+						//alert("Los Datos no pudieron ser cargados");
+						return;
+					}
+
+					// Colocar los Datos del Paciente
+					if (respuesta['data'][0]['sexo'] == "M" || respuesta['data'][1]['sexo'] == "MASCULINO") {
+						$('#id_sexo').val("1");
+					} else {
+						$('#id_sexo').val("2");
+					}
+					$('#id_nacionalidad').val("1");
+
+					$('#cedula_titular').val(respuesta['data'][0]['cedula_titular']);
+					$('#nombre_titular').val(respuesta['data'][0]['nombres']);
+					$('#apellido_titular').val(respuesta['data'][0]['apellidos']);
+
+					const fechaOriginal = respuesta['data'][0]['fecha_nacimiento'];
+					const [dia, mes, ano] = fechaOriginal.split('/');
+					const fechaParaInput = `${ano}-${mes}-${dia}`; // Resultado: "1973-07-14"
+
+					$('#fecha_nacimiento_titular').val(fechaParaInput);
+
+					$('#edad_titular').val(calcularEdad(fechaParaInput));
+					$('#telefono_titular').val(respuesta['data'][0]['telefono_1']);
+					//$('#telefono2_titular').val(respuesta['data'][0]['cedula_titular']);
+					$('#correo_titular').val(respuesta['data'][0]['correo']);
+
+					$('#id_parentesco').val(respuesta['data'][0]['f_parentesco']);						
+
+					if( tit == 2 ) {
+						$('#id_tipo_de_empleado').val('3');						
+						$('#cedula_titular').val(respuesta['data'][0]['cedula_beneficiario']);
+					}
+
+					if( tit == 1 ) {
+						$('#id_tipo_de_empleado').val('1');						
+						$('#id_parentesco').val('1');				
+						$('#cedula_titular').val(respuesta['data'][0]['cedula_titular']);		
+					}
+
+					//$('#id_tipo_de_empleado').val(respuesta['data'][0]['cedula_titular']);
+					//$('#id_estado_pais').val(respuesta['data'][0]['cedula_titular']);
+
+					$('#info1').val(respuesta['data'][0]['campo15']);
+					$('#info2').val(respuesta['data'][0]['campo16']);
+
+					
+					$('#in_condicion_especial').val(respuesta['data'][0]['in_condicion_especial']);
+					$('#in_condicion_legal').val(respuesta['data'][0]['in_condicion_legal']);
+					
+					//	$('#in_condicion_especial').val('0');
+					
+
+					$('#cargo1').val(respuesta['data'][0]['cargo']);
+					$('#parentesco1').val(respuesta['data'][0]['parentesco']);
+					$('#universidad_institucion1').val(respuesta['data'][0]['universidad_institucion']);
+
+
+					// Colocar los Datos del Titular
+					if (respuesta['data'][1]['sexo'] == "M" || respuesta['data'][1]['sexo'] == "MASCULINO" ) {
+						$('#id_sexo1').val("1");
+					} else {
+						$('#id_sexo1').val("2");
+					}
+					$('#id_nacionalidad1').val("1");
+
+					$('#cedula_titular1').val(respuesta['data'][1]['cedula_titular']);
+					$('#nombre_titular1').val(respuesta['data'][1]['nombres']);
+					$('#apellido_titular1').val(respuesta['data'][1]['apellidos']);
+
+					const fechaOriginal1 = respuesta['data'][1]['fecha_nacimiento'];
+					const [dia1, mes1, ano1] = fechaOriginal1.split('/');
+					const fechaParaInput1 = `${ano1}-${mes1}-${dia1}`; // Resultado: "1973-07-14"
+
+					$('#fecha_nacimiento_titular1').val(fechaParaInput1);
+
+					$('#edad_titular1').val(calcularEdad(fechaParaInput1));
+					$('#telefono_titular1').val(respuesta['data'][1]['telefono_1']);
+					//$('#telefono2_titular').val(respuesta['data'][0]['cedula_titular']);
+					$('#correo_titular1').val(respuesta['data'][1]['correo']);
+
+					//$('#id_tipo_de_empleado').val(respuesta['data'][0]['cedula_titular']);
+					//$('#id_estado_pais').val(respuesta['data'][0]['cedula_titular']);
+
+					$('#info12').val(respuesta['data'][1]['campo15']);
+					$('#info22').val(respuesta['data'][1]['campo16']);
+
+					$('#cargo2').val(respuesta['data'][1]['cargo']);
+					$('#parentesco2').val(respuesta['data'][1]['parentesco']);
+					$('#universidad_institucion2').val(respuesta['data'][1]['universidad_institucion']);
+
+
+				},
+				beforeSend: function () {
+					// 1. Mostrar el mensaje de carga
+					$('#cargando').show();
+					// 2. Deshabilitar los campos del formulario para que el usuario no escriba
+					//$('#miFormulario find("input, select").prop('disabled', true);
+					//			console.log("antes de enviar");
+				},
+				error: function (xhr, status, error) {
+					alert('Error al cargar los datos:', error, xhr, status);
+					console.error(error);
+					console.error(status);
+					console.error(xhr);
+					//$('#encondicion').html("");
+					$('#encondicion').val("");
+					$('#cargando').hide();
+				},
+				complete: function () {
+					// Se ejecuta al terminar la petición (sea éxito o error)
+					// 3. Ocultar el mensaje de carga
+					$('#cargando').hide();
+					// 4. Volver a habilitar los campos
+					//$('#miFormulario find("input, select").prop('disabled', false);
+					//			console.log("complete");
+				}
+
+
+			});
+
+
+
+		});
+	});
+
+
+	document.addEventListener('DOMContentLoaded', function () {
+		const fecha_nacimiento_titular = document.getElementById('fecha_nacimiento_titular');
+		fecha_nacimiento_titular.addEventListener('change', function () {
+			const fecha = this.value;
+			//alert(fecha);
+			//alert(calcularEdad(fecha));
+			// Cambia el texto dentro de un campo de entrada
+			document.getElementById("edad_titular").value = calcularEdad(fecha);
+
+		});
+	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+		const fecha_nacimiento_titular = document.getElementById('fecha_nacimiento_titular1');
+		fecha_nacimiento_titular1.addEventListener('change', function () {
+			const fecha = this.value;
+			//alert(fecha);
+			//alert(calcularEdad(fecha));
+			// Cambia el texto dentro de un campo de entrada
+			document.getElementById("edad_titular1").value = calcularEdad(fecha);
+
+		});
+	});
+
+	// cedula del paciente
+	/*
+	document.addEventListener('DOMContentLoaded', function () {
+		const cedula_titular = document.getElementById('cedula_paciente');
+		cedula_titular.addEventListener('change', function () {
+			const ced = this.value;
+			const uurl = 'api_php/consultar_cedula_beneficiario.php?cedula=' + encodeURIComponent(ced);
+			//alert(ced);
+
+			//$('#encondicion').html("");
+			$('#encondicion').val("");
+			var tit = 0;
+			$.ajax({
+				url: uurl,
+				type: 'GET',
+				dataType: 'json',
+				success: function (respuesta) {
+					//console.log("Respuesta ok");
+					//console.log(respuesta);
+					//console.log(respuesta['success']);
+					//console.log(respuesta['data']);
+
+					if (respuesta['success'] == '1') {
+						//	alert("bien");	
+						//	alert( respuesta['data'][0]['cedula_titular'] )
+						//	alert( respuesta['data'][1]['cedula_beneficiario'] )
+
+						if (respuesta['data'][0]['cedula_titular'] == respuesta['data'][0]['cedula_beneficiario']) {
+							//alert('titular');
+							//$('#encondicion').html("(TITULAR)");
+							$('#encondicion').val("(TITULAR)");
+							tit = 1;
+						} else {
+							//alert('beneficiario');
+							//$('#encondicion').html("(BENEFICIARIO)");
+							$('#encondicion').val("(BENEFICIARIO)");
+							tit = 2;
+						}
+					}
+
+					if (respuesta['success'] == '0') {
+						//$('#encondicion').html("");
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						alert("No Existe Información Relacionada a la Cédula");	
+						return;
+					}
+
+					if (respuesta['success'] == '-1') {
+						//$('#encondicion').html("");
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						alert("Los Datos no pudieron ser cargados");
+						return;
+					}
+
+					if (respuesta['success'] == '-2') {
+						//$('#encondicion').html("");
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						alert("Los Datos no pudieron ser cargados");
+						return;
+					}
+
+					if (respuesta['success'] == '-3') {
+						//$('#encondicion').html("");
+						$('#encondicion').val("");
+						$('#cargando').hide();
+						alert("Los Datos no pudieron ser cargados");
+						return;
+					}
+
+					// Colocar los Datos del Paciente
+					if (respuesta['data'][0]['sexo'] == "M" || respuesta['data'][1]['sexo'] == "MASCULINO") {
+						$('#id_sexo').val("1");
+					} else {
+						$('#id_sexo').val("2");
+					}
+					$('#id_nacionalidad').val("1");
+
+					$('#cedula_titular').val(respuesta['data'][0]['cedula_titular']);
+					$('#nombre_titular').val(respuesta['data'][0]['nombres']);
+					$('#apellido_titular').val(respuesta['data'][0]['apellidos']);
+
+					const fechaOriginal = respuesta['data'][0]['fecha_nacimiento'];
+					const [dia, mes, ano] = fechaOriginal.split('/');
+					const fechaParaInput = `${ano}-${mes}-${dia}`; // Resultado: "1973-07-14"
+
+					$('#fecha_nacimiento_titular').val(fechaParaInput);
+
+					$('#edad_titular').val(calcularEdad(fechaParaInput));
+					$('#telefono_titular').val(respuesta['data'][0]['telefono_1']);
+					//$('#telefono2_titular').val(respuesta['data'][0]['cedula_titular']);
+					$('#correo_titular').val(respuesta['data'][0]['correo']);
+
+					$('#id_parentesco').val(respuesta['data'][0]['f_parentesco']);						
+
+					if( tit == 2 ) {
+						$('#id_tipo_de_empleado').val('3');						
+						$('#cedula_titular').val(respuesta['data'][0]['cedula_beneficiario']);
+					}
+
+					if( tit == 1 ) {
+						$('#id_tipo_de_empleado').val('1');						
+						$('#id_parentesco').val('1');				
+						$('#cedula_titular').val(respuesta['data'][0]['cedula_titular']);		
+					}
+
+					//$('#id_tipo_de_empleado').val(respuesta['data'][0]['cedula_titular']);
+					//$('#id_estado_pais').val(respuesta['data'][0]['cedula_titular']);
+
+					$('#info1').val(respuesta['data'][0]['campo15']);
+					$('#info2').val(respuesta['data'][0]['campo16']);
+
+					
+					$('#in_condicion_especial').val(respuesta['data'][0]['in_condicion_especial']);
+					$('#in_condicion_legal').val(respuesta['data'][0]['in_condicion_legal']);
+					
+					//	$('#in_condicion_especial').val('0');
+					
+
+					$('#cargo1').val(respuesta['data'][0]['cargo']);
+					$('#parentesco1').val(respuesta['data'][0]['parentesco']);
+					$('#universidad_institucion1').val(respuesta['data'][0]['universidad_institucion']);
+
+
+					// Colocar los Datos del Titular
+					if (respuesta['data'][1]['sexo'] == "M" || respuesta['data'][1]['sexo'] == "MASCULINO" ) {
+						$('#id_sexo1').val("1");
+					} else {
+						$('#id_sexo1').val("2");
+					}
+					$('#id_nacionalidad1').val("1");
+
+					$('#cedula_titular1').val(respuesta['data'][1]['cedula_titular']);
+					$('#nombre_titular1').val(respuesta['data'][1]['nombres']);
+					$('#apellido_titular1').val(respuesta['data'][1]['apellidos']);
+
+					const fechaOriginal1 = respuesta['data'][1]['fecha_nacimiento'];
+					const [dia1, mes1, ano1] = fechaOriginal1.split('/');
+					const fechaParaInput1 = `${ano1}-${mes1}-${dia1}`; // Resultado: "1973-07-14"
+
+					$('#fecha_nacimiento_titular1').val(fechaParaInput1);
+
+					$('#edad_titular1').val(calcularEdad(fechaParaInput1));
+					$('#telefono_titular1').val(respuesta['data'][1]['telefono_1']);
+					//$('#telefono2_titular').val(respuesta['data'][0]['cedula_titular']);
+					$('#correo_titular1').val(respuesta['data'][1]['correo']);
+
+					//$('#id_tipo_de_empleado').val(respuesta['data'][0]['cedula_titular']);
+					//$('#id_estado_pais').val(respuesta['data'][0]['cedula_titular']);
+
+					$('#info12').val(respuesta['data'][1]['campo15']);
+					$('#info22').val(respuesta['data'][1]['campo16']);
+
+					$('#cargo2').val(respuesta['data'][1]['cargo']);
+					$('#parentesco2').val(respuesta['data'][1]['parentesco']);
+					$('#universidad_institucion2').val(respuesta['data'][1]['universidad_institucion']);
+
+
+				},
+				beforeSend: function () {
+					// 1. Mostrar el mensaje de carga
+					$('#cargando').show();
+					// 2. Deshabilitar los campos del formulario para que el usuario no escriba
+					//$('#miFormulario find("input, select").prop('disabled', true);
+					//			console.log("antes de enviar");
+				},
+				error: function (xhr, status, error) {
+					alert('Error al cargar los datos:', error, xhr, status);
+					console.error(error);
+					console.error(status);
+					console.error(xhr);
+					//$('#encondicion').html("");
+					$('#encondicion').val("");
+					$('#cargando').hide();
+				},
+				complete: function () {
+					// Se ejecuta al terminar la petición (sea éxito o error)
+					// 3. Ocultar el mensaje de carga
+					$('#cargando').hide();
+					// 4. Volver a habilitar los campos
+					//$('#miFormulario find("input, select").prop('disabled', false);
+					//			console.log("complete");
+				}
+
+
+			});
+
+
+		});
+	});*/
+
+
+</script>
+
+
+
+
+<div>[var.mi_footer_html;htmlconv=no]</div>

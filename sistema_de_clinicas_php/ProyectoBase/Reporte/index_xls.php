@@ -1,0 +1,104 @@
+<?php
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Helper\Html;
+
+// // 1. Aquí tienes tu HTML con la tabla
+// $htmlContent = '
+// <!DOCTYPE html>
+// <html>
+// <head>
+//     <style>
+//         table {
+//             border-collapse: collapse;
+//             width: 100%;
+//         }
+//         th, td {
+//             border: 1px solid #ddd;
+//             padding: 8px;
+//             text-align: left;
+//         }
+//         th {
+//             background-color: #4CAF50;
+//             color: white;
+//         }
+//         tr:nth-child(even) {
+//             background-color: #f2f2f2;
+//         }
+//     </style>
+// </head>
+// <body>
+//     <table>
+//         <thead>
+//             <tr>
+//                 <th>ID</th>
+//                 <th>Nombre</th>
+//                 <th>Email</th>
+//                 <th>Edad</th>
+//             </tr>
+//         </thead>
+//         <tbody>
+//             <tr><td>1</td><td>Juan Pérez</td><td>juan@email.com</td><td>28</td></tr>
+//             <tr><td>2</td><td>María García</td><td>maria@email.com</td><td>34</td></tr>
+//             <tr><td>3</td><td>Carlos López</td><td>carlos@email.com</td><td>45</td></tr>
+//             <tr><td>4</td><td>Ana Martínez</td><td>ana@email.com</td><td>23</td></tr>
+//         </tbody>
+//     </table>
+// </body>
+// </html>
+// ';
+
+// // 2. Crear nuevo objeto Spreadsheet
+// $spreadsheet = new Spreadsheet();
+// $sheet = $spreadsheet->getActiveSheet();
+
+// // 3. Usar el helper de HTML para convertir la tabla a Excel
+// $htmlHelper = new Html();
+// $htmlHelper->setSheet($sheet);
+
+// // Cargar el HTML y convertirlo a celdas de Excel
+// $htmlHelper->loadHtml($htmlContent);
+
+// // 4. Configurar el ancho automático de columnas
+// foreach (range('A', $sheet->getHighestColumn()) as $column) {
+//     $sheet->getColumnDimension($column)->setAutoSize(true);
+// }
+
+// // 5. Configurar cabeceras para descargar el archivo
+// header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+// header('Content-Disposition: attachment;filename="mi_archivo_excel.xlsx"');
+// header('Cache-Control: max-age=0');
+
+// // 6. Crear el writer y enviar el archivo al navegador
+// $writer = new Xlsx($spreadsheet);
+// $writer->save('php://output');
+// exit;
+
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Reader\Html as HtmlReader;
+
+
+// El HTML con tabla
+$htmlString = '<table border="1">
+    <tr><th>Nombre</th><th>Edad</th><th>Ciudad</th></tr>
+    <tr><td>Juan</td><td>30</td><td>Madrid</td></tr>
+    <tr><td>Ana</td><td>25</td><td>Barcelona</td></tr>
+</table>';
+
+// Cargar desde string
+$reader = new HtmlReader();
+$spreadsheet = $reader->loadFromString($htmlString);
+
+// // 5. Configurar cabeceras para descargar el archivo
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment;filename="mi_archivo_excel.xlsx"');
+header('Cache-Control: max-age=0');
+
+// Guardar como Excel
+$writer = new Xlsx($spreadsheet);
+$writer->save('php://output');
+
+echo "Archivo creado exitosamente";

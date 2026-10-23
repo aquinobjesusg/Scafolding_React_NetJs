@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    [var.headJsCss;htmlconv=no]
+    <title>LOGIN</title>
+    </head>
+        <body id="login">
+            
+            
+
+        <div class="login-container">
+                
+            <div class="cintillo-contenedor">
+                <div class="cintillo-amplificado">
+                    [var.cintilloLogin;htmlconv=no]
+                </div>
+            </div>
+
+            <div class="row mb-3">       
+                <h2  align="center"> [var.titulo;htmlconv=no]</h2>
+            </div>
+
+        
+        <div class="mensajeError" id="mensaje">
+            [var.mensaje;noerr]
+        </div>
+
+                            
+
+
+        
+        <form name="tbs" action="index.php" method="post">
+            <div class="form-group">
+                <label for="correo_usuario" class="form-label"></label>
+                <input type="text" name="correo_usuario" id="correo_usuario" class="form-control" title="Correo Electrónico" autofocus placeholder="Correo Electrónico" required>
+            </div>
+
+            <div class="form-group">
+                <label for="clave_usuario" class="form-label"></label>
+                <input type="password" name="clave_usuario" id="clave_usuario" class="form-control" title="Contraseña" placeholder="Contraseña" required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigo" class="form-label"></label>
+                <div class="verification-section">
+                    <img src="funcs/genera_codigo.php" alt="Código de Verificación" id="img-codigo">
+                    <button type="button" class="color-siguiente" title="Regenerar Código" id="regenera">
+                       
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <input type="text" name="codigo" class="form-control" placeholder="Código de Verificación" title="Ingresa el texto de la imagen">
+            </div>
+
+         
+            <div class="d-flex justify-content-between mt-3">
+                <button type="submit" name="Aceptar" class="color-siguiente">Ingresar</button>
+            </div>
+        </form>
+    </div>
+                 
+        
+         
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const imgCodigo = document.getElementById('img-codigo');
+                const btnGenera = document.getElementById('regenera');
+
+                if (imgCodigo && btnGenera) {
+                    btnGenera.addEventListener('click', generaCodigo);
+                }
+
+               
+                function generaCodigo() {
+                    let url = 'funcs/genera_codigo.php';
+
+                    fetch(url)
+                        .then(response => response.blob())
+                        .then(data => {
+                            if (data) {
+                                imgCodigo.src = URL.createObjectURL(data);
+                            }
+                        });
+                }
+            });
+        </script>
+    </body>
+</html>
+

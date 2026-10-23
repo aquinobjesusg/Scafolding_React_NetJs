@@ -1,0 +1,33 @@
+{
+    "name": "aquinog/sistema-gestion-pacientes",
+    "version": "1.0.0",
+    "description": "Sistema de gestión de pacientes",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jesus Aquino",
+            "email": "aquinobjesusg@gmail.com"
+        },
+        {
+            "name": "Gabriela Mendez",
+            "email": "gabi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "phpmailer/phpmailer": "^7.1"
+    },
+    "dependencies": {
+        "bootstrap": "^5.3.8",
+        "bootstrap-icons": "^1.13.1",
+        "datatables.net-dt": "^2.3.8",
+        "jquery": "^3.6.0"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}

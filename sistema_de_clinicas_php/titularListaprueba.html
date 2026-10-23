@@ -1,0 +1,70 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+    <div class="container-fluid px-4">
+        <div class="card shadow-sm border-0 btn-rounded">
+            <div class="card-body p-0"> 
+                
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center">N°</th>
+                                <th>Cédula</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Teléfono</th>
+                                <th>Sexo</th>
+                                <th>nacionalidad</th>
+                                <th>Universidad</th>
+                                <th>Ente</th>
+                                <th>Dirección General</th>
+                                <th>Dirección de Línea</th>
+                               <th>Coordinación</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">[titular.id_titular;block=tr;noerr]</td>
+                                <td>[titular.cedula_titular;noerr]</td>
+                                <td>[titular.nombre_titular;noerr] </td>
+                                <td>[titular.apellido_titular;noerr]</td>
+                                <td>[titular.telefono_titular;noerr]</td>
+                                <td>[titular.sexo;noerr]</td>
+                                <td>[titular.nombre_nacionalidad;noerr]</td>
+                                <td>[titular.nombre_universidad;noerr]</td>
+                                <td>[titular.nombre_ente;noerr]</td>
+                                <td>[titular.nombre_direccion_general;noerr]</td>
+                                <td>[titular.nombre_direccion_linea;noerr]</td>
+                                <td>[titular.nombre_coordinacion;noerr]</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <form action="titularEditar.php" method="post" class="m-0">
+                                            <button type="submit" name="id_titular_edit" value="[titular.id_titular;noerr]" class="btn btn-sm btn-outline-primary shadow-sm px-2 py-1" title="Editar">
+                                                Editar
+                                            </button>
+                                        </form>
+
+                                        <form action="titularEliminar.php" method="post" class="m-0" onsubmit="return confirm('¿Estás seguro de eliminar este titular?');">
+                                            <button type="submit" name="id_titular_eliminar" value="[titular.id_titular;noerr]" class="btn btn-sm btn-outline-danger shadow-sm px-2 py-1" title="Eliminar">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr [titular;nodata;noerr]>
+                                <td colspan="11" class="text-center py-4 text-muted">
+                                    <p class="mb-0">No se encontraron titulares registrados en el sistema.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<div>[var.mi_footer_html;htmlconv=no]</div>

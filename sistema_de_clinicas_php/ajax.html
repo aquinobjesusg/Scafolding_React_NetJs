@@ -1,0 +1,61 @@
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+<div id="cargando" style="display: none; color: blue; font-weight: bold;">
+    <center>
+    <img src="cargando.gif" width="50px" />
+    </center>
+</div>
+
+<form id="miFormulario">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre">
+
+    <label for="email">Correo:</label>
+    <input type="email" id="email" name="email">
+
+    <label for="rol">Rol:</label>
+    <select id="rol" name="rol">
+        <option value="1">Administrador</option>
+        <option value="2">Usuario</option>
+    </select>
+</form>
+
+<script>
+$(document).ready(function() {
+    // Realizamos la petición AJAX para obtener los datos
+    $.ajax({
+        url: 'http://localhost:8080/api_php/consultaru.php', // URL de tu servidor o API
+        type: 'GET',
+        dataType: 'json',
+        success: function(respuesta) {
+            // Llenamos los campos del formulario con la respuesta recibida
+            $('#nombre').val(respuesta[0].nombre);
+            $('#email').val(respuesta[0].correo);
+            $('#rol').val(respuesta[0].id_rol);
+            //alert(respuesta.nombre);
+        },
+        beforeSend: function() {
+            // 1. Mostrar el mensaje de carga
+            $('#cargando').show();
+            // 2. Deshabilitar los campos del formulario para que el usuario no escriba
+            //$('#miFormulario find("input, select").prop('disabled', true);
+        },
+        error: function(xhr, status, error) {
+            alert("Error");
+            console.error('Error al cargar los datos:', error);
+        },
+        complete: function() {
+            // Se ejecuta al terminar la petición (sea éxito o error)
+            // 3. Ocultar el mensaje de carga
+            $('#cargando').hide();
+            // 4. Volver a habilitar los campos
+            //$('#miFormulario find("input, select").prop('disabled', false);
+        }
+
+
+    });
+});
+</script>
+
+

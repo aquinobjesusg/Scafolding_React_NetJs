@@ -1,0 +1,113 @@
+  <div>[var.mi_menu_html;htmlconv=no]</div>
+
+
+    <div class="container pb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                
+                <div class="card shadow-sm border-0 btn-rounded mb-4">
+                    <div class="card-body p-4">
+                        <form method="POST" action="beneficiarioRegistrar.php" class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold mb-0">Buscar Cédula Titular:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="cedula_buscar" class="form-control shadow-sm" placeholder="Ej: 12345678" required>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" name="buscar_titular" class="btn btn-dark btn-rounded w-100 shadow-sm">Buscar Trabajador</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 btn-rounded">
+                    <div class="card-header bg-white border-0 pt-4 text-center">
+                        <h3 class="fw-bold text-dark">Información del Beneficiario</h3>
+                        <p class="text-muted mb-3">Complete todos los campos para registrar a la carga familiar en el sistema.</p>
+                        
+                        <div class="alert alert-secondary border-0 my-2 shadow-sm text-start py-2 px-3" style="border-left: 5px solid #3b82f6 !important;">
+                            <i class="fw-bold text-dark">Titular Vinculado:</i> [titular_b.nombre_titular] [titular_b.apellido_titular] 
+                            <span class="mx-2 text-muted">|</span> 
+                            <i class="fw-bold text-dark">Cédula:</i> [titular_b.cedula_titular]
+                        </div>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <form method="POST" action="beneficiarioRegistrar.php">
+                            <input type="hidden" name="id_titular_hidden" value="[titular_b.id_titular]">
+
+                            <h5 class="text-primary mb-3 border-bottom pb-2">Datos Básicos</h5>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Nacionalidad</label>
+                                    <select name="id_nacionalidad" id="id_nacionalidad" class="form-select shadow-sm" required>
+                                        <option value="">Seleccionar</option>
+                                        <option value="[nacionalidad.id_nacionalidad;block=option]">[nacionalidad.nombre_nacionalidad]</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Cédula del Titular</label>
+                                    <input type="number" name="cedula_titular" class="form-control shadow-sm" placeholder="Ej: 12345678" required>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nombre(s)</label>
+                                    <input type="text" name="nombre_titular" class="form-control shadow-sm" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Apellido(s)</label>
+                                    <input type="text" name="apellido_titular" class="form-control shadow-sm" required>
+                                </div>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Sexo</label>
+                                    <select name="id_sexo" id="id_sexo" class="form-select shadow-sm" required>
+                                        <option value="">Seleccionar</option>
+                                        <option value="[sexo.id_sexo;block=option]">[sexo.nombre_sexo]</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                                    <input type="date" name="fecha_nacimiento_titular" id="fecha_nacimiento_titular" class="form-control shadow-sm" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Edad</label>
+                                    <input type="text" name="edad_titular" id="edad_titular" class="form-control shadow-sm bg-light" readonly placeholder="Se calcula automáticamente">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Teléfono 1</label>
+                                    <input type="text" name="telefono_titular" class="form-control shadow-sm" placeholder="04xx-xxxxxxx" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Teléfono 2</label>
+                                    <input type="text" name="telefono2_titular" class="form-control shadow-sm" placeholder="04xx-xxxxxxx">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Correo Electrónico</label>
+                                    <input type="email" name="correo_titular" class="form-control shadow-sm" placeholder="ejemplo@correo.com">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Dirección Corta</label>
+                                    <input type="text" name="direccion_corta_casa_titular" class="form-control shadow-sm" placeholder="Ej: Av. Urdaneta..." required>
+                                </div>
+                            
+                            </div>
+                            <hr class="my-4">
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <button type="reset" class="btn btn-outline-secondary btn-rounded px-4">Limpiar</button>
+                                <button type="submit" name="registrar" class="btn btn-sgp btn-rounded px-5">Registrar Beneficiario</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+      <div>[var.mi_footer_html;htmlconv=no]</div>
+

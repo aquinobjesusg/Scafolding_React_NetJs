@@ -1,0 +1,25 @@
+.btn-pdf {
+    background-color: #d62f2f;
+    color: white;
+    margin-left: 10px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn-pdf:hover {
+    background-color: #b02525;
+}
+
+/* Añade o modifica en tu CSS: */
+.registro-paciente,
+.tabla-pacientes {
+    color: black !important;
+}
+
+/* O específicamente para los textos: */
+.registro-paciente p,
+.tabla-pacientes td {
+    color: black !important; }

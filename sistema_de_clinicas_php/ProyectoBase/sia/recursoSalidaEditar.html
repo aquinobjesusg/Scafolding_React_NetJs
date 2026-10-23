@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Editar Registro de Salida</title>
+</head>
+<body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+    [var.cintillo;htmlconv=no]
+    [var.encabezado;htmlconv=no]
+
+    <div class="container">
+          
+        <!--MODAL PARA MENSAJE DE EXITO-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+        <!--MODAL PARA MENSAJES DE ERROR-->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN DEL MODAL PARA MENSAJES DE ERROR-->
+        
+
+        <div class="row mb-3">       
+            <h2 class="titulo-pag" align="center">Editar Registro de Recurso Distribuido</h2>
+        </div>
+
+        <div class="container">
+            <form name="formulario" action="recursoSalidaEditar.php" method="post" id="formEditar">
+               <input type="hidden" name="orden_salida_hidden" value="[orden_salida]">
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="orden_salida_display" class="form-label negrita">Orden de Salida:</label>
+                        <input type="text" id="orden_salida_display" value="[orden_salida]" class="form-control" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="fecha_salida" class="form-label negrita">Fecha:</label>
+                        <input type="date" name="fecha_salida" id="fecha_salida" value="[fecha_salida]" class="form-control" title="Fecha" required>
+                    </div>
+                </div>
+
+                   <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="id_dependencia" class="form-label negrita">Dependencia:</label>
+                        <select name="id_dependencia" id="id_dependencia" class="form-select" title="Dependencia" required>
+                            <option value="">Seleccionar</option>
+                            [dependencia;block=begin]
+                            <option value="[dependencia.id_dependencia]"[onshow; if [dependencia.id_dependencia]==[selected.selected_dependencia_id]; then ' selected']>
+                                [dependencia.nom_dependencia]
+                            </option>
+                            [dependencia;block=end]
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="id_almacen" class="form-label negrita">Almacen:</label>
+                        <select name="id_almacen" id="id_almacen" class="form-select" title="Almacen" required>
+                            <option value="">Seleccionar</option>
+                            [almacen;block=begin]
+                            <option value="[almacen.id_almacen]"[onshow; if [almacen.id_almacen]==[selected.selected_almacen_id]; then ' selected']>
+                                [almacen.nom_almacen]
+                            </option>
+                            [almacen;block=end]
+                        </select>
+                    </div>
+                </div>
+                 <div id="articulos-wrapper">
+                    [salida_items;block=begin]
+                    <div class="row mb-3 articulo-item">
+                        <div class="col-md-4">
+                            <label class="form-label negrita">Artículo:</label>
+                            <select name="id_articulo[]" class="form-select articulo-select" required>
+                                <option value="0">Seleccionar</option>
+                                [articulos;block=begin]
+                                <option value="[articulos.id_articulo]"
+                                    [onshow; if [articulos.id_articulo]==[salida_items.id_articulo]; then 'selected']>
+                                    [articulos.nom_articulo]
+                                </option>
+                                [articulos;block=end]
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label negrita">Cantidad:</label>
+                            <input type="number" name="cantidad_salida[]" class="form-control" 
+                                   min="1" step="1" required 
+                                   value="[salida_items.cantidad_salida]">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label negrita">Observación:</label>
+                            <input type="text" name="observacion_s_item[]" class="form-control" 
+                                   value="[salida_items.observacion_s]" placeholder="Observación opcional">
+                        </div>
+                        
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="button" class="btn btn-success add-articulo-btn me-2">+</button>
+                            <button type="button" class="btn btn-danger remove-articulo-btn">X</button>
+                        </div>
+                    </div>
+                    [salida_items;block=end]
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button name="Actualizar" class="btn btn-outline-primary" type="submit">Actualizar</button> 
+                        <a href="recursoSalida.php" class="btn btn-outline-secondary ms-2">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>                
+    </div>
+
+   <script>
+$(document).ready(function() {
+    let almacenActual = '[selected.selected_almacen_id]' || '';
+
+    // Cuando cambia el almacén
+    $('#id_almacen').change(function() {
+        almacenActual = $(this).val();
+        actualizarSelectsArticulos();
+    });
+
+    // Función para actualizar los selects de artículos
+    function actualizarSelectsArticulos() {
+        if (!almacenActual || almacenActual === '0') {
+            $('.articulo-select').each(function() {
+                $(this).html('<option value="">Seleccione un almacén primero</option>').prop('disabled', true);
+            });
+            return;
+        }
+
+        $.ajax({
+            url: 'recursoSalidaArticuloPorAlmacen.php',
+            type: 'GET',
+            data: { id_almacen: almacenActual },
+            dataType: 'json',
+            success: function(response) {
+                var optionsHtml = '';
+                
+                if (response.success && response.articulos && response.articulos.length > 0) {
+                    optionsHtml = '<option value="">Seleccionar artículo</option>';
+                    $.each(response.articulos, function(index, articulo) {
+                        optionsHtml += '<option value="' + articulo.id_articulo + '">' + articulo.nom_articulo + ' (Disponible: ' + articulo.cantidad_disponible + ')</option>';
+                    });
+                    
+                    $('.articulo-select').each(function() {
+                        var currentValue = $(this).val(); // Guardar el valor actual
+                        $(this).html(optionsHtml).prop('disabled', false);
+                        $(this).val(currentValue); // Restaurar el valor
+                    });
+                } else {
+                    var mensaje = response.error || 'No hay artículos disponibles';
+                    $('.articulo-select').each(function() {
+                        $(this).html('<option value="">' + mensaje + '</option>').prop('disabled', true);
+                    });
+                }
+            },
+            error: function() {
+                $('.articulo-select').each(function() {
+                    $(this).html('<option value="">Error al cargar artículos</option>').prop('disabled', true);
+                });
+            }
+        });
+    }
+
+    // Agregar nueva fila de artículo
+    $(document).on('click', '.add-articulo-btn', function() {
+        if (!almacenActual || almacenActual === '0') {
+            mostrarModalError('Por favor, seleccione un almacén primero.');
+            return;
+        }
+
+        var ultimaFila = $('.articulo-item').last();
+        var nuevaFila = ultimaFila.clone();
+        
+        // Limpiar valores de la nueva fila
+        nuevaFila.find('.articulo-select').val('');
+        nuevaFila.find('input[name="cantidad_salida[]"]').val('');
+        nuevaFila.find('input[name="observacion_s_item[]"]').val('');
+        
+        // Insertar después de la última fila
+        nuevaFila.insertAfter(ultimaFila);
+        
+        // Actualizar selects de la nueva fila
+        if (almacenActual) {
+            // Solo actualizar el select de la nueva fila, no todos
+            var nuevoSelect = nuevaFila.find('.articulo-select');
+            actualizarSelectIndividual(nuevoSelect);
+        }
+    });
+
+    // Función para actualizar un solo select (para nuevas filas)
+    function actualizarSelectIndividual(selectElement) {
+        if (!almacenActual || almacenActual === '0') {
+            selectElement.html('<option value="">Seleccione un almacén primero</option>').prop('disabled', true);
+            return;
+        }
+
+        $.ajax({
+            url: 'recursoSalidaArticuloPorAlmacen.php',
+            type: 'GET',
+            data: { id_almacen: almacenActual },
+            dataType: 'json',
+            success: function(response) {
+                var optionsHtml = '';
+                
+                if (response.success && response.articulos && response.articulos.length > 0) {
+                    optionsHtml = '<option value="">Seleccionar artículo</option>';
+                    $.each(response.articulos, function(index, articulo) {
+                        optionsHtml += '<option value="' + articulo.id_articulo + '">' + articulo.nom_articulo + ' (Disponible: ' + articulo.cantidad_disponible + ')</option>';
+                    });
+                    
+                    selectElement.html(optionsHtml).prop('disabled', false);
+                } else {
+                    var mensaje = response.error || 'No hay artículos disponibles';
+                    selectElement.html('<option value="">' + mensaje + '</option>').prop('disabled', true);
+                }
+            },
+            error: function() {
+                selectElement.html('<option value="">Error al cargar artículos</option>').prop('disabled', true);
+            }
+        });
+    }
+
+    // Eliminar fila de artículo
+    $(document).on('click', '.remove-articulo-btn', function() {
+        if ($('.articulo-item').length > 1) {
+            $(this).closest('.articulo-item').remove();
+        } else {
+            mostrarModalError('Debe haber al menos un artículo en la salida.');
+        }
+    });
+
+    // Validación del formulario de edición
+    $('#formEditar').on('submit', function(e) {
+        var articulosValidos = 0;
+        var errores = [];
+        
+        $('.articulo-item').each(function(index) {
+            var articulo = $(this).find('.articulo-select').val();
+            var cantidad = $(this).find('input[name="cantidad_salida[]"]').val();
+            
+            if (!articulo || articulo === '' || !cantidad) {
+                errores.push('Artículo #' + (index + 1) + ': Complete ambos campos (artículo y cantidad)');
+                return true;
+            }
+            
+            if (parseInt(cantidad) <= 0) {
+                errores.push('Artículo #' + (index + 1) + ': La cantidad debe ser mayor a 0');
+                return true;
+            }
+            
+            articulosValidos++;
+        });
+        
+        if (articulosValidos === 0) {
+            e.preventDefault();
+            mostrarModalError('Debe agregar al menos un artículo válido para actualizar la salida.');
+            return false;
+        }
+        
+        if (errores.length > 0) {
+            e.preventDefault();
+            mostrarModalError('Errores encontrados:\n\n' + errores.join('\n'));
+            return false;
+        }
+        
+        return true;
+    });
+
+    // Mostrar modales del sistema
+    function mostrarModal() {
+        var mensaje = $('#body').data('mensaje');
+        var tipoMensaje = $('#body').data('tipo-mensaje');
+        
+        if (mensaje) {
+            if (tipoMensaje === 'success') {
+                $('#successModal .modal-body').text(mensaje);
+                $('#successModal').modal('show');
+            } else if (tipoMensaje === 'danger') {
+                $('#errorModal .modal-body').text(mensaje);
+                $('#errorModal').modal('show');
+            }
+        }
+    }
+
+    // Función para mostrar errores en modal
+    function mostrarModalError(mensaje) {
+        $('#errorModal .modal-body').text(mensaje);
+        $('#errorModal').modal('show');
+    }
+    
+    mostrarModal();
+    
+    // NO llamar a actualizarSelectsArticulos() aquí
+    // Los artículos ya vienen precargados correctamente desde PHP con TBS
+    // Solo se actualizarán cuando el usuario cambie el almacén manualmente
+});
+</script>
+</body>
+</html>

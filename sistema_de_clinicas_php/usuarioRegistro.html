@@ -1,0 +1,80 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 btn-rounded">
+                <div class="card-header bg-white border-0 pt-4 text-center">
+                    <h3 class="fw-bold text-dark">[var.titulo_formulario]</h3>
+                </div>
+
+                <div class="card-body p-4">
+                    <form method="POST" action="usuarioRegistro.php">
+                        <input type="hidden" name="id_usuario" value="[usuario_e.id_usuario;noerr]">
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Nombre de Usuario</label>
+                                <input type="text" name="correo" class="form-control shadow-sm"
+                                    value="[usuario_e.correo;noerr]" [var.readonly] autocomplete="chrome-off" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Nombre</label>
+                                <input type="text" name="nombre" class="form-control shadow-sm"
+                                    value="[usuario_e.nombre;noerr]" [var.readonly] required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Apellido</label>
+                                <input type="text" name="apellido" class="form-control shadow-sm"
+                                    value="[usuario_e.apellido;noerr]" [var.readonly] required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Contraseña</label>
+                                <input type="password" name="contrasenia" class="form-control shadow-sm"
+                                    placeholder="Dejar en blanco para no cambiar" [var.readonly] autocomplete="new-password">
+                            </div>
+                        
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Rol</label>
+                                <select name="id_rol" class="form-select shadow-sm" [var.disabled] required>
+                                    <option value="">Seleccionar</option>
+                                    <option value="[rol.id_rol;block=option]" [rol.selected;noerr]>[rol.nombre]</option>
+                                </select>
+                            </div>
+                        
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Módulo</label>
+                                <select name="id_modulo" class="form-select shadow-sm" [var.disabled] required>
+                                    <option value="">Seleccionar</option>
+                                    <option value="[modulo.id_modulos;block=option]" [modulo.selected;noerr]>[modulo.nombre_modulos]</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="in_autoriza" name="in_autoriza" value="1" [usuario_e.in_autoriza_checked;noerr] [var.disabled]>
+                                <label class="form-check-label fw-bold text-dark" for="in_autoriza">Autorización</label>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row g-3 mb-4 align-items-center"></div>
+                        <!-- Botones dinámicos según el modo (Ver, Editar, Nuevo) -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            [var.botones_html;htmlconv=no]
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>[var.mi_footer_html;htmlconv=no]</div>

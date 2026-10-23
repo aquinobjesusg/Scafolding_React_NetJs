@@ -1,0 +1,58 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container-fluid px-4 pb-4 mt-4">
+    <div>[var.codigoHTML;htmlconv=no]</div>
+</div>
+<div id="modalInactivar" class="modal-contenedor" style="display:none;">
+    <div class="modal-contenido">
+        <span onclick="cerrarModalInactivar()" class="cerrar-modal">&times;</span>
+        <h4 class="fw-bold mb-3">Motivo de Inactivación</h4>
+        
+        <form id="formInactivar" action="procesarInactivacion.php" method="POST">
+            <input type="hidden" name="id_medico" id="modal_id_medico">
+            
+            <div class="mb-3 text-start">
+                <label class="form-label fw-bold">Seleccione el motivo:</label>
+                <select name="motivo_inactivacion" id="motivo_inactivacion" class="form-select" required onchange="mostrarCamposMotivo(this.value)">
+                    <option value="">-- Seleccione --</option>
+                    <option value="vacaciones">Vacaciones</option>
+                    <option value="ausente">Ausente por motivos personales (Justificado)</option>
+                    <option value="retirado">Retirado del trabajo</option>
+                </select>
+            </div>
+
+            <!-- Sección de Vacaciones (Oculta por defecto) -->
+            <div id="seccion_vacaciones" style="display:none;" class="mb-3 text-start border p-3 rounded bg-light">
+                <label class="form-label fw-bold">Fecha Desde:</label>
+                <input type="date" name="fecha_desde_vacaciones" class="form-control mb-2">
+                
+                <label class="form-label fw-bold">Fecha Hasta:</label>
+                <input type="date" name="fecha_hasta_vacaciones" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-danger btn-sm px-4">Guardar y Procesar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function abrirModalInactivar(id) {
+    document.getElementById('modal_id_medico').value = id;
+    document.getElementById('modalInactivar').style.display = 'flex';
+}
+
+function cerrarModalInactivar() {
+    document.getElementById('modalInactivar').style.display = 'none';
+}
+
+function mostrarCamposMotivo(valor) {
+    const seccionVacaciones = document.getElementById('seccion_vacaciones');
+    if (valor === 'vacaciones') {
+        seccionVacaciones.style.display = 'block';
+    } else {
+        seccionVacaciones.style.display = 'none';
+    }
+}
+</script>
+
+<div>[var.mi_footer_html;htmlconv=no]</div>

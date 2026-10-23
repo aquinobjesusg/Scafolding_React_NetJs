@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Recursos Disponibles</title>
+</head>
+    <body id="body">
+        [var.cintillo;htmlconv=no]
+        [var.encabezado;htmlconv=no]
+
+       <div class="container">
+          
+            
+
+            <div class="row mb-3">       
+                <h2 class="titulo-pag" align="center">Recursos Disponibles</h2>
+                <p></p>       
+                    <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+            </div>
+         
+
+
+            <!--FORMULARIO PARA HACER LA BUSQUEDA POR ARTICULO O ALMACEN-->
+            <div class="container mt-5">
+                <form name="tbs3" action="recursoDisponible.php" method="post">
+                    <div class="row align-items-end"> <div class="col-md-5">
+                            <label for="id_articulo" class="form-label negrita">Artículo:</label>
+                            <select name="id_articulo" id="id_articulo" class="form-select">
+                                <option value="0">Seleccionar</option>
+                                <option value="[articulo.id_articulo;block=option]">[articulo.nom_articulo]</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label for="id_almacen" class="form-label negrita">Almacen:</label>
+                            <select name="id_almacen" id="id_almacen" class="form-select">
+                                <option value="0">Seleccionar</option>
+                                <option value="[almacen.id_almacen;block=option]">[almacen.nom_almacen]</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn-acciones-buscar" name="Buscar" title="Buscar">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+
+                                <a href="recursoDisponible.php" class="btn-acciones-buscar text-decoration-none" title="Recargar">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </a>
+
+                                <button type="submit" class="btn-acciones-buscar" name="excel" title="Exportar a Excel">
+                                    <i class="fa-solid fa-file-excel"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+                        
+
+             <div class="table-responsive-sm">
+                        <table class="tabla table table-hover">
+                            <thead class="encabezadoTabla">
+                                <br><p>Total de artículos disponibles: [conteoStock.total]</p>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Articulo</th>
+                                    <th>Almacen</th>
+                                    <th>Clasificacion</th>
+                                    <th>Medida</th>
+                                    <th>Cantidad Disponible</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <td>[disponible.#]</td>
+                                        <td>[disponible.nom_articulo;block=tr]</td>     
+                                        <td>[disponible.nom_almacen]</td>
+                                        <td>[disponible.nom_clasificacion]</td>
+                                        <td>[disponible.nom_medida]</td>
+                                        <td>[disponible.disponible]</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        [var.pie;htmlconv=no]
+              
+    </body>
+</html>

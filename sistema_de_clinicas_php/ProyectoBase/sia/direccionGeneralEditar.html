@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        [var.headJsCss;htmlconv=no]
+        <title>Editar Dependencia</title>
+
+    </head>
+
+    <body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+        [var.cintillo;htmlconv=no]
+        [var.encabezado;htmlconv=no]
+
+        <div class="container">
+        
+            <!--MODAL PARA MENSAJE DE EXITO-->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            [msj.mensaje]
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+            <!--MODAL PARA MENSAJES DE ERROR-->
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            [msj.mensaje]
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--FIN DEL MODAL PARA MENSAJES DE ERROR-->
+            
+
+            <div class="row mb-3">       
+                <h2 class="titulo-pag" align="center">Editar Dependencia</h2>
+                  <p></p>       
+                    <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+            </div>
+
+         
+                <form name="formulario" action="direccionGeneralEditar.php" method="post" class="container mt-5">
+                      <input type="hidden" name="id_dependencia_actualizar" value="[dependencia.id_dependencia]">
+                
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="nom_dependencia" class="form-label negrita">Nombre de dependencia</label>
+                            <input type="text" value="[dependencia.nom_dependencia]" name="nom_dependencia" id="nom_dependencia" class="form-control" title="Nombre de dependencia" required autofocus >
+                        </div>
+                        <div class="col-md-4">
+                            <label for="ubicacion_dependencia" class="form-label negrita">Ubicacion</label>
+                            <input type="text" value="[dependencia.ubicacion_dependencia]" name="ubicacion_dependencia" id="ubicacion_dependencia" class="form-control" title="Ubicacion de dependencia" autofocus required="required">
+                        </div>
+                        <p></p>
+                    <div class="row mb-3">
+                        <div class="col-md-4">  
+                            <label for="id_ente" class="form-label negrita">Ente:</label>
+                            <select name="id_ente" id="id_ente" class="form-select" title="Ente" required>
+                                <option value="">Seleccionar</option>
+                                [ente_option;block=begin]
+                                <option value="[ente_option.id_ente]"[onshow; if [ente_option.id_ente]==[dependencia.id_ente]; then ' selected']>
+                                    [ente_option.nom_ente]
+                                </option>
+                                [ente_option;block=end]
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">       
+                        <div class="col-md-7 text-center">
+                           <button  name="Cancelar" class="btn btn-outline-secondary" type="button" onclick="window.location.href='dependencia.php'">Cancelar</button>
+                        </div>
+                        <div class="col-md-1 text-right">
+                            <button name="Guardarcambios" class="btn btn-outline-primary" type="submit" >Actualizar</button> 
+                        </div>
+                        <p></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+              
+           [var.pie;htmlconv=no] 
+    </body>
+</html>

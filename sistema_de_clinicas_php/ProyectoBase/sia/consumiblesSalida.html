@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Distribución de Consumibles</title>
+</head>
+<body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+    [var.cintillo;htmlconv=no]
+    [var.encabezado;htmlconv=no]
+
+    <div class="container">
+      
+
+        <!--MODAL PARA MENSAJE DE EXITO-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+        <!--MODAL PARA MENSAJES DE ERROR-->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN DEL MODAL PARA MENSAJES DE ERROR-->
+
+        <div class="row mb-3">
+            <h2 class="titulo-pag" align="center">Registro de Distribución de Consumibles</h2>
+            <p></p>
+            <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+        </div>
+        
+     
+      <div class="container">
+       <form name="formulario_consumibles" action="consumiblesSalida.php" method="post">
+         
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="fecha_distribucion" class="form-label negrita">Fecha:</label>
+                    <input type="date" name="fecha_distribucion" id="fecha_distribucion" class="form-control" title="Fecha de Distribucion" autofocus required="required">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="codigo_distribucion" class="form-label negrita">Código de Distribución:</label>
+                    <input type="text" name="codigo_distribucion" id="codigo_distribucion" class="form-control" value="[codigo_distribucion_auto]" readonly required>
+                </div>
+            </div>
+
+            <div id="consumibles-wrapper">
+                <div class="row mb-3 consumible-item">
+                    <div class="col-md-4">
+                        <label for="id_consumibles" class="form-label negrita">Consumible:</label>
+                        <select name="id_consumibles[]" class="form-select consumible-select" title="Consumible">
+                            <option value="0">Seleccionar</option>
+                            <option value="[consumibles.id_consumibles;block=option]">[consumibles.consumible_display]</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="cantidad_distribuidad" class="form-label negrita">Cantidad:</label>
+                        <input type="number" name="cantidad_distribuidad[]" class="form-control cantidad-input" title="Cantidad a Distribuir" placeholder="Ingrese un número" min="1" required>
+                    </div>
+                    
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="button" id="add-consumible-btn" title="Añadir Consumible a Distribuir" class="btn-acciones-plus me-2"><i class="fa-solid fa-plus"></i></button>
+                        <button type="button" class="btn-acciones-eliminar remove-consumible-btn" title="Remover Consumible a Distribuir" style="display:none;"><i class="fa-solid fa-minus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="id_funcionario" class="form-label negrita">Funcionario:</label>
+                    <select name="id_funcionario" id="id_funcionario" class="form-select" title="Funcionario">
+                        <option value="0">Seleccionar</option>
+                        <option value="[funcionario.id_funcionario;block=option]">[funcionario.nom_funcionario]</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label for="observaciond" class="form-label negrita">Observación:</label>
+                    <input type="text" name="observaciond" id="observaciond" class="form-control" title="Observación" autofocus>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <input type="submit" class="btn btn-outline-primary" name="Registrar" value="Registrar" title="Registrar">
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+         <p></p>
+        <div class="row mb-3">       
+            <h2  class="titulo-pag" align="center">Listado de Consumibles Distribuidos</h2>
+        </div>
+
+        <!--FORMULARIO PARA HACER LA BUSQUEDA POR CODIGO, MES Y AÑO-->
+        <div class="container mt-5">
+            <form name="busqueda_consumibles" id="formBusquedaConsumibles" action="consumiblesSalida.php" method="post"> 
+                <div class="row align-items-end"> 
+                    
+                    <div class="col-md-3">
+                        <label for="codigo_distribucion" class="form-label negrita">Nº de Control:</label>
+                        <input type="text" id="codigo_distribucion" name="codigo_distribucion" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="fecha_desde" class="form-label negrita">Desde:</label>
+                        <input type="date" id="fecha_desde" name="fecha_desde" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="fecha_hasta" class="form-label negrita">Hasta:</label>
+                        <input type="date" id="fecha_hasta" name="fecha_hasta" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn-acciones-buscar" name="Buscar" title="Buscar">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+
+                            <a href="consumiblesSalida.php" class="btn-acciones-buscar text-decoration-none" title="Recargar">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div> 
+            </form> 
+        </div>
+        <!--FIN DEL FORMULARIO DE BUSQUEDA-->
+
+        <!--LISTADO DE TODOS LOS BIENES-->
+        <div class="table-responsive-sm">
+            <table class="tabla table table-hover">
+                <thead class="encabezadoTabla">
+                    <br><p>Total de consumibles registrados: [consumiblesConteo.total]</p>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Fecha</th>
+                        <th>Consumible</th>
+                        <th>Funcionario</th>
+                        <th>Cantidad</th>
+                        <th>Observaciones</th>
+                        <th>Acciones</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>[listadoConsumibles.codigo_distribucion;block=tr]</td>
+                        <td>[listadoConsumibles.fecha_distribucion;frm='dd-mm-yyyy']</td>
+                        <td>[listadoConsumibles.detalles_consumibles]</td> 
+                        <td>[listadoConsumibles.funcionario_principal]</td> 
+                        <td>[listadoConsumibles.cantidad_total_distribuida]</td> 
+                        <td>[listadoConsumibles.observaciond]</td>
+                    
+                    <td class="d-flex gap-2 align-items-center justify-content-start">
+          
+                            <a href="consumiblesSalidaEditar.php?codigo=[listadoConsumibles.codigo_distribucion]" 
+                               class="btn-acciones" 
+                               title="Editar Consumible">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+
+                            <form name="consumiblesSaEliminar" action="consumiblesSalidaEliminar.php" method="post" class="m-0">
+                                <button name="Eliminar" title="Eliminar Distribucion de Consumible" class="btn-acciones-eliminar" type="submit" value="[listadoConsumibles.codigo_distribucion]">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
+
+                            <form name="tbs1" action="consumiblesSalidaReporte.php" method="post" target="_blank" class="m-0">
+                                <input type="hidden" name="codigo_distribucion" value="[listadoConsumibles.codigo_distribucion]">
+                                <button name="PDF" title="Generar Reporte PDF" class="btn-acciones-pdf" type="submit">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+        <!--FIN LISTADO DE TODOS LOS BIENES-->
+    </div> 
+    <!-- Pie de pagina -->
+    [var.pie;htmlconv=no] 
+    <!-- Funciones JavaScript para el manejo del modal y los mensajes -->
+    <script src="js/consumibles.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const consumiblesWrapper = document.getElementById('consumibles-wrapper');
+        const addConsumibleBtn = document.getElementById('add-consumible-btn');
+
+        // Ocultar el botón 'X' en el primer elemento al cargar la página
+        const initialRemoveBtn = consumiblesWrapper.querySelector('.consumible-item .remove-consumible-btn');
+        if (initialRemoveBtn) {
+            initialRemoveBtn.style.display = 'none';
+        }
+
+        addConsumibleBtn.addEventListener('click', function() {
+            // Clona el primer elemento de consumible (que tiene ambos botones)
+            const originalConsumibleItem = consumiblesWrapper.querySelector('.consumible-item');
+            const newConsumibleItem = originalConsumibleItem.cloneNode(true); // Clonar en profundidad
+
+            // Limpiar los valores de los campos del nuevo clon (opcional pero recomendado)
+            newConsumibleItem.querySelector('.consumible-select').value = '0';
+            newConsumibleItem.querySelector('.cantidad-input').value = '';
+
+            // **PASO CLAVE: Eliminar el botón '+' del nuevo clon**
+            const newAddBtn = newConsumibleItem.querySelector('#add-consumible-btn');
+            if (newAddBtn) {
+                newAddBtn.remove(); // Elimina el botón '+' del clon
+            }
+
+            // Mostrar el botón 'X' en el nuevo clon
+            const newRemoveBtn = newConsumibleItem.querySelector('.remove-consumible-btn');
+            if (newRemoveBtn) {
+                newRemoveBtn.style.display = 'inline-block'; // O 'block' o 'flex'
+            }
+            
+            // Añadir el nuevo clon al contenedor
+            consumiblesWrapper.appendChild(newConsumibleItem);
+        });
+
+        // Delegación de eventos para los botones 'X' de los elementos existentes
+        consumiblesWrapper.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-consumible-btn')) {
+                const itemToRemove = event.target.closest('.consumible-item');
+                if (itemToRemove) {
+                    const allConsumibleItems = consumiblesWrapper.querySelectorAll('.consumible-item');
+                    if (allConsumibleItems.length > 1) {
+                    itemToRemove.remove();
+                } else {
+                    
+                }
+            }
+        }
+    });
+});
+    </script>
+</body>
+</html>

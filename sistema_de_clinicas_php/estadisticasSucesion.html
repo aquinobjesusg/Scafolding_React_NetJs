@@ -1,0 +1,163 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<br>
+
+<style>
+    /* ── Reset & base ── */
+
+
+    /* ── Card container ── */
+    .card {
+        background: #ffffff;
+        border-radius: 1.25rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+        padding: 2rem 2.5rem 1.8rem;
+        min-width: 320px;
+        max-width: 420px;
+        width: 100%;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10);
+    }
+
+    /* ── Title ── */
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1e293b;
+        letter-spacing: 0.3px;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #eef2f6;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .card-title span {
+        background: #eef2f6;
+        padding: 0.15rem 0.7rem;
+        border-radius: 40px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #475569;
+        margin-left: auto;
+    }
+
+    /* ── Table ── */
+    .specialties-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .specialties-table tbody tr {
+        border-bottom: 1px solid #f1f4f8;
+        transition: background 0.15s ease;
+    }
+
+    .specialties-table tbody tr:last-of-type {
+        border-bottom: none;
+    }
+
+    .specialties-table tbody tr:hover {
+        background: #fafbfc;
+    }
+
+    .specialties-table td {
+        padding: 0.85rem 0.25rem;
+        font-size: 1rem;
+        color: #1e293b;
+    }
+
+    .specialties-table .col-specialty {
+        font-weight: 450;
+        letter-spacing: 0.2px;
+        padding-left: 0.1rem;
+    }
+
+    .specialties-table .col-quantity {
+        text-align: right;
+        font-weight: 500;
+        color: #0f172a;
+        padding-right: 0.1rem;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Total row ── */
+    .specialties-table .total-row {
+        border-top: 2px solid #e2e8f0;
+        margin-top: 2px;
+    }
+
+    .specialties-table .total-row td {
+        padding-top: 1.1rem;
+        padding-bottom: 0.25rem;
+        font-weight: 700;
+        color: #0f172a;
+        letter-spacing: 0.3px;
+    }
+
+    .specialties-table .total-row .col-specialty {
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #334155;
+    }
+
+    .specialties-table .total-row .col-quantity {
+        font-size: 1.1rem;
+        color: #0f172a;
+    }
+
+    /* ── Small badge for totals ── */
+    .total-badge {
+        display: inline-block;
+        background: #eef2f6;
+        border-radius: 40px;
+        padding: 0.1rem 0.7rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #475569;
+        margin-left: 0.5rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+        .card {
+            padding: 1.5rem 1.25rem 1.2rem;
+            min-width: unset;
+        }
+
+        .specialties-table td {
+            padding: 0.7rem 0.15rem;
+            font-size: 0.95rem;
+        }
+
+        .specialties-table .total-row td {
+            padding-top: 0.9rem;
+        }
+    }
+</style>
+
+<div class="container-fluid px-4 pb-5">
+
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="fw-bold text-dark mb-1">Estadisticas Por Sucesión</h2>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            Fecha Desde: <input type="date" name="fdesde" />
+            Fecha Hasta: <input type="date" name="fhasta" />
+            <button> Buscar </button>
+        </div>
+    </div>
+
+    <div>[var.mi_estadisticas_html;htmlconv=no]</div>
+    <div>[var.mi_etario_html;htmlconv=no]</div>
+
+    <div>[var.mi_footer_html;htmlconv=no]</div>

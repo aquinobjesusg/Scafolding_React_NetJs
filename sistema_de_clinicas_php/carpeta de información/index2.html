@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reproductor de Audio - Texto a Voz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            font-family: monospace;
+            box-sizing: border-box;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            font-weight: bold;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            display: block;
+        }
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .example-btn {
+            background: #f0f0f0;
+            color: #333;
+            font-size: 12px;
+            padding: 8px 15px;
+            width: auto;
+            flex: 1;
+        }
+        .example-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-1px);
+        }
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔊 Reproductor de Texto a Voz</h1>
+        <div class="subtitle">Función rutina_audio() convertida a JavaScript</div>
+        
+        <textarea id="textInput" rows="3" placeholder="Escribe o pega el texto que quieres escuchar...">Hello world! This is a text to speech example.</textarea>
+        
+        <select id="languageSelect">
+            <option value="en">🇬🇧 Inglés (en)</option>
+            <option value="es">🇪🇸 Español (es)</option>
+            <option value="fr">🇫🇷 Francés (fr)</option>
+            <option value="de">🇩🇪 Alemán (de)</option>
+            <option value="it">🇮🇹 Italiano (it)</option>
+            <option value="pt">🇵🇹 Portugués (pt)</option>
+            <option value="ja">🇯🇵 Japonés (ja)</option>
+            <option value="ko">🇰🇷 Coreano (ko)</option>
+            <option value="zh">🇨🇳 Chino (zh)</option>
+            <option value="ru">🇷🇺 Ruso (ru)</option>
+        </select>
+        
+        <div class="example-buttons">
+            <button class="example-btn" onclick="setExample('The quick brown fox jumps over the lazy dog')">🦊 Inglés</button>
+            <button class="example-btn" onclick="setExample('El rápido zorro marrón salta sobre el perro perezoso')">🦊 Español</button>
+            <button class="example-btn" onclick="setExample('Bonjour tout le monde')">🇫🇷 Francés</button>
+        </div>
+        
+        <button id="speakBtn">🔊 REPRODUCIR AUDIO</button>
+        
+        <div id="status" class="status"></div>
+        
+        <hr>
+        
+        <details>
+            <summary style="cursor: pointer; color: #666; font-size: 12px;">ℹ️ Información técnica</summary>
+            <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                Esta implementación utiliza la API Web Speech API (SpeechSynthesis) del navegador, 
+                que es el equivalente más cercano a gTTS en JavaScript. Soporta múltiples idiomas 
+                y voces disponibles en el sistema operativo.
+            </p>
+        </details>
+    </div>
+
+    <script>
+        /**
+         * rutina_audio - Versión JavaScript/HTML
+         * 
+         * Función original en Python:
+         * def rutina_audio(texto, lang):
+         *     if not texto: return
+         *     try:
+         *         tts = gTTS(text=texto, lang=lang)
+         *         fp = io.BytesIO()
+         *         tts.write_to_fp(fp)
+         *         b64 = base64.b64encode(fp.getvalue()).decode()
+         *         st.markdown(f'<audio autoplay src="data:audio/mp3;base64,{b64}">', unsafe_allow_html=True)
+         *     except: pass
+         * 
+         * Equivalente en JavaScript usando Web Speech API (soporte nativo en navegadores modernos)
+         */
+        
+        class AudioProcessor {
+            constructor() {
+                this.synth = window.speechSynthesis;
+                this.utterance = null;
+                this.isSpeaking = false;
+            }
+            
+            /**
+             * Convierte el código de idioma de gTTS (2 letras) a formato BCP 47
+             * @param {string} lang - Código de idioma (ej: 'en', 'es', 'fr')
+             * @returns {string} - Código BCP 47 completo
+             */
+            getLanguageCode(lang) {
+                const langMap = {
+                    'en': 'en-US',
+                    'es': 'es-ES',
+                    'fr': 'fr-FR',
+                    'de': 'de-DE',
+                    'it': 'it-IT',
+                    'pt': 'pt-PT',
+                    'ja': 'ja-JP',
+                    'ko': 'ko-KR',
+                    'zh': 'zh-CN',
+                    'ru': 'ru-RU'
+                };
+                return langMap[lang] || 'en-US';
+            }
+            
+            /**
+             * Intenta encontrar una voz específica para el idioma
+             * @param {string} langCode - Código de idioma BCP 47
+             * @returns {SpeechSynthesisVoice|null}
+             */
+            findVoice(langCode) {
+                const voices = this.synth.getVoices();
+                // Primero intentamos encontrar voz exacta
+                let voice = voices.find(v => v.lang === langCode);
+                // Si no, buscamos voz que empiece con el código
+                if (!voice) {
+                    voice = voices.find(v => v.lang.startsWith(langCode.substring(0, 2)));
+                }
+                return voice || null;
+            }
+            
+            /**
+             * Función principal: reproduce texto como audio (similar a gTTS)
+             * @param {string} texto - El texto a reproducir
+             * @param {string} lang - Código de idioma (2 letras: 'en', 'es', etc.)
+             * @returns {Promise<void>}
+             */
+            async speak(texto, lang) {
+                if (!texto || texto.trim() === '') {
+                    console.warn('Texto vacío, no se reproduce audio');
+                    this.showStatus('⚠️ No hay texto para reproducir', 'error');
+                    return;
+                }
+                
+                // Detener cualquier reproducción en curso
+                this.stop();
+                
+                // Esperar a que las voces estén cargadas
+                if (this.synth.getVoices().length === 0) {
+                    await new Promise(resolve => {
+                        this.synth.onvoiceschanged = resolve;
+                    });
+                }
+                
+                const langCode = this.getLanguageCode(lang);
+                this.utterance = new SpeechSynthesisUtterance(texto);
+                this.utterance.lang = langCode;
+                this.utterance.rate = 1.0;
+                this.utterance.pitch = 1.0;
+                this.utterance.volume = 1.0;
+                
+                // Configurar voz óptima
+                const voice = this.findVoice(langCode);
+                if (voice) {
+                    this.utterance.voice = voice;
+                }
+                
+                // Eventos
+                this.utterance.onstart = () => {
+                    this.isSpeaking = true;
+                    this.showStatus(`🔊 Reproduciendo... (${lang})`, 'loading');
+                };
+                
+                this.utterance.onend = () => {
+                    this.isSpeaking = false;
+                    this.showStatus('✅ Reproducción completada', 'success');
+                    setTimeout(() => this.hideStatus(), 2000);
+                };
+                
+                this.utterance.onerror = (event) => {
+                    this.isSpeaking = false;
+                    console.error('Error en SpeechSynthesis:', event);
+                    this.showStatus('❌ Error al reproducir audio', 'error');
+                };
+                
+                this.synth.speak(this.utterance);
+            }
+            
+            /**
+             * Detiene la reproducción actual
+             */
+            stop() {
+                if (this.synth.speaking || this.synth.pending) {
+                    this.synth.cancel();
+                }
+                this.isSpeaking = false;
+            }
+            
+            /**
+             * Muestra un mensaje de estado en la UI
+             */
+            showStatus(message, type) {
+                const statusDiv = document.getElementById('status');
+                if (statusDiv) {
+                    statusDiv.textContent = message;
+                    statusDiv.className = `status ${type}`;
+                }
+            }
+            
+            /**
+             * Oculta el mensaje de estado
+             */
+            hideStatus() {
+                const statusDiv = document.getElementById('status');
+                if (statusDiv) {
+                    setTimeout(() => {
+                        statusDiv.className = 'status';
+                    }, 500);
+                }
+            }
+        }
+        
+        // Inicializar el procesador de audio
+        const audioProcessor = new AudioProcessor();
+        
+        // Configurar eventos del DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            const speakBtn = document.getElementById('speakBtn');
+            const textInput = document.getElementById('textInput');
+            const languageSelect = document.getElementById('languageSelect');
+            
+            // Botón principal
+            speakBtn.addEventListener('click', () => {
+                const texto = textInput.value.trim();
+                const lang = languageSelect.value;
+                
+                if (!texto) {
+                    audioProcessor.showStatus('✏️ Escribe algún texto primero', 'error');
+                    return;
+                }
+                
+                audioProcessor.speak(texto, lang);
+            });
+            
+            // Atajo: Enter en el textarea (Ctrl+Enter o Cmd+Enter)
+            textInput.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    speakBtn.click();
+                }
+            });
+            
+            // Precargar voces
+            if (window.speechSynthesis.getVoices().length === 0) {
+                window.speechSynthesis.onvoiceschanged = () => {
+                    console.log('Voces cargadas:', window.speechSynthesis.getVoices().length);
+                };
+            }
+        });
+        
+        // Función auxiliar para ejemplos
+        function setExample(text) {
+            document.getElementById('textInput').value = text;
+            document.getElementById('speakBtn').click();
+        }
+        
+        // Exportar al scope global para uso desde consola
+        window.rutinaAudio = (texto, lang = 'en') => {
+            const processor = new AudioProcessor();
+            return processor.speak(texto, lang);
+        };
+        
+        console.log('✅ rutina_audio disponible globalmente como window.rutinaAudio(texto, lang)');
+    </script>
+</body>
+</html>

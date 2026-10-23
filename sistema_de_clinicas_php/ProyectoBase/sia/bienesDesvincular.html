@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Desuso del Bien</title>
+</head>
+<body id="body" data-mensaje="[msj.mensaje]" data-tipo-mensaje="[msj.tipo_mensaje]">
+    [var.cintillo;htmlconv=no]
+    [var.encabezado;htmlconv=no]
+
+    <div class="container">
+
+        <!--MODAL PARA MENSAJE DE EXITO-->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DEL MODAL PARA MENSAJE DE EXITO-->
+
+        <!--MODAL PARA MENSAJES DE ERROR-->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        [msj.mensaje]
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN DEL MODAL PARA MENSAJES DE ERROR-->
+
+        <!--MODAL PARA VER LOS DETALLES DE UN BIEN-->
+        <div class="modal fade" id="detallesBienModal" tabindex="-1" aria-labelledby="detallesBienModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detallesBienModalLabel">Detalles del Bien</h5>
+                        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="detallesBienBody">
+                        <p><strong>Código Antiguo:</strong> <span id="detalle_codigo_viejo"></span></p>
+                        <p><strong>Código Nuevo:</strong> <span id="detalle_codigo_nuevo"></span></p>
+                        <p><strong>Fecha de Incorporación:</strong> <span id="detalle_fecha_ingreso"></span></p>
+                        <p><strong>Equipo:</strong> <span id="detalle_equipo"></span></p>
+                        <p><strong>Marca:</strong> <span id="detalle_marca"></span></p>
+                        <p><strong>Modelo:</strong> <span id="detalle_modelo"></span></p>
+                        <p><strong>Serial:</strong> <span id="detalle_serial"></span></p>
+                        <p><strong>Color:</strong> <span id="detalle_color"></span></p>
+                        <p><strong>Estado:</strong> <span id="detalle_estado"></span></p>
+                        <p><strong>Especificaciones:</strong> <span id="detalle_especificacion"></span></p>
+                        <p><strong>Fecha de Adquisición:</strong> <span id="detalle_fecha_adquisicion"></span></p>
+                        <p><strong>Concepto:</strong> <span id="detalle_concepto"></span></p>
+                        <p><strong>Precio:</strong> <span id="detalle_precio"></span></p>
+                        <p><strong>Clasificación:</strong> <span id="detalle_clasificacion"></span></p>
+                        <p><strong>Ente:</strong> <span id="detalle_ente"></span></p>
+                        <p><strong>Dirección General:</strong> <span id="detalle_general"></span></p>
+                        <p><strong>Dirección de Línea:</strong> <span id="detalle_linea"></span></p>
+                        <p><strong>Coordinación:</strong> <span id="detalle_coordinacion"></span></p>
+                        <p><strong>Funcionario Asignado:</strong> <span id="detalle_funcionario"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DEL MODAL PARA VER LOS DETALLES DE UN BIEN-->
+
+        <div class="row mb-3">
+            <h2 class="titulo-pag" align="center">Desuso del Bien</h2>
+            <p></p>
+            <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+        </div>
+        
+        <!--FORMULARIO PARA ASIGNAR UN BIEN-->
+        <div class="container">
+            <form name="formAsignarBienes" id="formAsignarBienes" action="bienesDesvincular.php" method="post">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="fecha_distribucion" class="form-label negrita">Fecha <span style="color: red;">*</span>:</label>
+                        <input type="date" name="fecha_distribucion" id="fecha_distribucion" class="form-control" title="Fecha" required="required">
+                    </div>
+                </div>
+
+           
+           <div class="row mb-3">
+            <div class="col">
+                <label for="select_ente" class="form-label negrita">Ente <span style="color: red;">*</span>:</label>
+                <select name="id_ente" id="select_ente" class="form-select selector-dependiente" data-next="general" required>
+                    <option value="0">Seleccionar</option>
+                    <option value="[ente.id_ente;block=option]">[ente.nom_ente]</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <label for="select_general" class="form-label negrita">Dirección General <span style="color: red;">*</span>:</label>
+                <select name="id_direccion_general" id="select_general" class="form-select selector-dependiente" data-next="linea" disabled required>
+                    <option value="0">Seleccionar</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <label for="select_linea" class="form-label negrita">Dirección de Línea <span style="color: red;">*</span>:</label>
+                <select name="id_direccion_linea" id="select_linea" class="form-select selector-dependiente" data-next="coordinacion" disabled>
+                    <option value="0">Seleccionar</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <label for="select_coordinacion" class="form-label negrita">Coordinación <span style="color: red;">*</span>:</label>
+                <select name="id_coordinacion" id="select_coordinacion" class="form-select selector-dependiente" data-next="funcionario" disabled>
+                    <option value="0">Seleccionar</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <label for="select_funcionario" class="form-label negrita">Funcionario <span style="color: red;">*</span>:</label>
+                <select name="id_funcionario" id="select_funcionario" class="form-select selector-dependiente" disabled>
+                    <option value="0">Seleccionar</option>
+                </select>
+            </div>
+        </div>
+
+                <div id="bienes-container">
+                    <div class="row mb-3 bien-row" id="bien-row-0">
+                        <div class="col-md-4">
+                            <label for="id_bienes_0" class="form-label negrita">Codigo de Bien:</label>
+                        </div>
+                        <div class="d-flex justify-content-start align-items-center">
+                            <div class="col-md-4 me-3">
+                                <select name="id_bienes[]" id="id_bienes_0" class="form-select bien-select" title="Codigo de Bien">
+                                    <option value="0">Seleccionar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn-acciones-detalles btn-detalles-asignar me-2"
+                                    data-bs-toggle="modal" data-bs-target="#detallesBienModal">
+                                     <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button type="button" class="btn-acciones-plus btn-add-bien" title="Añadir Bien">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <label for="observaciond" class="form-label negrita">Observación:</label>
+                        <input type="text" name="observaciond" id="observaciond" class="form-control" title="Observación">
+                    </div>
+                </div>
+
+                <div class="col-md-center text-center">
+                    <button type="submit" class="btn btn-outline-danger" name="Desvincular" title="Desvincular Bien">Confirmar</button>
+                </div>
+                <div>
+                    <br>
+                </div>
+            </form>
+        </div>
+        <!--FIN DEL FORMULARIO PARA REGISTRAR UN BIEN-->
+        <p></p>
+    </div> 
+    <!-- FIN DEL CONTAINER PRINCIPAL-->
+    <!--PIE DE PAGINA-->
+    [var.pie;htmlconv=no]
+    <script src="js/bienesDesvincular.js"></script>
+</body>
+</html>

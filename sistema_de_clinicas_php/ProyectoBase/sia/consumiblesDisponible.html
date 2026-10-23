@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    [var.headJsCss;htmlconv=no]
+    <title>Consumibles Disponibles</title>
+</head>
+    <body id="body">
+        [var.cintillo;htmlconv=no]
+        [var.encabezado;htmlconv=no]
+
+    <div class="container">
+           
+            
+            <div class="row mb-3">       
+                <h2 class="titulo-pag" align="center">Consumibles Disponibles</h2>
+                <p></p>       
+                    <h2 style="text-align: right; font-family: sans-serif; font-size: 16px; color: #333; margin-right: 20px;">Usuario: [var.nombre]</h2>
+            </div>
+         
+            <div class="container mt-5">
+                <form action="consumiblesDisponible.php" method="post">
+                    <div class="row align-items-end"> 
+                        
+                        <div class="col-md-3">
+                            <label for="codigo_consumible" class="form-label">Codigo de Consumible:</label>
+                            <input type="text" id="codigo_consumible" name="codigo_consumible" class="form-control">
+                        </div>
+
+                        <div class="col-md-5">
+                            <label for="id_consumibles" class="form-label negrita">Consumible:</label>
+                            <select id="nombre_consumible" name="nombre_consumible" class="form-select consumible-select">
+                                <option value="0">Seleccionar</option>
+                                <option value="[consumibles.consumible;block=option]">[consumibles.consumible]</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn-acciones-buscar" name="Buscar" title="Buscar">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+
+                                <a href="consumiblesDisponible.php" class="btn-acciones-buscar text-decoration-none" title="Recargar">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </a>
+
+                                <button name="PDF" class="btn-acciones-pdf" type="submit" 
+                                        formaction="consumiblesDisponibleReporte.php" 
+                                        title="PDF de todos los consumibles disponibles" 
+                                        formtarget="_blank">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        <!--FIN DEL FORMULARIO DE BUSQUEDA-->
+
+        <!--LISTADO DE TODOS LOS BIENES-->
+        <div class="table-responsive-sm">
+            <table class="tabla table table-hover">
+                <thead class="encabezadoTabla">
+                    <p></p>
+
+                  <div class="alinear-btn-con-texto">
+                    <p>Total de consumibles registrados: [consumiblesConteo.total]</p>
+                    
+                </div>
+
+                
+                   
+                    <tr>
+
+                        <th>Codigo</th>
+                        <th>Consumible</th>
+                        <th>Medida</th>
+                        <th>Cantidad</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <td>[consumiblesDisponiblesListado.codigo_consumible;block=tr]</td>
+                        <td>[consumiblesDisponiblesListado.consumible]</td>
+                        <td>[consumiblesDisponiblesListado.nom_medida]</td>
+                        <td>[consumiblesDisponiblesListado.total_disponible]</td>   
+                        <td>[consumiblesDisponiblesListado.observacionc]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+        <!--FIN LISTADO DE TODOS LOS BIENES-->
+    </div> 
+    <!-- Pie de pagina -->
+    [var.pie;htmlconv=no] 
+    <!-- Funciones JavaScript para el manejo del modal y los mensajes -->
+    <script src="js/consumibles.js"></script>
+</body>
+</html>

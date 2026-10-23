@@ -1,0 +1,491 @@
+#body
+{
+    background: white;
+    background-color: #CFF4FC; 
+    height: 100%;
+    font-family: "Arial";
+}
+
+.container
+{
+    max-width: 90%;
+    align-content: center;
+    background: white;
+
+}
+
+
+.cintillo-container img {
+    max-width: 90%;
+    height: auto;
+}
+
+
+
+.titulo-principal {
+  font-family: 'helvetica', sans-serif; /* Usamos la versión moderna de Helvetica */
+  font-weight: 700; /* Un grosor fuerte para que destaque */
+  font-size: 22px;
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px; /* Aumentamos el espaciado para un look más "limpio" */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin: 20px 0;
+}
+
+
+
+
+#encabezado
+{
+    width: 90%;
+    align-content: left;
+
+}
+
+
+#menu
+{
+    align-items: center;
+    width: 75%;
+    margin:0 auto 0 auto;
+}
+
+
+
+
+.img{
+
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+   
+}
+
+.titulo-pag {
+  background-color: #e0f7fa; /* Un azul cian más vibrante y moderno */
+  color: #004d40; /* Un verde oscuro que contrasta elegantemente */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Una fuente más redondeada y actual */
+  font-weight: 600; /* Un grosor de fuente semi-negrita para destacar */
+  font-size: 20px; /* Tamaño de fuente fijo como lo pediste */
+  text-align: center;
+  padding: 1rem 1rem; /* Más espacio vertical para un 'respiro' visual */
+  border-radius: 12px; /* Esquinas suavemente redondeadas */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
+  margin: 2rem auto; /* Más margen para separarlo del contenido */
+  width: 90%; /* Un poco menos ancho para que no se vea "aplastado" */
+}
+
+.tabla {
+  width: 100%;
+  overflow-x: auto; /* Permite el desplazamiento horizontal si es necesario */
+  font-size: 14px;
+    margin: 0 auto; 
+}
+
+
+ th, td {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-content: center;
+}
+
+.alinear-btn-con-texto {
+    display: flex; /* Convierte el contenedor en un flex container */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    gap: 15px; /* Agrega un espacio entre el texto y el botón */
+}
+
+
+
+/* Estilos para el sidebar */
+.sidebar {
+    width: 250px; /* Ancho del menú */
+    position: fixed; /* Lo fija en la pantalla */
+    top: 0;
+    left: -250px; /* Lo oculta fuera de la pantalla */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    background: #333; /* Color de fondo oscuro */
+    color: #fff; /* Color del texto */
+    transition: all 0.5s; /* Transición suave para que la aparición sea animada */
+    padding-top: 20px;
+
+}
+
+.color-barra {
+  /* Usamos un degradado sutil para un efecto más dinámico */
+  background-color: #CFF4FC;
+  
+  /* Añadimos más espacio para un 'respiro' visual */
+  padding: 15px 25px;
+  
+  /* Esquinas suavemente redondeadas */
+  border-radius: 3px; /* Cambiamos a 0 para que no haya esquinas redondeadas en los bordes */
+  
+  /* Sombra más elegante y pronunciada */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  
+  /* Eliminamos el margen exterior */
+  margin: 0; /* Cambiamos el margen a 0 */
+  
+  /* Ancho responsivo, ahora ocupa el 100% */
+  width: 100%; /* Cambiamos el ancho a 100% para que ocupe todo el espacio */
+  
+  /* Flexbox para una alineación perfecta */
+  display: flex;
+  justify-content: space-around; /* Distribuye los botones de forma equitativa */
+  align-items: center;
+}
+
+
+
+.color-barra .boton {
+
+    background-color: #CFF4FC; /* Color principal del botón */
+    color: black; /* Color del texto para que sea legible */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+     border: none;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.color-barra .boton:hover {
+    background-color: #31BAD6; /* Un color más oscuro al pasar el mouse */
+    color: white;
+    font-weight: bold; /* Hace la letra más gruesa */
+   
+}
+
+/* Este estilo se aplicará al enlace del menú desplegable */
+.dropdown-menu .dropdown-item {
+    background-color: transparent; /* Mantiene el fondo transparente por defecto */
+    color: #212529; /* Color del texto por defecto de Bootstrap */
+    transition: background-color 0.3s ease; /* Para una transición suave */
+}
+
+/* Este estilo se aplica cuando el ratón está sobre el enlace */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #CFF4FC; /* El color de fondo que deseas */
+    color: #000; /* Asegúrate de que el texto sea visible, aquí es negro */
+}
+
+.mensajeError {
+    /* Estilos de centrado */
+    width: 300px;
+    margin: 0 auto 10px auto; /* Centra y añade el margen inferior */
+    
+    /* Estilos modernos */
+    background-color: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1rem 1.25rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    
+    display: none;
+}
+
+#login {
+    background-color: #CFF4FC;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+        }
+        
+.login-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 25px;
+}
+
+.titulo-login {
+  font-family: 'helvetica', sans-serif; /* Usamos la versión moderna de Helvetica */
+  font-weight: 700; /* Un grosor fuerte para que destaque */
+  font-size: 25px;
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px; /* Aumentamos el espaciado para un look más "limpio" */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin: 20px 0;
+}
+
+.cintillo-amplificado {
+    transform: scale(1.0); 
+    transform-origin: top center;
+}
+        
+.cintillo-contenedor {
+    background-color: white; 
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #dadce0;
+}
+
+.color-siguiente {
+
+    background-color: #ACD9E3; /* Color principal del botón */
+    color: black; /* Color del texto para que sea legible */
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px;
+    transition: background-color 0.3s ease;
+  
+}
+
+.color-siguiente:hover {
+    background-color: #31BAD6; /* Un color más oscuro al pasar el mouse */
+    color: white;
+    font-weight: bold; /* Hace la letra más gruesa */
+   
+}
+
+/* Estilos para el botón de edición */
+.btn-acciones {
+    /* Fondo con gradiente */
+    background: linear-gradient(45deg, #ffc107, #ff9800);
+    /* Color de texto/icono */
+    color: white;
+    /* Borde redondeado */
+    border-radius: 15px;
+    /* Sin borde */
+    border: none;
+    /* Sombra ligera para darle profundidad */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Relleno interno */
+    padding: 10px 15px;
+    /* Tamaño de fuente del ícono */
+    font-size: 1.1em;
+    /* Efecto de transición para el hover */
+    transition: all 0.3s ease;
+    /* Espacio entre el texto y el ícono si lo hubiese */
+    gap: 8px;
+    /* Centrar contenido */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Efecto al pasar el cursor (hover) */
+.btn-acciones:hover {
+    /* Cambia la sombra */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    /* Escala un poco el botón */
+    transform: translateY(-2px);
+    /* Cambia el color del fondo */
+    background: linear-gradient(45deg, #ff9800, #e65100);
+}
+
+.btn-acciones-eliminar {
+     /* Fondo con gradiente */
+    background: linear-gradient(45deg, #FF1500, #FF695C);
+    /* Color de texto/icono */
+    color: white;
+    /* Borde redondeado */
+    border-radius: 15px;
+    /* Sin borde */
+    border: none;
+    /* Sombra ligera para darle profundidad */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Relleno interno */
+    padding: 10px 15px;
+    /* Tamaño de fuente del ícono */
+    font-size: 1.1em;
+    /* Efecto de transición para el hover */
+    transition: all 0.3s ease;
+    /* Espacio entre el texto y el ícono si lo hubiese */
+    gap: 8px;
+    /* Centrar contenido */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-acciones-eliminar:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #FF1500, #C82909);
+}
+
+
+/* Alternativa con los mismos tonos que tu botón eliminar */
+.btn-acciones-pdf {
+    background: linear-gradient(45deg, #497DE4, #18449E);
+    color: white;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(255, 20, 0, 0.2);
+    padding: 10px 15px;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-acciones-pdf:hover {
+    box-shadow: 0 6px 10px rgba(255, 20, 0, 0.3);
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #18449E, #103B94);
+}
+
+/* CSS para la opción 2 */
+.acciones-td {
+    padding: 8px 4px !important;
+}
+
+.acciones-td .d-flex {
+    gap: 8px; /* Controlar espacio entre botones */
+}
+
+.acciones-td form {
+    margin: 0;
+    display: inline-block;
+}
+
+
+
+.btn-acciones-detalles {
+     /* Fondo con gradiente */
+    background: linear-gradient(45deg, #E49FEA, #9B24A6);
+    /* Color de texto/icono */
+    color: white;
+    /* Borde redondeado */
+    border-radius: 15px;
+    /* Sin borde */
+    border: none;
+    /* Sombra ligera para darle profundidad */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Relleno interno */
+    padding: 10px 15px;
+    /* Tamaño de fuente del ícono */
+    font-size: 1.1em;
+    /* Efecto de transición para el hover */
+    transition: all 0.3s ease;
+    /* Espacio entre el texto y el ícono si lo hubiese */
+    gap: 8px;
+    /* Centrar contenido */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-acciones-detalles:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #A6248A, #D12EAE);
+}
+
+
+.btn-acciones-buscar {
+    text-decoration: none !important;
+     /* Fondo con gradiente */
+    background: linear-gradient(45deg, #39C653, #257E35);
+    /* Color de texto/icono */
+    color: white;
+    /* Borde redondeado */
+    border-radius: 15px;
+    /* Sin borde */
+    border: none;
+    /* Sombra ligera para darle profundidad */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Relleno interno */
+    padding: 10px 15px;
+    /* Tamaño de fuente del ícono */
+    font-size: 1.1em;
+    /* Efecto de transición para el hover */
+    transition: all 0.3s ease;
+    /* Espacio entre el texto y el ícono si lo hubiese */
+    gap: 8px;
+    /* Centrar contenido */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-acciones-buscar:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #1C872F, #146122);
+}
+
+.btn-acciones-plus {
+    text-decoration: none !important;
+     /* Fondo con gradiente */
+    background: linear-gradient(45deg, #39C653, #257E35);
+    /* Color de texto/icono */
+    color: white;
+    /* Borde redondeado */
+    border-radius: 15px;
+    /* Sin borde */
+    border: none;
+    /* Sombra ligera para darle profundidad */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Relleno interno */
+    padding: 10px 15px;
+    /* Tamaño de fuente del ícono */
+    font-size: 1.1em;
+    /* Efecto de transición para el hover */
+    transition: all 0.3s ease;
+    /* Espacio entre el texto y el ícono si lo hubiese */
+    gap: 8px;
+    /* Centrar contenido */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-acciones-plus:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #1C872F, #146122);
+}
+
+.sub-titulo {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #034434;
+    font-weight: bold;
+    margin: 2rem 0;
+    text-transform: uppercase;
+    font: helvetica;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.sub-titulo::before,
+.sub-titulo::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.sub-titulo:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.sub-titulo:not(:empty)::after {
+    margin-left: .5em;
+}

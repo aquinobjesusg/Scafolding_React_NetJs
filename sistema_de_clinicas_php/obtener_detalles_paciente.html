@@ -1,0 +1,196 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+
+<div class="container my-4">
+    <div class="card shadow-sm border-0 rounded-3">
+        
+        <!-- Encabezado de la Ficha -->
+        <div class="card-header bg-custom-header py-3">
+            <h4 class="mb-0 text-center fw-bold">Ficha de Cita N° [cita.id_cita]</h4>
+        </div>
+
+        <div class="card-body p-4 fs-6">
+            
+            <!-- SECCIÓN 1: DATOS IDENTIFICATIVOS -->
+            <h6 class="text-custom-title text-uppercase fw-bold border-bottom pb-2 mb-3">
+                <i class="bi bi-person-vcard me-1"></i> Datos Identificativos
+            </h6>
+            
+            <div class="row g-4 mb-4">
+                <!-- Titular -->
+                <div class="col-md-3 campo-contenedor" id="contenedor-titular">
+                    <label class="form-label fw-bold">Titular</label>
+                    <input type="text" id="txt-titular" value="[cita.titular;noerr]" class="form-control shadow-sm" readonly>
+                </div>
+
+                <!-- Paciente / Beneficiario -->
+                <div class="col-md-3 campo-contenedor" id="contenedor-paciente">
+                    <label class="form-label fw-bold">Paciente (Beneficiario)</label>
+                    <input type="text" id="txt-paciente" value="[cita.paciente;noerr]" class="form-control shadow-sm" readonly>
+                </div>
+
+                <!-- Edad -->
+                <div class="col-md-2 campo-contenedor" id="contenedor-edad">
+                    <label class="form-label fw-bold">Edad</label>
+                    <input type="text" value="[cita.edad;noerr] años" class="form-control shadow-sm text-center" readonly>
+                </div>
+
+                <!-- Estado -->
+                <div class="col-md-3 campo-contenedor">
+                    <label class="form-label fw-bold">Estado donde nos Visita</label>
+                    <input type="text" value="[cita.estado_pais;noerr]" class="form-control shadow-sm text-center" readonly>
+                </div>
+            </div> 
+
+            <!-- SECCIÓN 2: INFORMACIÓN INSTITUCIONAL -->
+            <h6 class="text-custom-title text-uppercase fw-bold border-bottom pb-2 mb-3">
+                <i class="bi bi-building me-1"></i> Información Institucional
+            </h6>
+
+            <div class="row g-3 mb-4">
+                <!-- Ente -->
+                <div class="col-md-3 campo-contenedor">
+                    <label class="form-label fw-bold">Ente</label>
+                    <input type="text" value="[cita.ente;noerr]" class="form-control shadow-sm" readonly>
+                </div>
+            
+                <!-- Universidad -->
+                <div class="col-auto campo-contenedor">
+                    <label class="form-label fw-bold">Universidad</label>
+                    <input type="text" 
+                        id="txt-universidad" 
+                        value="[cita.universidad;noerr]" 
+                        class="form-control shadow-sm w-auto" 
+                        readonly>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: DETALLES DE LA CONSULTA -->
+            <h6 class="text-custom-title text-uppercase fw-bold border-bottom pb-2 mb-3">
+                <i class="bi bi-calendar-event me-1"></i> Detalles de la Consulta
+            </h6>
+
+            <form action="actualizar_estado_cita.php" method="POST">
+                <!-- ID de la cita para el backend -->
+                <input type="hidden" name="id_cita" value="[cita.id_cita]">
+
+                <div class="row g-3 mb-3 align-items-end">
+                    <!-- Fecha de Cita Actual -->
+                    <div class="col-md-2 campo-contenedor">
+                        <label class="form-label fw-bold">Fecha de Cita</label>
+                        <input type="text" value="[cita.fecha_de_cita;noerr]" class="form-control shadow-sm text-center" readonly>
+                    </div>
+
+                    <!-- Especialidad -->
+                    <div class="col-md-3 campo-contenedor">
+                        <label class="form-label fw-bold">Especialidad</label>
+                        <input type="text" value="[cita.especialidad;noerr]" class="form-control shadow-sm" readonly>
+                    </div>
+
+                    <!-- Médico Tratante -->
+                    <div class="col-md-3 campo-contenedor">
+                        <label class="form-label fw-bold">Médico Tratante</label>
+                        <input type="text" value="[cita.medico;noerr]" class="form-control shadow-sm" readonly>
+                    </div>
+
+                    <!-- Desplegable Estado Cita + Botón Guardar -->
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Estado Cita</label>
+                        <div class="input-group shadow-sm">
+                            <select name="id_estado_cita" id="select-estado-cita" class="form-select fw-bold text-custom-title" required>
+                                <option value="[est.id_estado_cita;block=option]" [est.seleccionado]>
+                                    [est.descripcion_estado]
+                                </option>
+                            </select>
+                            <button type="submit" class="btn btn-custom px-3" title="Registrar Estado">
+                                <i class="bi bi-floppy-fill me-1"></i> Guardar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Campo Fecha para Reprogramar (oculto de inicio con style="display: none;") -->
+                    <div class="col-md-3" id="contenedor-nueva-fecha" style="display: none;">
+                        <label class="form-label fw-bold text-danger">Nueva Fecha de Cita</label>
+                        <input type="date" name="nueva_fecha_cita" id="nueva_fecha_cita" class="form-control shadow-sm border-danger">
+                    </div>
+                </div>
+            </form>
+
+            <!-- REGISTRO DEL SISTEMA -->
+            <div class="row mt-4">
+                <div class="col-12 text-end text-muted small">
+                    Registrado por: <strong class="text-dark">[cita.usuario]</strong>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PIE CON BOTÓN -->
+        <div class="card-footer bg-light d-flex justify-content-center py-3">
+            <a href="listaCitas.php" class="btn btn-custom px-4 shadow-sm">
+                <i class="bi bi-arrow-left me-2"></i>Volver a la Lista
+            </a>
+        </div>
+    </div>
+</div>
+
+<div>[var.mi_footer_html;htmlconv=no]</div>
+
+<!-- SCRIPT JS PARA MANEJAR CAMPOS OCULTOS Y REPROGRAMACIÓN -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const valoresNulos = ["", "-", "N/A", "NO APLICA", "NINGUNO", "NINGUNA", "NULL"];
+
+    // 1. Ocultar contenedores vacíos (Ente, Universidad, etc.)
+    const contenedores = document.querySelectorAll('.campo-contenedor');
+    contenedores.forEach(contenedor => {
+        const elementoInput = contenedor.querySelector('input');
+        if (elementoInput) {
+            const texto = elementoInput.value.trim().toUpperCase();
+            if (valoresNulos.includes(texto) || texto.length === 0 || texto === "AÑOS") {
+                contenedor.style.display = 'none';
+            }
+        }
+    });
+
+    // 2. Si Titular es igual a Paciente, ocultar Paciente
+    const txtTitular = document.getElementById('txt-titular');
+    const txtPaciente = document.getElementById('txt-paciente');
+    const contenedorPaciente = document.getElementById('contenedor-paciente');
+
+    if (txtTitular && txtPaciente && contenedorPaciente) {
+        const valTitular = txtTitular.value.trim().toUpperCase();
+        const valPaciente = txtPaciente.value.trim().toUpperCase();
+
+        if (valTitular === valPaciente) {
+            contenedorPaciente.style.display = 'none';
+        }
+    }
+
+    // 3. Manejo dinámico del campo Nueva Fecha al Reprogramar
+    const selectEstado = document.getElementById('select-estado-cita');
+    const contenedorNuevaFecha = document.getElementById('contenedor-nueva-fecha');
+    const inputNuevaFecha = document.getElementById('nueva_fecha_cita');
+
+    if (selectEstado && contenedorNuevaFecha) {
+        function evaluarEstado() {
+            const opcionTexto = selectEstado.options[selectEstado.selectedIndex].text.trim().toLowerCase();
+            
+            if (opcionTexto.includes('reprogram')) {
+                contenedorNuevaFecha.style.display = 'block';
+                if (inputNuevaFecha) {
+                    inputNuevaFecha.setAttribute('required', 'required');
+                }
+            } else {
+                contenedorNuevaFecha.style.display = 'none';
+                if (inputNuevaFecha) {
+                    inputNuevaFecha.removeAttribute('required');
+                    inputNuevaFecha.value = '';
+                }
+            }
+        }
+
+        selectEstado.addEventListener('change', evaluarEstado);
+        evaluarEstado(); // Verificación inicial al cargar la página
+    }
+});
+</script>

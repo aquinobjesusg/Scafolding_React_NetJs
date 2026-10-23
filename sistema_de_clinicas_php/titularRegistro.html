@@ -1,0 +1,146 @@
+<div>[var.mi_menu_html;htmlconv=no]</div>
+    <div class="container pb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11 col-lg-10">
+                
+                <div class="card shadow-sm border-0 btn-rounded">
+                    <div class="card-header bg-white border-0 pt-4 text-center">
+                        <h3 class="fw-bold text-dark">Información del Paciente Titular</h3>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <form method="POST" action="titularRegistro.php">
+                            
+                            <h5 class="text-primary mb-3 border-bottom pb-2">Datos Básicos</h5>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Nacionalidad</label>
+                                    <select name="id_nacionalidad" id="id_nacionalidad" class="form-select shadow-sm" required>
+                                        <option value="">Seleccionar</option>
+                                        <option value="[nacionalidad.id_nacionalidad;block=option]">[nacionalidad.nombre_nacionalidad]</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Cédula del Titular</label>
+                                    <input type="number" name="cedula_titular" class="form-control shadow-sm" placeholder="Ej: 12345678" required>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nombre(s)</label>
+                                    <input type="text" name="nombre_titular" class="form-control shadow-sm" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Apellido(s)</label>
+                                    <input type="text" name="apellido_titular" class="form-control shadow-sm" required>
+                                </div>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Sexo</label>
+                                    <select name="id_sexo" id="id_sexo" class="form-select shadow-sm" required>
+                                        <option value="">Seleccionar</option>
+                                        <option value="[sexo.id_sexo;block=option]">[sexo.nombre_sexo]</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                                    <input type="date" name="fecha_nacimiento_titular" id="fecha_nacimiento_titular" class="form-control shadow-sm" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Edad</label>
+                                    <input type="text" name="edad_titular" id="edad_titular" class="form-control shadow-sm bg-light" readonly placeholder="Se calcula automáticamente">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Teléfono 1</label>
+                                    <input type="text" name="telefono_titular" class="form-control shadow-sm" placeholder="04xx-xxxxxxx" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Teléfono 2</label>
+                                    <input type="text" name="telefono2_titular" class="form-control shadow-sm" placeholder="04xx-xxxxxxx">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Correo Electrónico</label>
+                                    <input type="email" name="correo_titular" class="form-control shadow-sm" placeholder="ejemplo@correo.com">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Dirección Corta</label>
+                                    <input type="text" name="direccion_corta_casa_titular" class="form-control shadow-sm" placeholder="Ej: Av. Urdaneta..." required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Estado de Visita</label>
+                                    <select name="id_estado" id="id_estado" class="form-select shadow-sm" required>
+                                        <option value="">Seleccionar</option>
+                                        <option value="[id_estado.id_estado_pais;block=option]">[id_estado.nombre_estado]</option>
+                                    </select>
+                                </div>
+
+                            <h5 class="text-primary mb-3 border-bottom pb-2">Adscripción Institucional</h5>
+                        
+                            <div class="col-12 mb-4 text-center">
+                                <label class="form-label d-block fw-bold mb-2">Tipo de Adscripción o Institución</label>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="tipo_institucion" id="radio_ente" value="E" autocomplete="off" checked>
+                                    <label class="btn btn-outline-primary px-4" for="radio_ente">Ente Adscrito</label>
+
+                                    <input type="radio" class="btn-check" name="tipo_institucion" id="radio_universidad" value="U" autocomplete="off">
+                                    <label class="btn btn-outline-primary px-4" for="radio_universidad">Universidad</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3 grupo-universidad" id="grupo_universidad" style="display: none;">
+                                <label class="form-label fw-bold">Universidad</label>
+                                <select name="id_universidad" id="reg_id_universidad" class="form-select shadow-sm">
+                                    <option value="">Seleccione una Universidad</option>
+                                    <option value="[universidad_opt.id_universidad;block=option]">[universidad_opt.nombre_universidad]</option>
+                                </select>
+                            </div>
+
+                            <div id="grupo_entes_cascada" class="col-12 p-0 m-0 grupo-entes">
+                                <div class="row p-0 m-0">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Ente Adscrito</label>
+                                        <select name="id_ente" id="registro_id_ente" class="form-select shadow-sm">
+                                            <option value="">Seleccione un Ente</option>
+                                            <option value="[ente_opt.id_ente;block=option]">[ente_opt.nombre_ente]</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Dirección General</label>
+                                        <select name="id_direccion_general" id="registro_id_direccion_general" class="form-select shadow-sm" disabled>
+                                            <option value="">Seleccione una Dirección General</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Dirección de Línea</label>
+                                        <select name="id_direccion_linea" id="registro_id_direccion_linea" class="form-select shadow-sm" disabled>
+                                            <option value="">Seleccione una Dirección de Línea</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold">Coordinación</label>
+                                        <select name="id_coordinacion" id="registro_id_coordinacion" class="form-select shadow-sm" disabled>
+                                            <option value="">Seleccione una Coordinación</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <a href="titularLista.php" class="btn btn-outline-secondary btn-rounded px-4">Cancelar</a>
+                                <button type="submit" name="registrar" class="btn btn-sgp btn-rounded px-5">Registrar Paciente</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<div>[var.mi_footer_html;htmlconv=no]</div>
