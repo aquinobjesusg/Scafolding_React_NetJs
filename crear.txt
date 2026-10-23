@@ -1,5 +1,22 @@
+# Crea un Proyecto Next
 npx create-next-app@latest
 
+# Crea un Proyecto React Native
+npx create-expo-app@latest
+
+Tip:
+
+  • npx create-expo --template  to pick from other templates
+  • npx create-expo --example   to explore https://github.com/expo/examples
+
+- cd my_crm_expo
+- npm run android
+- npm run ios # you need to use macOS to build the iOS project - use the Expo app if you need to do iOS development without a Mac
+- npm run web
+
+https://github.com/expo
+
+https://docs.expo.dev/workflow/android-studio-emulator/
 
 # Instrucciones para Instalar el Proyecto
 npm install framer-motion
