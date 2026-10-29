@@ -17,3 +17,8 @@ go run main.go -driver=mysql -host=localhost -port=3306 -user=root -password=tu_
 
 # SQLite (genera o lee el archivo local)
 go run main.go -driver=sqlite -dsn=./mi_base.db
+
+
+
+go run main.go -driver=mysql -host=localhost -port=3306 -user=jaqconsu_aulas -password=jaqconsu_aulas -dbname=jaqconsu_aulas
+
