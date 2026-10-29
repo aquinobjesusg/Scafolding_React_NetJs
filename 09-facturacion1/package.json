@@ -37,7 +37,10 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+	  "pre1": "expo prebuild",
+    "preweb1": "npx expo export --platform web",
+    "serweb1": "npx serve dist"
   },
   "private": true
 }

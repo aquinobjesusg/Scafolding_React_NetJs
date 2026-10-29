@@ -1,0 +1,19 @@
+go mod init <nombre-del-modulo>
+Por ejemplo: go mod init midiccionario o go mod init github.com/tuusuario/midiccionario. Este paso generará el archivo go.mod, que es el prerrequisito para gestionar dependencias .
+
+2. Ejecutar go mod tidy
+
+bash
+go mod tidy
+
+
+
+
+# PostgreSQL (comportamiento original)
+go run main.go -driver=postgres -host=localhost -port=5432 -user=postgres -password=password2017 -dbname=oxdiccionariodb
+
+# MySQL / MariaDB
+go run main.go -driver=mysql -host=localhost -port=3306 -user=root -password=tu_clave -dbname=oxdiccionariodb
+
+# SQLite (genera o lee el archivo local)
+go run main.go -driver=sqlite -dsn=./mi_base.db

@@ -1,0 +1,17 @@
+
+Pasos para hacer el build
+
+1. Configurar el tipo de salida (Opcional pero recomendado):
+En tu archivo app.json, revisa la sección web para definir cómo quieres que se compile (por ejemplo, "output": "static" o "single").
+
+2. Ejecutar el comando de exportación:
+Abre la terminal en la raíz de tu proyecto y corre:bash
+npx expo export --platform web
+Usa el código con precaución.
+(No uses comandos antiguos como npx expo export:web o expo build:web, ya que están deprecados).
+
+3. Revisar la carpeta generada:
+El comando creará una carpeta llamada dist que contiene todos los archivos estáticos, HTML, JavaScript y recursos optimizados listos para producción.
+4. Probar el build de forma local:
+Puedes servir la carpeta dist localmente para verificar que todo funcione bien antes de desplegar:bash
+npx serve dist
