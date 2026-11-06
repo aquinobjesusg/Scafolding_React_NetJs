@@ -49,6 +49,7 @@ const stats = [
   { label: "Utilidad Neta", value: "$24,900", change: "+5.1%", icon: DollarSign, color: "bg-amber-50 text-amber-700" },
 ];
 
+/*
 const sidebarConfig = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
   { id: "accounts", label: "Plan de Cuentas", icon: BookOpen },
@@ -57,6 +58,20 @@ const sidebarConfig = [
   { id: "statistics", label: "Estadísticas", icon: BarChart3 },
   { id: "charts", label: "Gráficos", icon: PieChart },
 ];
+*/
+
+const sidebarConfig = [
+  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: "accounts", label: "Plan de Cuentas", icon: BookOpen },
+  { id: "journal", label: "Libro Diario", icon: Receipt },
+  { id: "journal2", label: "Libro Mayor", icon: Receipt },
+  { id: "journal3", label: "Mayor Analítico", icon: Receipt },
+  { id: "reports", label: "Balance de Comprobacion", icon: FileText },
+  { id: "reports2", label: "Situacion Financiera", icon: FileText },
+  { id: "reports3", label: "Estado de Resultados", icon: FileText },
+  { id: "accounts2", label: "Clasificación de Cuentas", icon: BarChart3 },
+];
+
 
 const configSubItems = [
   { id: "cfg-models", label: "Modelos de Datos", icon: Database, description: "Define entidades y atributos del sistema" },
