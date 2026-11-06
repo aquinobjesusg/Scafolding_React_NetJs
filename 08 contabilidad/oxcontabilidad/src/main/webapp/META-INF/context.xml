@@ -3,6 +3,7 @@
 <Context>
 
 	<JarScanner scanClassPath="false" />
+	<CookieProcessor sameSiteCookies="lax" /> <!-- Para cumplir con OWASP -->
 	
 	<!-- 
 	Para definir el acceso a tu base de datos descomenta una de las
@@ -16,82 +17,76 @@
 	correspodiente a tu base de datos al pom.xml de tu proyecto.	
 	-->
 	 
-	<!-- HSQLDB    	
-    <Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+	<!-- HSQLDB -->   	
+    <Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" 
 	      driverClassName="org.hsqldb.jdbc.JDBCDriver"
-	      url="jdbc:hsqldb:hsql://localhost:1666"/>-->
-
-		<!-- MySQL       -->
-    <Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
-	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="administrador" password="administrador" 
-	      driverClassName="org.mariadb.jdbc.Driver"
-	      url="jdbc:mariadb://localhost:3306/oxcontabilidaddb"/>
+	      url="jdbc:hsqldb:hsql://localhost:1666"/>
 	      
+	       
 	<!-- MySQL       
-    <Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="root" password="" 
 	      driverClassName="com.mysql.cj.jdbc.Driver"
-	      url="jdbc:mysql://localhost:3306/oxcontabilidaddb"/>	      
+	      url="jdbc:mysql://localhost:3306/pruebadb"/>	      
 	-->      
 	
 	<!-- PostgreSQL 
-	<Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="postgres" password="" 
+	      username="postgres" password="password2017" 
 	      driverClassName="org.postgresql.Driver" 
-	      url="jdbc:postgresql://localhost/oxcontabilidaddb"/>
+	      url="jdbc:postgresql://localhost/pruebadb"/>
 	-->
 	
 	<!-- Oracle 
-	<Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
 	      driverClassName="oracle.jdbc.OracleDriver"
-	      url="jdbc:oracle:thin:@localhost:1521:oxcontabilidaddb"/>
+	      url="jdbc:oracle:thin:@localhost:1521:pruebadb"/>
 	-->	
 	
 	<!-- AS/400 
-	<Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
 	      driverClassName="com.ibm.as400.access.AS400JDBCDriver" 
-	      url="jdbc:as400:localhost/oxcontabilidadlib"/>
+	      url="jdbc:as400:localhost/pruebalib"/>
 	-->
 	
 	<!-- Microsoft SQL Server
-	<Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
 	      driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
-	      url="jdbc:sqlserver://localhost:1433;databaseName=oxcontabilidaddb"/>
+	      url="jdbc:sqlserver://localhost:1433;databaseName=pruebadb"/>
 	-->
 	
 	<!-- Informix
-	<Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
 	      driverClassName="com.informix.jdbc.IfxDriver"
-	      url="jdbc:informix-sqli://localhost:1533/oxcontabilidaddb:INFORMIXSERVER=tuservidor"/>
+	      url="jdbc:informix-sqli://localhost:1533/pruebadb:INFORMIXSERVER=tuservidor"/>
 	-->            
 	
 	<!-- Db2
-	<Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
 	      driverClassName="com.ibm.db2.jcc.DB2Driver"
-	      url="jdbc:db2://localhost:50000/oxcontabilidaddb"/>
+	      url="jdbc:db2://localhost:50000/pruebadb"/>
 	-->
 	
 	<!-- Firebird
-	<Resource name="jdbc/oxcontabilidadDS" auth="Container" type="javax.sql.DataSource"
+	<Resource name="jdbc/pruebaDS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="user" password="" 
 	      driverClassName="org.firebirdsql.jdbc.FBDriver"
-	      url="jdbc:firebirdsql://localhost:3050/c:/db/oxcontabilidad.fdb"/>
+	      url="jdbc:firebirdsql://localhost:3050/c:/db/prueba.fdb"/>
 	-->
 	                  	      
 </Context>
